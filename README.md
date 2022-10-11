@@ -1,7 +1,7 @@
 
 #### Introduct
 &emsp; nvim ide for golang, 主要针对`go`语言做了一些优化.当然也可以用作`c/c++`,`python`,`rust`等语言的IDE.
-
+![预览](./images/dashboard.jpg)
 
 #### 安装
 &emsp;首先您需要先安装nvim(建议neovim版本0.7以上版本)
@@ -29,6 +29,11 @@ $ nvim
 $ git clone --depth 1 https://github.com/wbthomason/packer.nvim\\n ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 # 同步插件
 $ nvim +PackerSync
+```
+
+&emsp;安装gopls
+```bash
+go install golang.org/x/tools/gopls@latest
 ```
 
 *安装gopks*
