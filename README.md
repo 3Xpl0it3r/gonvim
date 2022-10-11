@@ -51,7 +51,7 @@ go get github.com/3Xpl0it3r/gopkgs
 - `wrap"`:      xxx.wrap" => "xxxx"
 - `wrap'`:      xxx.wrap' => 'xxx'
 - `wrap{`:      xxxx.wrap{ => {xxxx}
-- 'wrap[':      xxxx.wrap[
+- `wrap[`:      xxxx.wrap[ =>  [xxxx]
 - `wrap<`:      xxx.wrap< => <xxx>
 - `APACHE`:     打印license信息
 
