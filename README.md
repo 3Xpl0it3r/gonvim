@@ -45,24 +45,15 @@ go get github.com/3Xpl0it3r/gopkgs
 #### Snippet支持功能
 *补全输入两个字母就会自动触发,因此您不需要输入完整的trigger信息*
 ##### 所有文本补全
-- `date`
-> 打印当前时间``
-- `pwd`
-> 打印当前路径
-- `.wrap(`
-> xxx.wrap(  =>  (xxx)
-- `wrap"`
-> xxx.wrap" => "xxxx"
-- `wrap'`
-> xxx.wrap' => 'xxx'
-- `wrap{`
-> xxxx.wrap{ => {xxxx}
-- 'wrap['
-> xxxx.wrap[
-- `wrap<`
-> xxx.wrap< => <xxx>
-- `APACHE`
-> 打印license信息
+- `date`:       打印当前时间``
+- `pwd`:        打印当前路径
+- `.wrap(`:     xxx.wrap(  =>  (xxx)
+- `wrap"`:      xxx.wrap" => "xxxx"
+- `wrap'`:      xxx.wrap' => 'xxx'
+- `wrap{`:      xxxx.wrap{ => {xxxx}
+- 'wrap[':      xxxx.wrap[
+- `wrap<`:      xxx.wrap< => <xxx>
+- `APACHE`:     打印license信息
 
 ##### 针对go文件的补全
 > 具体的含义您可以通过预览来查看每个snip生成的代码效果
