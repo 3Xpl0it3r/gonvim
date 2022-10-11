@@ -262,7 +262,7 @@ local M = {
         {
             text("func "), insert(1, "FuncName"), text("("), insert(2, "Params..."), text(")"), insert(3, " error"),
             text({ "{", "" }),
-            text("\t"), text({ "panic(\"unimplemented\")" }),
+            text("\t"), text({ "panic(\"unimplemented\")" , ""}),
             text("\t"), text({ "return nil", "" }),
             text("}"), insert(0)
         },
