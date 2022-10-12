@@ -33,13 +33,19 @@ $ nvim +PackerSync
 
 &emsp;安装gopls
 ```bash
-go install golang.org/x/tools/gopls@latest
+$ go install golang.org/x/tools/gopls@latest
 ```
 
-*安装gopks*
+&emsp;安装gopks
 &emsp;如果您可能会涉及到go语言,强烈建议您安装下gopks(codeaction里面import导入package路径会用到这个工具)
 ```bash 
-go get github.com/3Xpl0it3r/gopkgs
+$ go get github.com/3Xpl0it3r/gopkgs
+```
+
+*按照gotests*
+&emsp;`gotests`可以帮助您来自动生成单元测试代码, 通过`leader`<ca> 键来触发codeAction 选择GenTest 来自动生成单元测试
+```bash
+$ go get -u github.com/cweill/gotests/...
 ```
 
 ##### 快捷键
