@@ -86,7 +86,7 @@ M.setup = function()
     -- LSP integration
     vim.lsp.handlers["$/progress"] = require("utils.notify").lsp_status_update
     vim.lsp.handlers["window/showMessage"] = function(err, method, params, client_id)
-        local severity = { "error", "warn", "info", "info",} -- map both hint and info to info? 
+        local severity = { "error", "warn", "info", "info", } -- map both hint and info to info?
         vim.notify(method.message, severity[params.type])
     end
 
@@ -118,7 +118,7 @@ local function lsp_highlight_document(client)
     -- end
 end
 
-function M.on_attach()
+M.on_attach = function()
     return function(client, bufnr)
         -- disable formatting for LSP clients as this is handled by null-ls
         --[[ client.server_capabilities.documentFormattingProvider = false
@@ -130,7 +130,7 @@ function M.on_attach()
     end
 end
 
-function M.capabilities()
+M.capabilities = function()
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities.textDocument.codeAction = {
         dynamicRegistration = true,

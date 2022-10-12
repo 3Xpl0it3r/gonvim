@@ -58,16 +58,19 @@ return require("packer").startup(function()
     })
     use({
         "rcarriga/nvim-notify",
+        config = function()
+            require("conf.notify").setup()
+        end
     })
     use({
-        "kyazdani42/nvim-web-devicons",
+        "nvim-tree/nvim-web-devicons",
         config = function()
             require("nvim-web-devicons").setup({ default = true })
         end,
     })
     use({ --- alpha is a fast and fully customizable greeter for neovim.
         "goolord/alpha-nvim",
-        requires = { "kyazdani42/nvim-web-devicons" },
+        requires = { "nvim-tree/nvim-web-devicons" },
         config = function()
             require("conf.dashboard")
         end,
@@ -87,7 +90,7 @@ return require("packer").startup(function()
 
     use({
         "folke/trouble.nvim",
-        requires = "kyazdani42/nvim-web-devicons",
+        requires = "nvim-tree/nvim-web-devicons",
         config = function()
             require("conf.trouble").setup()
         end,
@@ -105,7 +108,7 @@ return require("packer").startup(function()
         config = function()
             require("conf.bufferline").setup()
         end,
-        requires = "kyazdani42/nvim-web-devicons",
+        requires = "nvim-tree/nvim-web-devicons",
     })
 
     ------------------------------------------------
@@ -144,7 +147,8 @@ return require("packer").startup(function()
     ----      Misc Helper Plugins
     ------------------------------------------------
     use({
-        "kyazdani42/nvim-tree.lua", -- directory browser
+        "nvim-tree/nvim-tree.lua", -- directory browser
+        requires = { "nvim-tree/nvim-web-devicons" },
         config = function()
             require("conf.nvim-tree").setup()
         end,

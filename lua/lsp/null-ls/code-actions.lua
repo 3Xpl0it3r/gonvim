@@ -64,7 +64,7 @@ M["go"] = {
                 {
                     title = "Vendor",
                     action = function()
-                        null_ls_utils.shell_command_toggle_wrapper("go mod vendor")
+                        require("utils.notify").notify_execute_command({ "go", "mod", "vendor" })
                     end
                 },
                 {
@@ -76,23 +76,11 @@ M["go"] = {
                                 return
                             end
                             local current_file = vim.api.nvim_buf_get_name(0)
-                            local list_pkg
                             if choice == "ALL  - for all functions" then
-                                list_pkg = io.popen("gotests -all -w " .. current_file):read("*all")
+                                require("utils.notify").notify_execute_command({ "gotests", "-all", "-w", current_file })
                             else
-                                list_pkg = io.popen("gotests -only " .. choice .. " -w " .. current_file):read("*all")
-                            end
-                            for line in list_pkg:gmatch("[^\n\r]+") do
-                                if string.find(line, "No tests generated") then
-                                    local go_test_file = string.gsub(current_file, "(%w+).go$", "%1_test.go")
-                                    require("utils.notify").notify(line, "warn", "GenTest")
-                                elseif string.find(line, "Generated Test") then
-                                    local go_test_file = string.gsub(current_file, "(%w+).go$", "%1_test.go")
-                                    vim.cmd("vsplit " .. go_test_file)
-                                    require("utils.notify").notify(line, "info", "GenTest")
-                                else
-                                    require("utils.notify").notify(line, "error", "GenTest")
-                                end
+                                require("utils.notify").notify_execute_command({ "gotests", "-only", choice, "-w",
+                                    current_file })
                             end
                         end)
                     end
@@ -112,7 +100,7 @@ M["rust"] = {
                 {
                     title = "Cargo Check",
                     action = function()
-                        null_ls_utils.shell_command_toggle_wrapper("cargo check")
+                        require("utils.notify").notify_execute_command({ "cargo", "check" })
                     end
                 },
                 {
