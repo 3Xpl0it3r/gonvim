@@ -84,6 +84,7 @@ M["go"] = {
                             end
                             for line in list_pkg:gmatch("[^\n\r]+") do
                                 if string.find(line, "No tests generated") then
+                                    local go_test_file = string.gsub(current_file, "(%w+).go$", "%1_test.go")
                                     require("utils.notify").notify(line, "warn", "GenTest")
                                 elseif string.find(line, "Generated Test") then
                                     local go_test_file = string.gsub(current_file, "(%w+).go$", "%1_test.go")
