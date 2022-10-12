@@ -42,7 +42,7 @@ $ go install golang.org/x/tools/gopls@latest
 $ go get github.com/3Xpl0it3r/gopkgs
 ```
 
-*按照gotests*
+&emsp;安装gotests
 &emsp;`gotests`可以帮助您来自动生成单元测试代码, 通过`leader`<ca> 键来触发codeAction 选择GenTest 来自动生成单元测试
 ```bash
 $ go get -u github.com/cweill/gotests/...
