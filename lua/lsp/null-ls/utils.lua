@@ -67,7 +67,6 @@ local function get_function_list_of_parent(parent)
     return content
 end
 
-
 function M.shell_command_toggle_wrapper(cus_cmd)
     local __Terminal = require("toggleterm.terminal").Terminal
     local cmd_termal = __Terminal:new({
@@ -98,9 +97,13 @@ function M.get_current_functions()
     table.sort(content, function(a, b) return a.line_number < b.line_number end)
 
     local funcs = {}
+
+    table.insert(funcs, "ALL  - for all functions")
+
     for _, item in ipairs(content) do
         table.insert(funcs, item["function_name"])
     end
+
 
     return funcs
 end

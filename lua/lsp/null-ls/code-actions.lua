@@ -2,35 +2,40 @@ local M = {}
 
 local null_ls_utils = require("lsp.null-ls.utils")
 
-M["rust"] = {
-    method = require("null-ls").methods.CODE_ACTION,
-    filetypes = { "rust" },
-    generator = {
-        fn = function(_)
-            return {
-                {
-                    title = "Cargo Check",
-                    action = function()
-                        null_ls_utils.shell_command_toggle_wrapper("cargo check")
-                    end
-                },
-                {
-                    title = "Cargo Build",
-                    action = function()
-                        null_ls_utils.shell_command_toggle_wrapper("cargo build")
-                    end
-                },
-                {
-                    title = "Cargo Run",
-                    action = function()
-                        null_ls_utils.shell_command_toggle_wrapper("cargo run")
-                    end
-                }
-            }
+function serialize(obj)
+    local lua = ""
+    local t = type(obj)
+    if t == "number" then
+        lua = lua .. obj
+    elseif t == "boolean" then
+        lua = lua .. tostring(obj)
+    elseif t == "string" then
+        lua = lua .. string.format("%q", obj)
+    elseif t == "table" then
+        lua = lua .. "{"
+        for k, v in pairs(obj) do
+            lua = lua .. "[" .. serialize(k) .. "]=" .. serialize(v) .. ","
         end
-    }
-}
+        local metatable = getmetatable(obj)
+        if metatable ~= nil and type(metatable.__index) == "table" then
+            for k, v in pairs(metatable.__index) do
+                lua = lua .. "[" .. serialize(k) .. "]=" .. serialize(v) .. ","
+            end
+        end
+        lua = lua .. "}"
+    elseif t == "nil" then
+        return nil
+    else
+        error("can not serialize a " .. t .. " type.")
+    end
+    return lua
+end
 
+function table2string(tablevalue)
+    local stringtable = serialize(tablevalue)
+    print(stringtable)
+    return stringtable
+end
 
 M["go"] = {
     method = require("null-ls").methods.CODE_ACTION,
@@ -93,12 +98,38 @@ M["go"] = {
                 },
                 {
                     title = "Vendor",
-                    action = function(_)
+                    action = function()
                         null_ls_utils.shell_command_toggle_wrapper("go mod vendor")
                     end
                 },
                 {
-                    -- gentestcases
+                    title = "GenTest",
+                    action = function()
+                        vim.ui.select(require("lsp.null-ls.utils").get_current_functions(),
+                            { prompt = "Select Function To Generate Test" }, function(choice)
+                            if not choice then
+                                return
+                            end
+                            local current_file = vim.api.nvim_buf_get_name(0)
+                            local gen_cmd = ""
+                            if choice == "ALL  - for all functions" then
+                                gen_cmd = "gotests -all -w " .. current_file
+                            else
+                                gen_cmd = "gotests -only " .. choice .. " -w " .. current_file
+                            end
+                            local list_pkg = io.popen(gen_cmd):read("*all")
+                            for line in list_pkg:gmatch("[^\n\r]+") do
+                                if string.find(line, "No tests generated") then
+                                    require("utils.notify").notify(line, "warn", "GenTest")
+                                elseif string.find(line, "Generated Test") then
+                                    require("utils.notify").notify(line, "info", "GenTest")
+                                else
+                                    require("utils.notify").notify(line, "error", "GenTest")
+                                end
+
+                            end
+                        end)
+                    end
                 },
             }
         end
@@ -106,7 +137,33 @@ M["go"] = {
 }
 
 
-
-
+M["rust"] = {
+    method = require("null-ls").methods.CODE_ACTION,
+    filetypes = { "rust" },
+    generator = {
+        fn = function(_)
+            return {
+                {
+                    title = "Cargo Check",
+                    action = function()
+                        null_ls_utils.shell_command_toggle_wrapper("cargo check")
+                    end
+                },
+                {
+                    title = "Cargo Build",
+                    action = function()
+                        null_ls_utils.shell_command_toggle_wrapper("cargo build")
+                    end
+                },
+                {
+                    title = "Cargo Run",
+                    action = function()
+                        null_ls_utils.shell_command_toggle_wrapper("cargo run")
+                    end
+                }
+            }
+        end
+    }
+}
 
 return M

@@ -71,7 +71,7 @@ go get github.com/3Xpl0it3r/gopkgs
 - `methodstruct`
 - `impl`
 - `\`json`
-- `\`xml`
+- '\`xml`
 - `funcret`
 - `funcnil`
 - `forrange`
