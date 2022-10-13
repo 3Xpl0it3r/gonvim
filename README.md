@@ -9,6 +9,7 @@
                               /____/                               
 
 ```
+![dashboard](./images/dashboard.jpg)
 
 ## Features
 
