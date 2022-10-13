@@ -35,8 +35,8 @@ If you have not install nvim, you can install it with https://github.com/neovim/
 # 下载项目/clone this repo
 $ git clone https://github.com/3Xpl0it3r/gonvim.git
 # 建议备份原始nvim配置文件(如果您之前没有安装过nvim,这步可以省略)/back old neovim config
-# cp -rf ~/.conf/nvim  ${HOME}/.conf/nvim_back  && rm  ~/.config/nvim/plugin/packer_compiled.lua
-# ln -sv gonvim ~/.conf/nvim
+# mv  ~/.config/nvim  ${HOME}/.config/nvim_back  && rm  ~/.config/nvim/plugin/packer_compiled.lua
+# ln -sv gonvim ~/.config/nvim
 # nvim
 ```
 <br>
