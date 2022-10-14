@@ -58,9 +58,11 @@ $ nvim +PackerSync
 ## Go binaries install and update
 下面一些二进制程序需要被安装()
 - [fzf](https://github.com/junegunn/fzf) : 用来文件检索 
+- [rg](https://github.com/BurntSushi/ripgrep)
 - [gopls](https://github.com/golang/tools/tree/master/gopls)
 - [gopks](https://github.com/3Xpl0it3r/gopkgs)
 - [gotests](https://github.com/cweill/gotests)
+- [goimports](golang.org/x/tools/cmd/goimports)
 
 
 ## Usage
