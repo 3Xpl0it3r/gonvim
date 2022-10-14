@@ -101,7 +101,7 @@ local function lsp_keymaps(bufnr)
     vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
     vim.keymap.set("n", "gi", "<cmd>lua require('telescope.builtin').lsp_implementations()<CR>", { noremap = true })
     vim.keymap.set("n", "gr", "<cmd>lua require('telescope.builtin').lsp_references()<CR>", { noremap = true })
-    vim.keymap.set("n", "gf", vim.lsp.buf.format, bufopts)
+    vim.keymap.set("n", "gf", vim.lsp.buf.formatting, bufopts)
     vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
 
     -- vim.keymap.set("n", "<space>rn", "<cmd>lua CusLspActionRename.rename()<CR>", bufopts)

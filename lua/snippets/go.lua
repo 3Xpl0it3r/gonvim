@@ -31,7 +31,7 @@ local M = {
         {
             callbacks = {
                 [0] = {
-                    [events.enter] = function(node, _event_args) vim.lsp.buf.format() end,
+                    [events.enter] = function(node, _event_args) vim.lsp.buf.formatting() end,
                 }
             }
         }
@@ -45,7 +45,7 @@ local M = {
         {
             callbacks = {
                 [0] = {
-                    [events.enter] = function(node, _event_args) vim.lsp.buf.format() end,
+                    [events.enter] = function(node, _event_args) vim.lsp.buf.formatting() end,
                 }
             }
         }
@@ -86,7 +86,7 @@ local M = {
         {
             callbacks = {
                 [0] = {
-                    [events.enter] = function(node, _event_args) vim.lsp.buf.format() end,
+                    [events.enter] = function(node, _event_args) vim.lsp.buf.formatting() end,
                 }
             }
         }
@@ -108,7 +108,7 @@ local M = {
         {
             callbacks = {
                 [0] = {
-                    [events.enter] = function(node, _event_args) vim.lsp.buf.format() end,
+                    [events.enter] = function(node, _event_args) vim.lsp.buf.formatting() end,
                 },
             },
         }
@@ -130,7 +130,7 @@ local M = {
         {
             callbacks = {
                 [0] = {
-                    [events.enter] = function(node, _event_args) vim.lsp.buf.format() end,
+                    [events.enter] = function(node, _event_args) vim.lsp.buf.formatting() end,
                 },
             },
         }
@@ -164,7 +164,7 @@ local M = {
         {
             callbacks = {
                 [0] = {
-                    [events.enter] = function(node, _event_args) vim.lsp.buf.format() end,
+                    [events.enter] = function(node, _event_args) vim.lsp.buf.formatting() end,
                 },
             },
         }
@@ -193,7 +193,7 @@ local M = {
         {
             callbacks = {
                 [0] = {
-                    [events.enter] = function(node, _event_args) vim.lsp.buf.format() end,
+                    [events.enter] = function(node, _event_args) vim.lsp.buf.formatting() end,
                 },
             },
         }
@@ -230,7 +230,7 @@ local M = {
         {
             callbacks = {
                 [0] = {
-                    [events.enter] = function(node, _event_args) vim.lsp.buf.format() end,
+                    [events.enter] = function(node, _event_args) vim.lsp.buf.formatting() end,
                 },
             },
         }
@@ -251,7 +251,7 @@ local M = {
         {
             callbacks = {
                 [0] = {
-                    [events.enter] = function(node, _event_args) vim.lsp.buf.format() end,
+                    [events.enter] = function(node, _event_args) vim.lsp.buf.formatting() end,
                 },
             },
         }
@@ -269,7 +269,7 @@ local M = {
         {
             callbacks = {
                 [0] = {
-                    [events.enter] = function(node, _event_args) vim.lsp.buf.format() end,
+                    [events.enter] = function(node, _event_args) vim.lsp.buf.formatting() end,
                 },
             },
         }
@@ -286,7 +286,7 @@ local M = {
         {
             callbacks = {
                 [0] = {
-                    [events.enter] = function(node, _event_args) vim.lsp.buf.format() end,
+                    [events.enter] = function(node, _event_args) vim.lsp.buf.formatting() end,
                 },
             },
         }
@@ -302,7 +302,7 @@ local M = {
         {
             callbacks = {
                 [0] = {
-                    [events.enter] = function(node, _event_args) vim.lsp.buf.format() end,
+                    [events.enter] = function(node, _event_args) vim.lsp.buf.formatting() end,
                 },
             },
         }
@@ -320,7 +320,7 @@ local M = {
         {
             callbacks = {
                 [0] = {
-                    [events.enter] = function(node, _event_args) vim.lsp.buf.format() end,
+                    [events.enter] = function(node, _event_args) vim.lsp.buf.formatting() end,
                 },
             },
         }
@@ -340,7 +340,7 @@ local M = {
         {
             callbacks = {
                 [0] = {
-                    [events.enter] = function(node, _event_args) vim.lsp.buf.format() end,
+                    [events.enter] = function(node, _event_args) vim.lsp.buf.formatting() end,
                 },
             },
         }
@@ -356,7 +356,7 @@ local M = {
         {
             callbacks = {
                 [0] = {
-                    [events.enter] = function(node, _event_args) vim.lsp.buf.format() end,
+                    [events.enter] = function(node, _event_args) vim.lsp.buf.formatting() end,
                 },
             },
         }
@@ -372,7 +372,7 @@ local M = {
         {
             callbacks = {
                 [0] = {
-                    [events.enter] = function(node, _event_args) vim.lsp.buf.format() end,
+                    [events.enter] = function(node, _event_args) vim.lsp.buf.formatting() end,
                 },
             },
         }
@@ -391,7 +391,7 @@ local M = {
         {
             callbacks = {
                 [0] = {
-                    [events.enter] = function(node, _event_args) vim.lsp.buf.format() end,
+                    [events.enter] = function(node, _event_args) vim.lsp.buf.formatting() end,
                 },
             },
         }
@@ -406,7 +406,7 @@ local M = {
         {
             callbacks = {
                 [0] = {
-                    [events.enter] = function(node, _event_args) vim.lsp.buf.format() end,
+                    [events.enter] = function(node, _event_args) vim.lsp.buf.formatting() end,
                 },
             },
         }
@@ -421,7 +421,7 @@ local M = {
         {
             callbacks = {
                 [0] = {
-                    [events.enter] = function(node, _event_args) vim.lsp.buf.format() end,
+                    [events.enter] = function(node, _event_args) vim.lsp.buf.formatting() end,
                 },
             },
         }
@@ -439,7 +439,7 @@ local M = {
         {
             callbacks = {
                 [0] = {
-                    [events.enter] = function(node, _event_args) vim.lsp.buf.format() end,
+                    [events.enter] = function(node, _event_args) vim.lsp.buf.formatting() end,
                 },
             },
         }
@@ -461,7 +461,7 @@ local M = {
         {
             callbacks = {
                 [0] = {
-                    [events.enter] = function(node, _event_args) vim.lsp.buf.format() end,
+                    [events.enter] = function(node, _event_args) vim.lsp.buf.formatting() end,
                 },
             },
         }
@@ -483,7 +483,7 @@ local M = {
         {
             callbacks = {
                 [0] = {
-                    [events.enter] = function(node, _event_args) vim.lsp.buf.format() end,
+                    [events.enter] = function(node, _event_args) vim.lsp.buf.formatting() end,
                 },
             },
         }
@@ -504,7 +504,7 @@ local M = {
         {
             callbacks = {
                 [0] = {
-                    [events.enter] = function(node, _event_args) vim.lsp.buf.format() end,
+                    [events.enter] = function(node, _event_args) vim.lsp.buf.formatting() end,
                 },
             },
         }
@@ -521,7 +521,7 @@ local M = {
         {
             callbacks = {
                 [0] = {
-                    [events.enter] = function(node, _event_args) vim.lsp.buf.format() end,
+                    [events.enter] = function(node, _event_args) vim.lsp.buf.formatting() end,
                 },
             },
         }

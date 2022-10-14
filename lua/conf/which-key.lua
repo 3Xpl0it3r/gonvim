@@ -103,7 +103,7 @@ function M.setup()
             d = { "<cmd>lua require('telescope.builtin').lsp_definitions()<cr>", "Define" },
             D = { "<cmd>lua require('telescope.builtin').lsp_type_definitions()<cr>", "TypeDefine" },
             e = { "<cmd>lua require('telescope.builtin').diagnostics()<cr>", "diagnostics" },
-            f = { "<cmd>lua vim.lsp.buf.format({async=true})<cr>", "LspFormat" },
+            f = { "<cmd>lua vim.lsp.buf.formatting({async=true})<cr>", "LspFormat" },
             i = { "<cmd>lua require('telescope.builtin').lsp_implementations()<cr>", "Interface" },
             r = { "<cmd>lua require('telescope.builtin').lsp_references()<cr>", "Reference" },
             s = { "<cmd>lua require('telescope.builtin').lsp_document_symbols()<cr>", "Symbol(doc)" },
