@@ -268,14 +268,6 @@ return require("packer").startup(function()
         end,
     })
 
-    use({
-        "nvim-telescope/telescope-dap.nvim",
-        after = { "telescope.nvim", "nvim-dap" },
-        config = function()
-            require("telescope").load_extension("dap")
-        end,
-    })
-
     ----------------------------------------------------------------
     ----      Unit Test
     ----------------------------------------------------------------
