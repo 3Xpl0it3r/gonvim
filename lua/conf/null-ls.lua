@@ -21,7 +21,9 @@ local function config_null_ls(null_ls)
         on_init = nil,
         on_exit = nil,
         root_dir = require("null-ls.utils").root_pattern(".null-ls-root", "Makefile", ".git", "go.mod", "Cargo.toml"),
-        sources = nil,
+        sources = {
+            null_ls.builtins.formatting.goimports,
+        },
         update_in_insert = false,
     }
     null_ls.setup(opts)
