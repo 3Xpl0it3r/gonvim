@@ -68,7 +68,7 @@ local function get_function_list_of_parent(parent)
 end
 
 
-M.shell_command_toggle_wrapper = function(cus_cmd)
+function M.shell_command_toggle_wrapper(cus_cmd)
     local __Terminal = require("toggleterm.terminal").Terminal
     local cmd_termal = __Terminal:new({
         cmd = cus_cmd .. '&& read -n 1 -s  "[Press Key to continue]" && exec true',
@@ -82,7 +82,7 @@ M.shell_command_toggle_wrapper = function(cus_cmd)
     cmd_termal:toggle()
 end
 
-M.get_current_functions = function()
+function M.get_current_functions()
     local root = get_root()
     if root == nil then return {}
     end

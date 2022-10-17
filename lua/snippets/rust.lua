@@ -12,7 +12,7 @@ local snip_node = ls.snippet_node
 
 local M = {
     snip(
-        { trig = "funcnil" },
+        { trig = "fnnil" },
         {
             text("fn "), insert(1, "FuncName"), text("("), insert(2, "Args..."), text({ "){", "" }),
             text("\t"),
@@ -28,7 +28,7 @@ local M = {
         }
     ),
     snip(
-        { trig = "funcret" },
+        { trig = "fnret" },
         {
             text("fn "), insert(1, "FuncName"), text("("), insert(2, "Args..."), text(") -> "), insert(3, "RetType"),
             text({ "{", "" }),
@@ -44,6 +44,7 @@ local M = {
             }
         }
     ),
+
 }
 
 return M

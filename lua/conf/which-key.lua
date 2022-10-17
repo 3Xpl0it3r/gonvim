@@ -62,7 +62,6 @@ function M.setup()
             a = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "CodeAction" },
             c = { "<cmd>TroubleToggle<CR>", "Problems" },
             r = { "<cmd>lua require'sniprun'.run()<cr>", "SnipRun" },
-            t = {},
         },
 
         -- dap debug
@@ -74,7 +73,7 @@ function M.setup()
         -- git information
         g = {
             name = "+Git",
-            b = { '<cmd>lua require"gitsigns".blame_line(true)<CR>', 'Blame' },
+            b = { '<cmd>lua require"gitsigns".blame_line{}<CR>', 'Blame' },
             d = { '<cmd>lua require"gitsigns".diffthis("~")<CR>', "Diff" },
             p = { '<cmd>lua require"gitsigns".preview_hunk()<CR>', 'preview(Hunk)' },
             r = { '<cmd>lua require"gitsigns".reset_hunk()<CR>', 'Reset(Hunk)' },

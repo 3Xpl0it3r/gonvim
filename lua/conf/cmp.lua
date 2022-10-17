@@ -22,7 +22,7 @@ local function config_nvim_cmp(config)
             }
         },
         view = {
-            entries = { name = 'custom', selection_order = 'near_cursor' }
+            -- entries = { name = 'custom', selection_order = 'near_cursor' }
         },
         preselect = config.PreselectMode.None,
         confirm_opts = {
