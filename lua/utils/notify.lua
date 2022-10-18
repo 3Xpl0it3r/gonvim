@@ -124,7 +124,7 @@ M.notify = function(msg, level, title)
     })
 end
 
-M.notify_execute_command = function(command, opts)
+function M.notify_execute_command(command, opts)
     local output = ""
     local notification
     local notify = function(msg, level)
