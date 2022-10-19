@@ -56,7 +56,7 @@ local function config_telescope(telescope)
                 },
             },
             live_grep = { -- basic context to find files
-                layout_strategy = "vertical",
+                layout_strategy = "horizontal",
                 mappings = {
                     i = {
                         ["Enter"] = require("telescope.actions").select_default,
