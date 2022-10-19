@@ -7,11 +7,33 @@ end
 local M = {}
 
 local function config_telescope(telescope)
+    local previewers = require("telescope.previewers")
+    local Job = require("plenary.job")
+    local new_maker = function(filepath, bufnr, opts)
+        filepath = vim.fn.expand(filepath)
+        Job:new({
+            command = "file",
+            args = { "--mime-type", "-b", filepath },
+            on_exit = function(j)
+                local mime_type = vim.split(j:result()[1], "/")[1]
+                if mime_type == "text" then
+                    previewers.buffer_previewer_maker(filepath, bufnr, opts)
+                else
+                    -- maybe we want to write something to the buffer here
+                    vim.schedule(function()
+                        vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { "BINARY" })
+                    end)
+                end
+            end
+        }):sync()
+    end
+
     local actions = require("telescope.actions")
     telescope.setup({
         defaults = {
             -- Default configuration for telescope goes here:
             -- config_key = value,
+            buffer_previewer_maker = new_maker,
             prompt_prefix = " ",
             wrap_results = true,
             selection_caret = " ",
@@ -19,10 +41,14 @@ local function config_telescope(telescope)
             initial_mode = "insert",
             selection_strategy = "reset",
             sorting_strategy = "ascending",
-            layout_strategy = "vertical",
             file_ignore_patterns = { "^vendor/", "^target/" },
+            -- layout_strategy = "vertical",
+            layout_strategy = "horizontal",
             layout_config = {
-                prompt_position = "top",
+                prompt_position = "bottom",
+                height = 0.90,
+                width = 0.90,
+                preview_cutoff = 10,
             },
             borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
             color_devicons = true,
@@ -43,6 +69,11 @@ local function config_telescope(telescope)
         pickers = {
             find_files = { -- basic filename to fine files
                 layout_strategy = "horizontal",
+                layout_config = {
+                    height = 0.95,
+                    width = 0.95,
+                    prompt_position = "bottom",
+                },
                 mappings = {
                     i = {
                         ["Enter"] = require("telescope.actions").select_default,
@@ -56,7 +87,17 @@ local function config_telescope(telescope)
                 },
             },
             live_grep = { -- basic context to find files
+                --[[ layout_strategy = "vertical",
+                layout_config = {
+                    prompt_position = "top",
+                    preview_cutoff = 10,
+                }, ]]
                 layout_strategy = "horizontal",
+                layout_config = {
+                    prompt_position = "bottom",
+                    height = 0.90,
+                    width = 0.90,
+                },
                 mappings = {
                     i = {
                         ["Enter"] = require("telescope.actions").select_default,
