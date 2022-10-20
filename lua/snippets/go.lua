@@ -215,7 +215,7 @@ local M = {
         }
     ),
     snip(
-        { trig = "`json", docstring = "type Example struct {\n\tField1\tstring\t`json:\"field1\"`\n}"},
+        { trig = "`json", docstring = "type Example struct {\n\tField1\tstring\t`json:\"field1\"`\n}" },
         {
             func(function(args, snip, _)
                 local _, env = {}, snip.env
@@ -262,7 +262,7 @@ local M = {
         {
             text("func "), insert(1, "FuncName"), text("("), insert(2, "Params..."), text(")"), insert(3, " error"),
             text({ "{", "" }),
-            text("\t"), text({ "panic(\"unimplemented\")" , ""}),
+            text("\t"), text({ "panic(\"unimplemented\")", "" }),
             text("\t"), text({ "return nil", "" }),
             text("}"), insert(0)
         },
@@ -516,6 +516,45 @@ local M = {
             text({ "go func(){", "" }),
             text "\t", text({ "panic(\"unimplemented\")", "" }),
             text({ "}()", "" }),
+            insert(0),
+        },
+        {
+            callbacks = {
+                [0] = {
+                    [events.enter] = function(node, _event_args) vim.lsp.buf.formatting() end,
+                },
+            },
+        }
+    ),
+
+    -- for business
+    snip(
+        { trig = "chanwrap",
+            docstring = "func chanWrap(input chan <- int, process func(c int) int) int\n\tout := make(chan interface{})\n\tgo func(){\n\t\tdefer close (out)\n\t\tfor e := range input{\n\t\t\tout <- process(e)\n\t\t}\n\t}()\n\treturn out\n}" }
+        ,
+        {
+            text({ "func chanRunWith(input <- chan " }), insert(1, "ChanType"), text ", process func(c ",
+            func(function(args, _, _)
+                return table.remove(vim.split(args[1][1], " "), 1)
+            end, { 1 }, nil),
+            text ")",
+            func(function(args, _, _)
+                return table.remove(vim.split(args[1][1], " "), 1)
+            end, { 1 }, nil), text({ ") chan <- " }),
+            func(function(args, _, _)
+                return table.remove(vim.split(args[1][1], " "), 1)
+            end, { 1 }, nil), text({ "{", "" }), -- function chanWrap(input chan <- Type, function(c chan <- Type) <- chan Type ) <- chan Type{
+            text"\t",text({ "out := make(chan " }), func(function(args, _, _)
+                return table.remove(vim.split(args[1][1], " "), 1)
+            end, { 1 }, nil),  text{")", ""},-- out := make(chan interface{})
+            text"\t",text({"go func(){", "" }), -- go func(){
+            text"\t\t",text({ "defer close (out)", "" }), -- defer close (out)
+            text"\t\t",text({ "for e := range input {", ""}),
+            text"\t\t\t",text({"out <- process(e)", "" }), -- out <- process(e)
+            text"\t\t", text({"}", "" }), -- }
+            text"\t", text({"}()", ""}),
+            text"\t",text({"return out", "" }), -- return out
+            text({ "}", "" }), -- }
             insert(0),
         },
         {
