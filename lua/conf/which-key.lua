@@ -58,7 +58,7 @@ function M.setup()
 
         -- code runner
         c = {
-            name = "+Code/Lsp",
+            name = "+Code",
             a = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "CodeAction" },
             c = { "<cmd>TroubleToggle<CR>", "Problems" },
             r = { "<cmd>lua require'sniprun'.run()<cr>", "SnipRun" },
@@ -108,7 +108,7 @@ function M.setup()
             s = { "<cmd>lua require('telescope.builtin').lsp_document_symbols()<cr>", "Symbol(doc)" },
             S = { "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<cr>", "Symbol(workspace)" },
             o = { "<cmd>SymbolsOutline<cr>", "outline(Symbols-outline)" },
-            O = { "<cmd>AerialToggle<cr>", "Outline(aerial)" },
+            -- O = { "<cmd>AerialToggle<cr>", "Outline(aerial)" },
         },
         -- Plugin Manager
         p = {

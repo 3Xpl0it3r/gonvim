@@ -45,10 +45,10 @@ local function config_telescope(telescope)
             -- layout_strategy = "vertical",
             layout_strategy = "horizontal",
             layout_config = {
-                prompt_position = "bottom",
+                -- prompt_position = "bottom",
                 height = 0.90,
-                width = 0.90,
-                preview_cutoff = 10,
+                width = 0.85,
+                preview_cutoff = 1,
             },
             borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
             color_devicons = true,
@@ -70,9 +70,8 @@ local function config_telescope(telescope)
             find_files = { -- basic filename to fine files
                 layout_strategy = "horizontal",
                 layout_config = {
-                    height = 0.95,
-                    width = 0.95,
-                    prompt_position = "bottom",
+                    prompt_position = "top",
+                    preview_width = 0.5,
                 },
                 mappings = {
                     i = {
@@ -87,17 +86,18 @@ local function config_telescope(telescope)
                 },
             },
             live_grep = { -- basic context to find files
-                --[[ layout_strategy = "vertical",
+                layout_strategy = "vertical",
                 layout_config = {
                     prompt_position = "top",
-                    preview_cutoff = 10,
-                }, ]]
-                layout_strategy = "horizontal",
+                    height = 0.90,
+                    width = 0.80,
+                },
+                --[[ layout_strategy = "horizontal",
                 layout_config = {
                     prompt_position = "bottom",
                     height = 0.90,
                     width = 0.90,
-                },
+                }, ]]
                 mappings = {
                     i = {
                         ["Enter"] = require("telescope.actions").select_default,
