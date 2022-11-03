@@ -27,8 +27,8 @@ local function config_dressing(config)
             -- These are passed to nvim_open_win
             anchor = "SW",
             border = "rounded",
-            -- 'editor' and 'win' will default to being centered
-            relative = "cursor",
+            -- 'editor' and 'win' will default to being centered( cursor)
+            relative = "win",
 
             -- These can be integers or a float between 0 and 1 (e.g. 0.4 for 40%)
             prefer_width = 40,

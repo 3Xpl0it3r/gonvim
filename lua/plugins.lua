@@ -48,7 +48,6 @@ return require("packer").startup(function()
     ------------------------------------------------
     use({ -- colorstheme
         "rebelot/kanagawa.nvim",
-        "ellisonleao/gruvbox.nvim",
         "rmehri01/onenord.nvim",
         "olimorris/onedarkpro.nvim",
         "EdenEast/nightfox.nvim",

@@ -328,7 +328,7 @@ local M = {
     -- for index :=0; index < count; index ++{}
     snip(
         { trig = "forindex",
-            docstring = "for index := initValue; index < bound;  index ++{\n\tpanic(\"unimplemented\")\n}" },
+            docstring = "for index := init-statement; index < bound; inc-expression {\n\tpanic(\"unimplemented\")\n}" },
         {
             text("for "), insert(1, "index"), text(" := "), insert(2, "initValue"), text(" ; "),
             func(function(args, _, _) return args[1][1] end, { 1 }, nil), text(" < "),
