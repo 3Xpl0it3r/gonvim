@@ -52,7 +52,7 @@ function M.setup()
         ["~"] = { "<CMD>noh<CR>", "cancel hilght" },
         ["!"] = { "<cmd>source ~/.config/nvim/init.lua<CR>", "ReloadConfig" },
         ["f"] = { "<cmd>lua require'telescope.builtin'.find_files()<cr>", "FindFile" },
-        ["n"] = { "<cmd>NvimTreeToggle<CR>", "DirExploer" },
+        ["n"] = { "<cmd>Neotree toggle reveal<CR>", "DirExploer" },
         ["q"] = { "<cmd>q!<CR>", "Quit" },
 
 
@@ -123,10 +123,10 @@ function M.setup()
         -- Search functions ,search file., seathc targs and other .....
         s = {
             name = "+Search",
-            a = { "<cmd>lua require('telescope.builtin').buffers()<cr>", "Buffer" },
             b = { "<cmd>lua require('telescope.builtin').buffers()<cr>", "Buffer" },
             f = { "<cmd>lua require('telescope.builtin').find_files()<cr>", "FindFile" },
             g = { "<cmd>lua require('telescope.builtin').live_grep()<cr>", "FindText" },
+            p = { "<cmd>lua require('telescope.builtin').live_grep()<cr>", "Project" },
             t = { "<cmd>lua require('telescope.builtin').treesitter()<cr>", "Treesitter" },
             u = { "<cmd>lua require('SymbolOutline<cr>", "Outline" },
         },

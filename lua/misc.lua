@@ -19,7 +19,7 @@ local options = {
 	conceallevel = 0, -- so that `` is visible in markdown files
 	hlsearch = true, -- highlight all matches on previous search pattern
 	ignorecase = true, -- ignore case in search patterns
-	mouse = "n", -- disable mouse completely
+	mouse = "", -- disable mouse completely
 	pumheight = 10, -- pop up menu height
 	showmode = false, -- we don't need to see things like -- INSERT -- anymore
 	showtabline = 0, -- [0: never show, 1: if has more than 2tabs , 2 : always]
@@ -92,4 +92,9 @@ vim.cmd([[
 ]])
 
 -- vim.cmd("colorscheme kanagawa")
-vim.cmd("colorscheme onenord")
+vim.cmd("colorscheme tokyonight")
+vim.cmd([[
+    let &t_SI.= "<Esc>[6 q"
+    let &t_SR.= "<Esc>[4 q"
+    let &t_EI.= "<Esc>[3 q"
+]])
