@@ -184,12 +184,12 @@ return require("packer").startup(function()
 		end,
 	})
 
-	--[[ use({
+	use({
         "stevearc/aerial.nvim",
         config = function()
             require("conf.aerial").setup()
         end,
-    }) ]]
+    })
 
 	use({
 		"phaazon/hop.nvim",

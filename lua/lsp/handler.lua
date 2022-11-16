@@ -115,47 +115,15 @@ local function lsp_highlight_document(client)
 	-- end
 end
 
-function serialize(obj)
-	local lua = ""
-	local t = type(obj)
-	if t == "number" then
-		lua = lua .. obj
-	elseif t == "boolean" then
-		lua = lua .. tostring(obj)
-	elseif t == "string" then
-		lua = lua .. string.format("%q", obj)
-	elseif t == "table" then
-		lua = lua .. "{"
-		for k, v in pairs(obj) do
-			lua = lua .. "[" .. serialize(k) .. "]=" .. serialize(v) .. ","
-		end
-		local metatable = getmetatable(obj)
-		if metatable ~= nil and type(metatable.__index) == "table" then
-			for k, v in pairs(metatable.__index) do
-				lua = lua .. "[" .. serialize(k) .. "]=" .. serialize(v) .. ","
-			end
-		end
-		lua = lua .. "}"
-	elseif t == "nil" then
-		return nil
-	else
-		error("can not serialize a " .. t .. " type.")
-	end
-	return lua
-end
-
-function table2string(tablevalue)
-	local stringtable = serialize(tablevalue)
-	print(stringtable)
-	return stringtable
-end
-
 M.on_attach = function()
 	return function(client, bufnr)
 		-- disable formatting for LSP clients as this is handled by null-ls
 		client.server_capabilities.documentFormattingProvider = false
 		client.server_capabilities.documentRangeFormattingProvider = false
-		require("lsp_signature").on_attach()
+		local lsp_signature_avail, lsp_signature = pcall(require, "lsp_signature")
+		if lsp_signature_avail then
+			lsp_signature.on_attach()
+		end
 		vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 		lsp_keymaps(bufnr)
 		lsp_highlight_document(client)
@@ -181,7 +149,7 @@ M.capabilities = function()
 	if not status_ok then
 		return
 	end
-	capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+	capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
 	return capabilities
 end
 

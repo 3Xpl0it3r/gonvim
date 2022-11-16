@@ -118,8 +118,19 @@ local function config_telescope(telescope)
 				override_file_sorter = true, -- override then file sorter
 				case_mode = "smart_case", -- or "ignore_case" or "respect_case"
 			},
+			aerial = {
+				-- Display symbols as <root>.<parent>.<symbol>
+				show_nesting = {},
+			},
 		},
 	})
+end
+
+local function third_party_integrations(telescope)
+	local aerial_present, _ = pcall(require, "aerial")
+	if aerial_present then
+		telescope.load_extension("aerial")
+	end
 end
 
 local function config_highlights()
@@ -142,6 +153,7 @@ end
 
 function M.setup()
 	local telescope = require("telescope")
+	third_party_integrations(telescope)
 	config_telescope(telescope)
 	config_highlights()
 end
