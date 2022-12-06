@@ -228,7 +228,6 @@ return require("packer").startup(function()
 		requires = {
 			"nvim-lua/plenary.nvim",
 			"nvim-treesitter/nvim-treesitter",
-			"antoinemadec/FixCursorHold.nvim",
 			"RRethy/vim-illuminate",
 		},
 		config = function()
@@ -289,7 +288,6 @@ return require("packer").startup(function()
 		requires = {
 			"nvim-lua/plenary.nvim",
 			"nvim-treesitter/nvim-treesitter",
-			"antoinemadec/FixCursorHold.nvim",
 			"nvim-neotest/neotest-go",
 			"rouge8/neotest-rust",
 		},
