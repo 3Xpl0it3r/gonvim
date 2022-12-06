@@ -1,196 +1,200 @@
 local status_ok, _ = pcall(require, "dressing")
 if not status_ok then
-    require("utils.notify").notify("Plugin dressing is not existed", "error", "Plugin")
-    return
+	require("utils.notify").notify("Plugin dressing is not existed", "error", "Plugin")
+	return
 end
 
 local M = {}
 
 local function config_dressing(config)
-    config.setup({
-        input = {
-            -- Set to false to disable the vim.ui.input implementation
-            enabled = true,
+	config.setup({
+		input = {
+			-- Set to false to disable the vim.ui.input implementation
+			enabled = true,
 
-            -- Default prompt string
-            default_prompt = "Input:",
+			-- Default prompt string
+			default_prompt = "Input:",
 
-            -- Can be 'left', 'right', or 'center'
-            prompt_align = "center",
+			-- Can be 'left', 'right', or 'center'
+			prompt_align = "center",
 
-            -- When true, <Esc> will close the modal
-            insert_only = true,
+			-- When true, <Esc> will close the modal
+			insert_only = true,
 
-            -- When true, input will start in insert mode.
-            start_in_insert = true,
+			-- When true, input will start in insert mode.
+			start_in_insert = true,
 
-            -- These are passed to nvim_open_win
-            anchor = "SW",
-            border = "rounded",
-            -- 'editor' and 'win' will default to being centered( cursor)
-            relative = "win",
+			-- These are passed to nvim_open_win
+			anchor = "SW",
+			border = "rounded",
+			-- 'editor' and 'win' will default to being centered( cursor)
+			relative = "win",
 
-            -- These can be integers or a float between 0 and 1 (e.g. 0.4 for 40%)
-            prefer_width = 40,
-            width = nil,
-            -- min_width and max_width can be a list of mixed types.
-            -- min_width = {20, 0.2} means "the greater of 20 columns or 20% of total"
-            max_width = { 140, 0.9 },
-            min_width = { 20, 0.2 },
+			-- These can be integers or a float between 0 and 1 (e.g. 0.4 for 40%)
+			prefer_width = 40,
+			width = nil,
+			-- min_width and max_width can be a list of mixed types.
+			-- min_width = {20, 0.2} means "the greater of 20 columns or 20% of total"
+			max_width = { 140, 0.9 },
+			min_width = { 20, 0.2 },
+			win_options = {
+				-- Window transparency (0-100)
+				winblend = 10,
 
-            -- Window transparency (0-100)
-            winblend = 10,
-            -- Change default highlight groups (see :help winhl)
-            winhighlight = "",
+				-- Change default highlight groups (see :help winhl)
+				winhighlight = "",
+			},
 
-            -- Set to `false` to disable
-            mappings = {
-                n = {
-                    ["<Esc>"] = "Close",
-                    ["<CR>"] = "Confirm",
-                },
-                i = {
-                    ["<Esc>"] = "HistoryPrev",
-                    ["<C-c>"] = "Close",
-                    ["<CR>"] = "Confirm",
-                    ["<Up>"] = "HistoryPrev",
-                    ["<Down>"] = "HistoryNext",
-                },
-            },
-            override = function(conf)
-                -- This is the config that will be passed to nvim_open_win.
-                -- Change values here to customize the layout
-                return conf
-            end,
+			-- Set to `false` to disable
+			mappings = {
+				n = {
+					["<Esc>"] = "Close",
+					["<CR>"] = "Confirm",
+				},
+				i = {
+					["<Esc>"] = "HistoryPrev",
+					["<C-c>"] = "Close",
+					["<CR>"] = "Confirm",
+					["<Up>"] = "HistoryPrev",
+					["<Down>"] = "HistoryNext",
+				},
+			},
+			override = function(conf)
+				-- This is the config that will be passed to nvim_open_win.
+				-- Change values here to customize the layout
+				return conf
+			end,
 
-            -- see :help dressing_get_config
-            get_config = function()
-                return {
-                    hl_input = 'NormalFloat',
-                    -- highlight group for prompt
-                    hl_prompt = 'NormalFloat',
-                    -- highlight group for window border
-                    hl_border = 'FloatBorder',
-                }
-            end,
-        },
-        select = {
-            -- Set to false to disable the vim.ui.select implementation
-            enabled = true,
+			-- see :help dressing_get_config
+			get_config = function()
+				return {
+					hl_input = "NormalFloat",
+					-- highlight group for prompt
+					hl_prompt = "NormalFloat",
+					-- highlight group for window border
+					hl_border = "FloatBorder",
+				}
+			end,
+		},
+		select = {
+			-- Set to false to disable the vim.ui.select implementation
+			enabled = true,
 
-            -- Priority list of preferred vim.select implementations
-            -- backend = { "telescope", "fzf_lua", "fzf", "builtin", "nui" },
-            backend = { "telescope" },
+			-- Priority list of preferred vim.select implementations
+			-- backend = { "telescope", "fzf_lua", "fzf", "builtin", "nui" },
+			backend = { "telescope" },
 
-            -- Trim trailing `:` from prompt
-            trim_prompt = true,
+			-- Trim trailing `:` from prompt
+			trim_prompt = true,
 
-            -- Options for telescope selector
-            -- These are passed into the telescope picker directly. Can be used like:
-            -- telescope = require('telescope.themes').get_ivy({...})
-            telescope = nil,
+			-- Options for telescope selector
+			-- These are passed into the telescope picker directly. Can be used like:
+			-- telescope = require('telescope.themes').get_ivy({...})
+			telescope = nil,
 
-            -- Options for fzf selector
-            fzf = {
-                window = {
-                    width = 0.5,
-                    height = 0.4,
-                },
-            },
+			-- Options for fzf selector
+			fzf = {
+				window = {
+					width = 0.5,
+					height = 0.4,
+				},
+			},
 
-            -- Options for fzf_lua selector
-            fzf_lua = {
-                winopts = {
-                    width = 0.5,
-                    height = 0.4,
-                },
-            },
+			-- Options for fzf_lua selector
+			fzf_lua = {
+				winopts = {
+					width = 0.5,
+					height = 0.4,
+				},
+			},
 
-            -- Options for nui Menu
-            nui = {
-                position = "50%",
-                size = nil,
-                relative = "editor",
-                border = {
-                    style = "rounded",
-                },
-                buf_options = {
-                    swapfile = false,
-                    filetype = "DressingSelect",
-                },
-                win_options = {
-                    winblend = 10,
-                },
-                max_width = 80,
-                max_height = 40,
-                min_width = 40,
-                min_height = 10,
-            },
+			-- Options for nui Menu
+			nui = {
+				position = "50%",
+				size = nil,
+				relative = "editor",
+				border = {
+					style = "rounded",
+				},
+				buf_options = {
+					swapfile = false,
+					filetype = "DressingSelect",
+				},
+				win_options = {
+					winblend = 10,
+				},
+				max_width = 80,
+				max_height = 40,
+				min_width = 40,
+				min_height = 10,
+			},
 
-            -- Options for built-in selector
-            builtin = {
-                -- These are passed to nvim_open_win
-                anchor = "NW",
-                border = "rounded",
-                -- 'editor' and 'win' will default to being centered
-                relative = "editor",
+			-- Options for built-in selector
+			builtin = {
+				-- These are passed to nvim_open_win
+				anchor = "NW",
+				border = "rounded",
+				-- 'editor' and 'win' will default to being centered
+				relative = "editor",
 
-                -- Window transparency (0-100)
-                winblend = 10,
-                -- Change default highlight groups (see :help winhl)
-                winhighlight = "",
+				win_options = {
+					-- Window transparency (0-100)
+					winblend = 10,
+					-- Change default highlight groups (see :help winhl)
+					winhighlight = "",
+				},
 
-                -- These can be integers or a float between 0 and 1 (e.g. 0.4 for 40%)
-                -- the min_ and max_ options can be a list of mixed types.
-                -- max_width = {140, 0.8} means "the lesser of 140 columns or 80% of total"
-                width = nil,
-                max_width = { 140, 0.8 },
-                min_width = { 40, 0.2 },
-                height = nil,
-                max_height = 0.9,
-                min_height = { 10, 0.2 },
+				-- These can be integers or a float between 0 and 1 (e.g. 0.4 for 40%)
+				-- the min_ and max_ options can be a list of mixed types.
+				-- max_width = {140, 0.8} means "the lesser of 140 columns or 80% of total"
+				width = nil,
+				max_width = { 140, 0.8 },
+				min_width = { 40, 0.2 },
+				height = nil,
+				max_height = 0.9,
+				min_height = { 10, 0.2 },
 
-                -- Set to `false` to disable
-                mappings = {
-                    ["<Esc>"] = "Close",
-                    ["<C-c>"] = "Close",
-                    ["<CR>"] = "Confirm",
-                },
+				-- Set to `false` to disable
+				mappings = {
+					["<Esc>"] = "Close",
+					["<C-c>"] = "Close",
+					["<CR>"] = "Confirm",
+				},
 
-                override = function(conf)
-                    -- This is the config that will be passed to nvim_open_win.
-                    -- Change values here to customize the layout
-                    return conf
-                end,
-            },
+				override = function(conf)
+					-- This is the config that will be passed to nvim_open_win.
+					-- Change values here to customize the layout
+					return conf
+				end,
+			},
 
-            -- Used to override format_item. See :help dressing-format
-            format_item_override = {},
+			-- Used to override format_item. See :help dressing-format
+			format_item_override = {},
 
-            -- see :help dressing_get_config
-            get_config = nil,
-        },
-    })
+			-- see :help dressing_get_config
+			get_config = nil,
+		},
+	})
 end
 
 local function config_highlight()
-    local highlights = {
-        -- FloatBorder for border
-        FloatBorder = { fg = "#4FC3F7", bg = "#282828" },
-        -- NormalFloat for text
-        FloatTitle = {fg = "#B77BFA", bg="#282828"},
-        -- FloatTitle for title , default linked to FloatBorder
-        NormalFloat = {fg = "#9CCC65", bg="#282828"},
-    }
-    for k, v in pairs(highlights) do
-        vim.api.nvim_set_hl(0, k, v)
-    end
+	local highlights = {
+		-- FloatBorder for border
+		FloatBorder = { fg = "#4FC3F7", bg = "#282828" },
+		-- NormalFloat for text
+		FloatTitle = { fg = "#B77BFA", bg = "#282828" },
+		-- FloatTitle for title , default linked to FloatBorder
+		NormalFloat = { fg = "#9CCC65", bg = "#282828" },
+	}
+	for k, v in pairs(highlights) do
+		vim.api.nvim_set_hl(0, k, v)
+	end
 end
 
 function M.setup()
-    local dressing = require("dressing")
-    config_dressing(dressing)
-    config_highlight()
+	local dressing = require("dressing")
+	config_dressing(dressing)
+	config_highlight()
 end
 
 return M
