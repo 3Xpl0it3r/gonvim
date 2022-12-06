@@ -56,7 +56,7 @@ M["go"] = {
 								else
 									vim.api.nvim_buf_set_lines(0, postion, postion, false, { "import(", newline, ")" })
 								end
-								vim.lsp.buf.format({ async = true })
+								-- vim.lsp.buf.format({ async = true })
 							end)
 						end)
 					end,
