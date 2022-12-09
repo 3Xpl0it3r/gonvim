@@ -1,3 +1,4 @@
+-- this is for c_sharp
 util = require("lspconfig/util")
 return {
 	cmd = { "dotnet", "/path/to/omnisharp/OmniSharp.dll" },
@@ -38,12 +39,11 @@ return {
 	analyze_open_documents_only = false,
 	root_dir = util.root_pattern(
 		".git",
-		".clangd",
-		"compile_flags.txt",
-		"compile_commands.json",
+        ".sln",
+        ".csproj",
 		"Makefile",
 		"configure.ac"
 	),
-	filetypes = { "c", "cpp" },
+	filetypes = { "cs", "vb" },
 	single_file_support = true,
 }
