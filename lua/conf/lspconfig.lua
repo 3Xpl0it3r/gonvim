@@ -15,7 +15,7 @@ local function config_lspconfig(handler)
 
     -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
 
-    local servers = { "clangd", "pyright", "gopls", "rust_analyzer", "sumneko_lua" }
+    local servers = { "clangd", "pyright", "gopls", "rust_analyzer", "sumneko_lua", "omnisharp" }
     for _, lsp in ipairs(servers) do
         -- todo debug eg print sth
         local lsp_opt = opts
@@ -30,6 +30,9 @@ local function config_lspconfig(handler)
         end
         if string.match(lsp, "sumneko_lua") then
             lsp_opt = vim.tbl_deep_extend("force", require("lsp/ls/lualsp"), opts)
+        end
+        if string.match(lsp, "omnisharp") then
+            lsp_opt = vim.tbl_deep_extend("force", require("lsp/ls/omnisharp"), opts)
         end
 
         lspconfig[lsp].setup(lsp_opt)

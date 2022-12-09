@@ -47,10 +47,10 @@ return require("packer").startup(function()
 	----      ColorsTheme , UI               -------
 	------------------------------------------------
 	use({ -- colorstheme
-		"rebelot/kanagawa.nvim",
+		--[[ "rebelot/kanagawa.nvim",
 		"rmehri01/onenord.nvim",
 		"olimorris/onedarkpro.nvim",
-		"EdenEast/nightfox.nvim",
+		"EdenEast/nightfox.nvim", ]]
 		"folke/tokyonight.nvim",
 		config = function()
 			require("conf.themes")
@@ -157,15 +157,6 @@ return require("packer").startup(function()
 		end,
 	})
 
-	--[[ use({
-        "nvim-tree/nvim-tree.lua", -- directory browser
-        requires = { "nvim-tree/nvim-web-devicons" },
-        config = function()
-            require("conf.nvim-tree").setup()
-        end,
-    })
- -- ]]
-
 	use({
 		"JoosepAlviste/nvim-ts-context-commentstring",
 	})
@@ -184,12 +175,12 @@ return require("packer").startup(function()
 		end,
 	})
 
-	use({
+	--[[ use({
         "stevearc/aerial.nvim",
         config = function()
             require("conf.aerial").setup()
         end,
-    })
+    }) ]]
 
 	use({
 		"phaazon/hop.nvim",

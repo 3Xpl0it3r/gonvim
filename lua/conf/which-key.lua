@@ -113,17 +113,6 @@ function M.setup()
 			i = { "<cmd>lua require('telescope.builtin').lsp_implementations()<cr>", "Interface" },
 			r = { "<cmd>lua require('telescope.builtin').lsp_references()<cr>", "Reference" },
 			s = { "<cmd>lua require('telescope.builtin').lsp_document_symbols()<cr>", "Symbol(doc)" },
-			--[[ s = {
-				function()
-					local aerial_avail, _ = pcall(require, "aerial")
-					if aerial_avail then
-						require("telescope").extensions.aerial.aerial()
-					else
-						require("telescope.builtin").lsp_document_symbols()
-					end
-				end,
-				"Symbol(doc)",
-			}, ]]
 			S = { "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<cr>", "Symbol(workspace)" },
 			o = { "<cmd>SymbolsOutline<cr>", "outline(Symbols-outline)" },
 			-- O = { "<cmd>AerialToggle<cr>", "Outline(aerial)" },

@@ -10,7 +10,7 @@ local function config_symbols_outline(config)
 	local opts = {
 		highlight_hovered_item = true,
 		show_guides = true,
-		auto_preview = true,
+		auto_preview = false,
 		position = "right",
 		relative_width = true,
 		width = 25,
@@ -21,9 +21,10 @@ local function config_symbols_outline(config)
 		preview_bg_highlight = "Pmenu",
 		autofold_depth = nil,
 		auto_unfold_hover = true,
-		-- fold_markers = { "", "" },
+		fold_markers = { "", "" },
 		wrap = false,
 		keymaps = { -- These keymaps can be a string or a table for multiple keys
+			rename_symbol = "r",
 		},
 		lsp_blacklist = {},
 		symbol_blacklist = {},
