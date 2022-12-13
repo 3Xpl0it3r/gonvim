@@ -298,6 +298,28 @@ local M = {
 		}
 	),
 	-- function  with return
+	snip({ trig = "funcvar", docstring = 'funcName := func (Params...)(Rets...){\n\tpanic("unimplemented")\n}' }, {
+		insert(1, "funcName"),
+		text(" := func "),
+		text("("),
+		insert(2, "Params..."),
+		text(")("),
+		insert(3, "Rets..."),
+		text({ "){", "" }),
+		text("\t"),
+		text({ 'panic("unimplemented")', "" }),
+		text("}"),
+		insert(0),
+	}, {
+		callbacks = {
+			[0] = {
+				[events.enter] = function(node, _event_args)
+					vim.lsp.buf.formatting()
+				end,
+			},
+		},
+	}),
+	-- function  with return
 	snip({ trig = "funcret", docstring = 'func FuncName(Params...)(Rets...){\n\tpanic("unimplemented")\n}' }, {
 		text("func "),
 		insert(1, "FuncName"),
@@ -339,6 +361,7 @@ local M = {
 			},
 		},
 	}),
+
 	-- function  with no return
 	snip({ trig = "functest", docstring = 'func TestFuncName(t *testing.T){\n\tpanic("unimplemented")\n}' }, {
 		text("func Test"),
@@ -357,6 +380,7 @@ local M = {
 			},
 		},
 	}),
+
 	-- for k,v := range xxx {}
 	snip({ trig = "forrange", docstring = 'for key,value := range iterObj {\n\tpanic("unimplemented")\n}' }, {
 		text("for "),
