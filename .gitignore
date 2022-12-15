@@ -40,3 +40,4 @@ luac.out
 *.hex
 
 plugin/
+lua/snippets/go.lua
