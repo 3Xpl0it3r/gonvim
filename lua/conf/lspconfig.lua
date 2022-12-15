@@ -40,7 +40,7 @@ local function config_lspconfig(handler)
 		},
 		java = {
 			server = "jdtls",
-			config = require("lsp/ls/java"),
+			configs = require("lsp/ls/java"),
 		},
 	}
 

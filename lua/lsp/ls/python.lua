@@ -3,7 +3,7 @@ local util = require("lspconfig/util")
 local pyright = {
 	cmd = { "pyright-langserver", "--stdio" },
 	filetype = { "python", "python3" },
-	-- root_dir = util.root_pattern("Cargo.toml", "rust-project.json"),
+    root_dir = util.root_pattern(vim.fn.getcwd()),
 	settings = {
 		python = {
 			analysis = {
@@ -19,7 +19,7 @@ local pyright = {
 local pylsp = {
 	cmd = { "pylsp" },
 	filetype = { "python", "python3" },
-	-- root_dir = util.root_pattern("Cargo.toml", "rust-project.json"),
+    root_dir = util.root_pattern(vim.fn.getcwd()),
 	settings = {
 		pylsp = {
 			plugins = {
@@ -36,6 +36,7 @@ local pylsp = {
 local jedi_language_server = {
 	cmd = { "jedi-language-server" },
 	filetype = { "python", "python3" },
+    root_dir = util.root_pattern(vim.fn.getcwd()),
 	single_file_support = true,
 }
 

@@ -3,7 +3,7 @@ util = require("lspconfig/util")
 local java_language_server = {
 	cmd = { "lua-language-server" },
 	filetypes = { "java" },
-	root_dir = util.root_pattern(".git"),
+	root_dir = util.root_pattern(".git", vim.fn.getcwd()),
 	settings = {},
 	single_file_support = true,
 }
@@ -18,17 +18,7 @@ local jdtls = {
 		jvm_args = {},
 		workspace = "$HOME/.cache/jdtls/workspace",
 	},
-	root_dir = {
-		-- Single-module projects
-		{
-			"build.xml", -- Ant
-			"pom.xml", -- Maven
-			"settings.gradle", -- Gradle
-			"settings.gradle.kts", -- Gradle
-		},
-		-- Multi-module projects
-		{ "build.gradle", "build.gradle.kts" },
-	},
+	root_dir = util.root_pattern("build.xml", "pom.xml", "settings.gradle", "settings.gradle.kts", "build.gradle", "build.gradle.kts", vim.fn.getcwd()),
 	single_file_support = true,
 }
 
