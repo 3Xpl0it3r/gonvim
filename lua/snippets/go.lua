@@ -199,7 +199,7 @@ local M = {
 		text(")("),
 		insert(4, "Rets..."),
 		text({ "){" }), -- func (c *Cat)Name(aegs)(){
-		text({ "\t", 'panic("unimplemented")' }),
+		text({ "", '\tpanic("unimplemented")' }),
 		text({ "", "" }),
 		text("}"),
 		insert(0),
@@ -232,6 +232,10 @@ local M = {
 			},
 		},
 	}),
+
+    -- ##############################################################################
+    -- #                    JSON Tags  Extension                                    #
+    -- ##############################################################################
 	snip({ trig = "`json", docstring = 'type Example struct {\n\tField1\tstring\t`json:"field1"`\n}' }, {
 		func(function(args, snip, _)
 			local _, env = {}, snip.env
@@ -260,7 +264,7 @@ local M = {
 				return ""
 			end
 			local field = string.lower(result[1]:match("^[%s]*(.-)[%s]*$"))
-			return '`json:"' .. field .. '"'
+			return '`xml:"' .. field .. '"'
 		end, {}, nil),
 		insert(0),
 	}, {
@@ -272,6 +276,30 @@ local M = {
 			},
 		},
 	}),
+	snip({ trig = "`yaml", docstring = 'type Example struct {\n\tField1\tstring\t`xml:"field1"`\n}' }, {
+		func(function(args, snip, _)
+			local _, env = {}, snip.env
+			local result = string_split(env.TM_CURRENT_LINE:match("^[%s]*(.-)[%s]*$"), " ")
+			if #result == 0 then
+				return ""
+			end
+			local field = string.lower(result[1]:match("^[%s]*(.-)[%s]*$"))
+			return '`yaml:"' .. field .. '"'
+		end, {}, nil),
+		insert(0),
+	}, {
+		callbacks = {
+			[0] = {
+				[events.enter] = function(node, _event_args)
+					vim.lsp.buf.formatting()
+				end,
+			},
+		},
+	}),
+
+    -- ##############################################################################
+    -- #                    Function Snippet Code                                   #
+    -- ##############################################################################
 	snip(
 		{ trig = "funcerr", docstring = 'func FuncName(Params...) error {\n\tpanic("unimplemented")\n\treturn nil\n}' },
 		{
@@ -639,127 +667,6 @@ local M = {
 		text("\t"),
 		text({ 'panic("unimplemented")', "" }),
 		text({ "}()", "" }),
-		insert(0),
-	}, {
-		callbacks = {
-			[0] = {
-				[events.enter] = function(node, _event_args)
-					vim.lsp.buf.formatting()
-				end,
-			},
-		},
-	}),
-
-	-- for business
-	snip({
-		trig = "sc_channelwrap",
-		docstring = "func chanelRunWith(input <- chan Type, process func(c Type) Type) <- chan Type {\n\tout := make(chan Type)\n\tgo func(){\n\t\tdefer close (out)\n\t\tfor e := range input{\n\t\t\tout <- process(e)\n\t\t}\n\t}()\n\treturn out\n}",
-	}, {
-		text({ "func chanRunWith(input <- chan " }),
-		insert(1, "ChanType"),
-		func(function(args, _, _)
-			return " ,process func(c " .. args[1][1] .. " )" .. args[1][1] .. ") <- chan " .. args[1][1] .. "{"
-		end, { 1 }, nil),
-		text({ "", "" }), -- function chanWrap(input <- chan Type, function(c Type)  Type )  chan <-  Type{
-		text("\t"),
-		text({ "out := make(chan " }),
-		func(function(args, _, _)
-			return args[1][1]
-		end, { 1 }, nil),
-		text({ ")", "" }), -- out := make(chan interface{})
-		text("\t"),
-		text({ "go func(){", "" }), -- go func(){
-		text("\t\t"),
-		text({ "defer close (out)", "" }), -- defer close (out)
-		text("\t\t"),
-		text({ "for e := range input {", "" }),
-		text("\t\t\t"),
-		text({ "out <- process(e)", "" }), -- out <- process(e)
-		text("\t\t"),
-		text({ "}", "" }), -- }
-		text("\t"),
-		text({ "}()", "" }),
-		text("\t"),
-		text({ "return out", "" }), -- return out
-		text({ "}", "" }), -- }
-		insert(0),
-	}, {
-		callbacks = {
-			[0] = {
-				[events.enter] = function(node, _event_args)
-					vim.lsp.buf.formatting()
-				end,
-			},
-		},
-	}),
-	-- pipeline wrap for stopsignale
-	snip({
-		trig = "sc_pipeline",
-		docstring = "func pipelineWrap(next chan <- Type,run func(<- chan Type)<-chan Type) ( chan <- Type, func()){\n\tinput := make(chan Type)\n\twg,once := sync.WaitGroup{}, sync.Once{}\n\tpipelineIn := make(chan Type)\n\tpipelineOut := run(pipelineIn)\n\twg.Add(2)\n\tgo func(){\n\t\tdefer wg.Done()\n\t\tfor e := range pipelineOut{\n\t\t//todo\n\t\t\tnext <- e\n\t\t}\n\t}()\n\tgo func(){\n\t\tdefer func(){\n\t\t\twg.Done()\n\t\t\tclose(pipelineIn)\n\t\t}()\n\t\tfor e := range input{\n\t\t\tpipelineIn <- e\n\t\t}\n\t}()\n\treturn input, func(){\n\t\tonce.Do(func(){close(input)})\n\t\twg.Wait()\n\t}\n}",
-	}, {
-		text("func pipelineWrap(next chan <-"),
-		insert(1, "Type"),
-		func(function(args, _, _)
-			return ", middlewareHandler func(<- chan "
-				.. args[1][1]
-				.. ")<- chan "
-				.. args[1][1]
-				.. ")(chan <- "
-				.. args[1][1]
-				.. ", func()){"
-		end, { 1 }, nil),
-		text({ "", "" }),
-		func(function(args, _, _)
-			return "\tinput := make(chan  " .. args[1][1] .. ")"
-		end, { 1 }, nil),
-		text({ "", "" }),
-		text("\t"),
-		text({ "wg,once := sync.WaitGroup{}, sync.Once{}", "" }),
-		func(function(args, _, _)
-			return "\tpipelineIn := make(chan " .. args[1][1] .. ")"
-		end, { 1 }, nil),
-		text({ "", "" }),
-		text("\t"),
-		text({ "pipelineOut := middlewareHandler(pipelineIn)", "" }),
-		text("\t"),
-		text({ " wg.Add(2)", "" }),
-		text("\t"),
-		text({ "go func(){", "" }),
-		text("\t\t"),
-		text({ "defer wg.Done()", "" }),
-		text("\t\t"),
-		text({ "for e := range pipelineOut{", "" }),
-		text("\t\t\t"),
-		text({ "//todo", "" }),
-		text("\t\t\t"),
-		text({ "next <- e", "" }),
-		text("\t\t"),
-		text({ "}", "" }),
-		text("\t"),
-		text({ "}()", "" }),
-		text("\t"),
-		text({ "go func(){", "" }),
-		text("\t\t"),
-		text({ "defer wg.Done()", "" }),
-		text("\t\t"),
-		text({ "close(pipelineIn)", "" }),
-		text("\t\t"),
-		text({ "for e := range input{", "" }),
-		text("\t\t\t"),
-		text({ "pipelineIn <- e", "" }),
-		text("\t\t"),
-		text({ "}", "" }),
-		text("\t"),
-		text({ "}()", "" }),
-		text("\t"),
-		text({ "return input, func(){", "" }),
-		text("\t\t"),
-		text({ "once.Do(func(){close(input)})", "" }),
-		text("\t\t"),
-		text({ "wg.Wait()", "" }),
-		text("\t"),
-		text({ "}", "" }),
-		text("}"),
 		insert(0),
 	}, {
 		callbacks = {
