@@ -34,8 +34,8 @@ $ docker run -it --rm l0calh0st/gonvim:v1 bash
 ```
 
 ## (Option2)Install
-gonvim requires  Neovim 0.7.0.+ <br>
-gonvim 建议neovim版本0.7以上版本,另外安装过程最好打开科学上网<br>
+gonvim requires  Neovim 0.8.0.+ <br>
+gonvim 建议neovim版本0.8以上版本,另外安装过程最好打开科学上网<br>
 If you have not install nvim, you can install it with https://github.com/neovim/neovim.<br>
 ```bash
 # 下载项目/clone this repo
