@@ -1,10 +1,9 @@
-lspconfig = require("lspconfig")
-util = require("lspconfig/util")
+local util = require("lspconfig/util")
 
-return {
+local pyright = {
 	cmd = { "pyright-langserver", "--stdio" },
-	filetype = "python",
-	root_dir = util.root_pattern(".git", "pymod"),
+	filetype = { "python", "python3" },
+	-- root_dir = util.root_pattern("Cargo.toml", "rust-project.json"),
 	settings = {
 		python = {
 			analysis = {
@@ -15,4 +14,33 @@ return {
 		},
 	},
 	single_file_support = true,
+}
+
+local pylsp = {
+	cmd = { "pylsp" },
+	filetype = { "python", "python3" },
+	-- root_dir = util.root_pattern("Cargo.toml", "rust-project.json"),
+	settings = {
+		pylsp = {
+			plugins = {
+				pycodestyle = {
+					ignore = { "W391" },
+					maxLineLength = 100,
+				},
+			},
+		},
+	},
+	single_file_support = true,
+}
+
+local jedi_language_server = {
+	cmd = { "jedi-language-server" },
+	filetype = { "python", "python3" },
+	single_file_support = true,
+}
+
+return {
+	pyright = pyright,
+	pylsp = pylsp,
+	jedi_language_server = jedi_language_server,
 }

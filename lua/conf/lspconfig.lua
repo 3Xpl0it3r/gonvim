@@ -1,50 +1,60 @@
 local status_ok, lspconfig = pcall(require, "lspconfig")
 if not status_ok then
-    require("utils.notify").notify("Plugin lspconfig is not existed", "error", "Plugin")
-    return
+	require("utils.notify").notify("Plugin lspconfig is not existed", "error", "Plugin")
+	return
 end
 
 local M = {}
 
-
 local function config_lspconfig(handler)
-    local opts = {
-        on_attach = handler.on_attach(),
-        capabilities = handler.capabilities(),
-    }
+	local opts = {
+		on_attach = handler.on_attach(),
+		capabilities = handler.capabilities(),
+	}
 
-    -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
+	-- Enable some language servers with the additional completion capabilities offered by nvim-cmp
+	local server_configs = {
+		cpp = {
+			server = "clangd",
+			configs = require("lsp/ls/c_cpp"),
+		},
+		python = {
+			server = "jedi_language_server",
+			configs = require("lsp/ls/python"),
+		},
+		golang = {
+			server = "gopls",
+			configs = require("lsp/ls/golang"),
+		},
+		rust = {
+			server = "rust_analyzer",
+			configs = require("lsp/ls/rust"),
+		},
+		lua = {
+			server = "sumneko_lua",
+			configs = require("lsp/ls/lua"),
+		},
+		csharp = {
+			server = "omnisharp",
+			configs = require("lsp/ls/csharp"),
+		},
+		java = {
+			server = "jdtls",
+			config = require("lsp/ls/java"),
+		},
+	}
 
-    local servers = { "clangd", "pyright", "gopls", "rust_analyzer", "sumneko_lua", "omnisharp" }
-    for _, lsp in ipairs(servers) do
-        -- todo debug eg print sth
-        local lsp_opt = opts
-        if string.match(lsp, "gopls") then
-            lsp_opt = vim.tbl_deep_extend("force", require("lsp/ls/gopls"), opts)
-        end
-        if string.match(lsp, "clangd") then
-            lsp_opt = vim.tbl_deep_extend("force", require("lsp/ls/clangd"), opts)
-        end
-        if string.match(lsp, "rust_analyzer") then
-            lsp_opt = vim.tbl_deep_extend("force", require("lsp/ls/rust_analyzer"), opts)
-        end
-        if string.match(lsp, "sumneko_lua") then
-            lsp_opt = vim.tbl_deep_extend("force", require("lsp/ls/lualsp"), opts)
-        end
-        if string.match(lsp, "omnisharp") then
-            lsp_opt = vim.tbl_deep_extend("force", require("lsp/ls/omnisharp"), opts)
-        end
-
-        lspconfig[lsp].setup(lsp_opt)
-    end
-
+	for _, sig_item in pairs(server_configs) do
+		local opts_clone = opts
+		opts_clone = vim.tbl_deep_extend("force", sig_item["configs"][sig_item["server"]], opts)
+		lspconfig[sig_item["server"]].setup(opts_clone)
+	end
 end
 
 function M.setup()
-    local handler = require("lsp/handler")
-    handler.setup()
-    config_lspconfig(handler)
-
+	local handler = require("lsp/handler")
+	handler.setup()
+	config_lspconfig(handler)
 end
 
 return M
