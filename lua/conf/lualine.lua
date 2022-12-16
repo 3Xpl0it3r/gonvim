@@ -26,23 +26,8 @@ local getGitBranchName = function()
 	end
 end
 
-
 -- Color table for highlights
--- stylua: ignore
---
-local colors = {
-    bg       = '#49443C',
-    fg       = '#bbc2cf',
-    yellow   = '#ECBE7B',
-    cyan     = '#008080',
-    darkblue = '#081633',
-    green    = '#98be65',
-    orange   = '#FF8800',
-    violet   = '#a9a1e1',
-    magenta  = '#c678dd',
-    blue     = '#51afef',
-    red      = '#ec5f67',
-}
+local colors = require("utils.colors").custom
 
 local mode_color = {
 	n = colors.blue,
@@ -117,6 +102,25 @@ local config = {
 		lualine_z = {},
 		lualine_c = {},
 		lualine_x = {},
+	},
+	winbar = {
+		lualine_a = {
+			{
+				"filetype",
+				colored = true,
+				icon_only = true,
+			},
+		},
+		lualine_b = {
+			{
+				"filename",
+				path = 1,
+				color = { fg = colors.green, gui = "bold" },
+				fmt = function(filename)
+					return filename:gsub("/", " > ")
+				end,
+			},
+		},
 	},
 }
 

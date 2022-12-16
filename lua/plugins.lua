@@ -320,12 +320,12 @@ return require("packer").startup(function()
 	use({ "jbyuki/venn.nvim" })
 
 	-- A high-performance color highlighter for Neovim which has no external dependencies! Written in performant Luajit.
-	use({
+	--[[ use({
 		"Akianonymus/nvim-colorizer.lua",
 		config = function()
 			require("colorizer").setup()
 		end,
-	})
+	}) ]]
 
 	--  Automatically set up your configuration after cloning packer.nvim
 	if PACKER_BOOTSTRAP then
