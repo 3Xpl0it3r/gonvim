@@ -113,9 +113,20 @@ function M.setup()
 			i = { "<cmd>lua require('telescope.builtin').lsp_implementations()<cr>", "Interface" },
 			r = { "<cmd>lua require('telescope.builtin').lsp_references()<cr>", "Reference" },
 			s = { "<cmd>lua require('telescope.builtin').lsp_document_symbols()<cr>", "Symbol(doc)" },
+			--[[ s = {
+				function()
+					local aerial_avail, _ = pcall(require, "aerial")
+					if aerial_avail then
+						require("telescope").extensions.aerial.aerial()
+					else
+						require("telescope.builtin").lsp_document_symbols()
+					end
+				end,
+				"Symbol(doc)",
+			}, ]]
 			S = { "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<cr>", "Symbol(workspace)" },
 			o = { "<cmd>SymbolsOutline<cr>", "outline(Symbols-outline)" },
-			-- O = { "<cmd>AerialToggle<cr>", "Outline(aerial)" },
+			O = { "<cmd>lua require('aerial').toggle()<cr>", "outline(aerial)" },
 		},
 		-- Plugin Manager
 		p = {
@@ -135,7 +146,8 @@ function M.setup()
 			g = { "<cmd>lua require('telescope.builtin').live_grep()<cr>", "FindText" },
 			p = { "<cmd>lua require('telescope.builtin').live_grep()<cr>", "Project" },
 			t = { "<cmd>lua require('telescope.builtin').treesitter()<cr>", "Treesitter" },
-			u = { "<cmd>lua require('SymbolOutline<cr>", "Outline" },
+			u = { "<cmd>SymbolsOutline<cr>", "outline(Symbols-outline)" },
+			U = { "<cmd>lua require('aerial').toggle()<cr>", "outline(aerial)" },
 		},
 
 		-- unit test

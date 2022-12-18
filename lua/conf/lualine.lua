@@ -115,7 +115,7 @@ local config = {
 			{
 				"filename",
 				path = 1,
-				color = { fg = colors.green, gui = "bold" },
+				color = { fg = "#FF9E3B", gui = "bold" },
 				fmt = function(filename)
 					return filename:gsub("/", " > ")
 				end,
@@ -203,7 +203,7 @@ ins_left({
 		}
 		return string.format("< %s >", mode_mapper[vim.fn.mode()])
 	end,
-	color = { fg = colors.blue }, -- Sets highlighting of component
+	color = { fg = colors.blue, gui = "bold" }, -- Sets highlighting of component
 	padding = { left = 1, right = 1 }, -- We don't need space before this
 })
 

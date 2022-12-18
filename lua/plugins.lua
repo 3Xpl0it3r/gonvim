@@ -68,6 +68,7 @@ return require("packer").startup(function()
 			require("nvim-web-devicons").setup({ default = true })
 		end,
 	})
+
 	use({ --- alpha is a fast and fully customizable greeter for neovim.
 		"goolord/alpha-nvim",
 		requires = { "nvim-tree/nvim-web-devicons" },
@@ -75,16 +76,25 @@ return require("packer").startup(function()
 			require("conf.dashboard")
 		end,
 	})
+
 	use({
 		"nvim-lualine/lualine.nvim",
 		config = function()
 			require("conf.lualine")
 		end,
 	})
+
 	use({
 		"simrat39/symbols-outline.nvim",
 		config = function()
 			require("conf.symbols-outline").setup()
+		end,
+	})
+
+	use({
+		"stevearc/aerial.nvim",
+		config = function()
+			require("conf.aerial").setup()
 		end,
 	})
 
@@ -174,13 +184,6 @@ return require("packer").startup(function()
 			require("conf.autopairs").setup()
 		end,
 	})
-
-	--[[ use({
-        "stevearc/aerial.nvim",
-        config = function()
-            require("conf.aerial").setup()
-        end,
-    }) ]]
 
 	use({
 		"phaazon/hop.nvim",

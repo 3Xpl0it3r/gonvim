@@ -29,7 +29,7 @@ local function config_aerial(config)
 			-- options will open the window in the other direction *if* there is a
 			-- different buffer in the way of the preferred direction
 			-- Enum: prefer_right, prefer_left, right, left, float
-			default_direction = "prefer_right",
+			default_direction = "right",
 
 			-- Determines where the aerial window will be opened
 			--   edge   - open aerial at the far right/left of the editor
@@ -100,13 +100,8 @@ local function config_aerial(config)
 		-- Set to false to disable
 		highlight_on_jump = 300,
 
-		-- Define symbol icons. You can also specify "<Symbol>Collapsed" to change the
-		-- icon when the tree is collapsed at that symbol, or "Collapsed" to specify a
-		-- default collapsed icon. The default icon set is determined by the
-		-- "nerd_font" option below.
-		-- If you have lspkind-nvim installed, it will be the default icon set.
 		-- This can be a filetype map (see :help aerial-filetype-map)
-		icons = {},
+		icons = require("utils.icons")["lspKind"],
 
 		-- Control which windows and buffers aerial should ignore.
 		-- If attach_mode is "global", focusing an ignored window/buffer will
@@ -149,11 +144,11 @@ local function config_aerial(config)
 		-- Use symbol tree for folding. Set to true or false to enable/disable
 		-- Set to "auto" to manage folds if your previous foldmethod was 'manual'
 		-- This can be a filetype map (see :help aerial-filetype-map)
-		manage_folds = false,
+		manage_folds = true,
 
 		-- When you fold code with za, zo, or zc, update the aerial tree as well.
 		-- Only works when manage_folds = true
-		link_folds_to_tree = false,
+		link_folds_to_tree = true,
 
 		-- Fold code when you open/collapse symbols in the tree.
 		-- Only works when manage_folds = true
@@ -177,13 +172,13 @@ local function config_aerial(config)
 		post_jump_cmd = "normal! zz",
 
 		-- When true, aerial will automatically close after jumping to a symbol
-		close_on_select = false,
+		close_on_select = true,
 
 		-- The autocmds that trigger symbols update (not used for LSP backend)
 		update_events = "TextChanged,InsertLeave",
 
 		-- Show box drawing characters for the tree hierarchy
-		show_guides = false,
+		show_guides = true,
 
 		-- Customize the characters used when show_guides = true
 		guides = {

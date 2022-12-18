@@ -18,6 +18,7 @@ local function config_nvim_treesitter(config)
             "bash",
             "json",
             "proto",
+            "vim",
         },
         -- Install parsers synchronously (only applied to `ensure_installed`)
         sync_install = false,
