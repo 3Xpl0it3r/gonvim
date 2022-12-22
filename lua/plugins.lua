@@ -85,13 +85,6 @@ return require("packer").startup(function()
 	})
 
 	use({
-		"simrat39/symbols-outline.nvim",
-		config = function()
-			require("conf.symbols-outline").setup()
-		end,
-	})
-
-	use({
 		"stevearc/aerial.nvim",
 		config = function()
 			require("conf.aerial").setup()
@@ -318,17 +311,6 @@ return require("packer").startup(function()
 			require("conf.dressigns").setup()
 		end,
 	})
-
-	-- draw acssi
-	use({ "jbyuki/venn.nvim" })
-
-	-- A high-performance color highlighter for Neovim which has no external dependencies! Written in performant Luajit.
-	--[[ use({
-		"Akianonymus/nvim-colorizer.lua",
-		config = function()
-			require("colorizer").setup()
-		end,
-	}) ]]
 
 	--  Automatically set up your configuration after cloning packer.nvim
 	if PACKER_BOOTSTRAP then

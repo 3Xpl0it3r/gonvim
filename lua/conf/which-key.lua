@@ -104,7 +104,6 @@ function M.setup()
 		},
 		l = {
 			name = "+Lsp",
-			-- c = { "<cmd>lua CusLspActionRename.rename()<CR>", "Change(Rename)" },
 			c = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Change(Rename)" },
 			d = { "<cmd>lua require('telescope.builtin').lsp_definitions()<cr>", "Define" },
 			D = { "<cmd>lua require('telescope.builtin').lsp_type_definitions()<cr>", "TypeDefine" },
@@ -112,8 +111,7 @@ function M.setup()
 			f = { "<cmd>lua vim.lsp.buf.formatting({async=true})<cr>", "LspFormat" },
 			i = { "<cmd>lua require('telescope.builtin').lsp_implementations()<cr>", "Interface" },
 			r = { "<cmd>lua require('telescope.builtin').lsp_references()<cr>", "Reference" },
-			s = { "<cmd>lua require('telescope.builtin').lsp_document_symbols()<cr>", "Symbol(doc)" },
-			--[[ s = {
+			s = {
 				function()
 					local aerial_avail, _ = pcall(require, "aerial")
 					if aerial_avail then
@@ -123,10 +121,9 @@ function M.setup()
 					end
 				end,
 				"Symbol(doc)",
-			}, ]]
+			},
 			S = { "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<cr>", "Symbol(workspace)" },
-			o = { "<cmd>SymbolsOutline<cr>", "outline(Symbols-outline)" },
-			O = { "<cmd>lua require('aerial').toggle()<cr>", "outline(aerial)" },
+			u = { "<cmd>lua require('aerial').toggle()<cr>", "outline(aerial)" },
 		},
 		-- Plugin Manager
 		p = {
@@ -146,8 +143,7 @@ function M.setup()
 			g = { "<cmd>lua require('telescope.builtin').live_grep()<cr>", "FindText" },
 			p = { "<cmd>lua require('telescope.builtin').live_grep()<cr>", "Project" },
 			t = { "<cmd>lua require('telescope.builtin').treesitter()<cr>", "Treesitter" },
-			u = { "<cmd>SymbolsOutline<cr>", "outline(Symbols-outline)" },
-			U = { "<cmd>lua require('aerial').toggle()<cr>", "outline(aerial)" },
+			u = { "<cmd>lua require('aerial').toggle()<cr>", "outline(aerial)" },
 		},
 
 		-- unit test
