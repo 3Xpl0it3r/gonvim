@@ -107,7 +107,7 @@ return require("packer").startup(function()
 	})
 	use({
 		"akinsho/bufferline.nvim",
-		tag = "v2.*",
+		tag = "*",
 		config = function()
 			require("conf.bufferline").setup()
 		end,
@@ -119,7 +119,7 @@ return require("packer").startup(function()
 	------------------------------------------------
 	use({
 		"akinsho/toggleterm.nvim",
-		tag = "v2.*",
+		tag = "*",
 		config = function()
 			require("conf.toggleterm").setup()
 		end,
