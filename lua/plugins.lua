@@ -206,8 +206,6 @@ return require("packer").startup(function()
 				end,
 			},
 			{ "saadparwaiz1/cmp_luasnip" }, -- completete for snippets
-			-- { "honza/vim-snippets" },
-			-- { "rafamadriz/friendly-snippets" },
 		},
 	})
 	use({
@@ -215,7 +213,6 @@ return require("packer").startup(function()
 		requires = {
 			"nvim-lua/plenary.nvim",
 			"nvim-treesitter/nvim-treesitter",
-			"RRethy/vim-illuminate",
 		},
 		config = function()
 			require("conf.lspconfig").setup()

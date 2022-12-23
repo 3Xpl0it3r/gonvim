@@ -20,6 +20,7 @@ local function config_lspconfig(handler)
 		},
 		python = {
 			server = "jedi_language_server",
+			-- server = "pyright",
 			configs = require("lsp/ls/python"),
 		},
 		golang = {
