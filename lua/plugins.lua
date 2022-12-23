@@ -47,10 +47,6 @@ return require("packer").startup(function()
 	----      ColorsTheme , UI               -------
 	------------------------------------------------
 	use({ -- colorstheme
-		--[[ "rebelot/kanagawa.nvim",
-		"rmehri01/onenord.nvim",
-		"olimorris/onedarkpro.nvim",
-		"EdenEast/nightfox.nvim", ]]
 		"folke/tokyonight.nvim",
 		config = function()
 			require("conf.themes")
@@ -105,14 +101,14 @@ return require("packer").startup(function()
 			require("conf.nvim-treesitter").setup()
 		end,
 	})
-	use({
+	--[[ use({
 		"akinsho/bufferline.nvim",
 		tag = "*",
 		config = function()
 			require("conf.bufferline").setup()
 		end,
 		requires = "nvim-tree/nvim-web-devicons",
-	})
+	}) ]]
 
 	------------------------------------------------
 	----      Windows Manager
