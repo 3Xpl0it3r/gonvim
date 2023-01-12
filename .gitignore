@@ -39,5 +39,10 @@ luac.out
 *.x86_64
 *.hex
 
+# python plugin 
+*.pyc
+
 plugin/
 lua/snippets/go.lua
+
+

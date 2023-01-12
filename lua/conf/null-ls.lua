@@ -35,7 +35,7 @@ end
 
 function M.setup()
 	local null_ls = require("null-ls")
-	for _, code_actions in pairs(require("lsp.null-ls.code-actions")) do
+	for _, code_actions in pairs(require("lsp.null-ls.code-actions").sources()) do
 		null_ls.register(code_actions)
 	end
 
