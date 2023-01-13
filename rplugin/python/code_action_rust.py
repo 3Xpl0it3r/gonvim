@@ -2,15 +2,14 @@ import os
 
 import pynvim
 from pynvim.api.nvim import Nvim
-from socket import timeout
 from urllib.request import urlopen
 from urllib.error import HTTPError, URLError
 import json
-from time import sleep
+import subprocess
 
 
 @pynvim.plugin
-class CodeActionRust(object):
+class CodeActionsRust(object):
     def __init__(self, nvim: Nvim):
         self.nvim = nvim
         self.crate_search_api = "https://crates.io/api/v1/crates?page=1&per_page=20&q={}"
@@ -32,8 +31,6 @@ class CodeActionRust(object):
             json_data = json.loads(response)
         except HTTPError as error:
             return None
-        return [_["num"] for _ in json_data["versions"]]
+        return [{"version": _["num"], "features": " ".join(_["features"])} for _ in json_data["versions"]]
 
-if __name__ == '__main__':
-    rust = CodeActionRust()
-    print(rust.api_cargo_query("tokio"))
+
