@@ -52,9 +52,13 @@ class CodeActionsRust(object):
         subprocess.getstatusoutput("rm -rf {}".format(self.cache_dir))
 
     def cache_crate_db(self, crate_name):
-        cache_file = os.path.join(self.cache_dir, crate_name)
+        cache_file = os.path.join(self.cache_dir, "{}.json".format(crate_name))
         with open(cache_file, "r") as fp:
             json_data = json.load(fp)
-        return [{"version": _["num"], "features": " ".join(_["features"])} for _ in json_data["versions"]]
+        ret = {}
+        for item in json_data["versions"]:
+            ret.update({item["num"]:  " --features ".join(item["features"])})
+        return ret
+        # return [{"version": _["num"], "features": " ".join(_["features"])} for _ in json_data["versions"]]
 
 
