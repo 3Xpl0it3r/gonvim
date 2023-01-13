@@ -6,6 +6,7 @@ from urllib.request import urlopen
 from urllib.error import HTTPError, URLError
 import json
 from pathlib import Path
+import subprocess
 
 
 
@@ -45,6 +46,10 @@ class CodeActionsRust(object):
         with open(cache_file, "w+") as cache_fp:
             json.dump(json_data, cache_fp)
         return [{"version": _["num"], "features": " ".join(_["features"])} for _ in json_data["versions"]]
+
+    @pynvim.command(name="CacheCrateClean")
+    def cache_crate_clean(self):
+        subprocess.getstatusoutput("rm -rf {}".format(self.cache_dir))
 
     def cache_crate_db(self, crate_name):
         cache_file = os.path.join(self.cache_dir, crate_name)

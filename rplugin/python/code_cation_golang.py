@@ -1,7 +1,6 @@
 import pynvim
 from pynvim.api.nvim import Nvim
 from urllib.request import urlopen
-from urllib.error import HTTPError, URLError
 import json
 import subprocess
 import os
@@ -45,11 +44,11 @@ class CodeActionGolangK8s(object):
         [modules.add(_.strip("./staging/src/")) for _ in response.split() if "./staging/src/" in _]
         return modules
 
-    @pynvim.command("CacheClearGo")
+    @pynvim.command("CacheK8sClean")
     def clear_cache(self):
         subprocess.getstatusoutput("rm -rf {}".format(self.cache_dir))
 
-    @pynvim.command("CacheGolang")
+    @pynvim.command("CacheK8sInit")
     def cache_all_information(self, k8s_version):
         if len(k8s_version) != 1:
             return None
