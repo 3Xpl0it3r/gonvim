@@ -9,21 +9,17 @@ from pathlib import Path
 import subprocess
 
 
-
 @pynvim.plugin
 class CodeActionsRust(object):
     def __init__(self, nvim: Nvim):
         self.nvim = nvim
-        self.crate_search_api = "https://crates.io/api/v1/crates?page=1&per_page=20&q={}"
+        self.crate_search_api = "https://crates.io/api/v1/crates?page=1&per_page=40&q={}"
         self.crate_query_api = "https://crates.io/api/v1/crates/{}"
         self.cache_dir = os.path.join(Path.home(), ".config/nvim/rplugin/python/cache/crate")
 
     @pynvim.function(name="CrateSearch", sync=True)
     def api_crate_search(self, args):
         crate_name = args[0]
-        cache_file = os.path.join(self.cache_dir,"{}.json".format(crate_name))
-        if os.path.exists(cache_file):
-            return [crate_name]
         try:
             response = urlopen(self.crate_search_api.format(crate_name), timeout=20).read().decode("utf-8")
             json_data = json.loads(response)
@@ -57,8 +53,7 @@ class CodeActionsRust(object):
             json_data = json.load(fp)
         ret = {}
         for item in json_data["versions"]:
-            ret.update({item["num"]:  " --features ".join(item["features"])})
+            ret.update({item["num"]: "--features " + " --features ".join(item["features"]) if len(
+                item["features"]) != 0 else ""})
         return ret
         # return [{"version": _["num"], "features": " ".join(_["features"])} for _ in json_data["versions"]]
-
-
