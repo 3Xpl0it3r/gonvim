@@ -1,4 +1,4 @@
-local null_ls_utils = require("lsp.null-ls.utils")
+local null_ls_utils = require("conf.lsp.null-ls.utils")
 local format_notify = require("utils.notify")
 
 local M = {}

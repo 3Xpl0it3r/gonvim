@@ -13,6 +13,7 @@ local function config_nvim_tree(config)
 	vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "DiagnosticSignHint" }) ]]
 
 	config.setup({
+
 		close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab
 		popup_border_style = "rounded",
 		enable_git_status = false,
@@ -26,10 +27,13 @@ local function config_nvim_tree(config)
 		--           return a.type > b.type
 		--       end
 		--   end , -- this sorts files and directories descendantly
+
 		default_component_configs = {
+
 			container = {
 				enable_character_fade = true,
 			},
+
 			indent = {
 				indent_size = 2,
 				padding = 1, -- extra padding on left hand side
@@ -44,6 +48,7 @@ local function config_nvim_tree(config)
 				expander_expanded = "",
 				expander_highlight = "NeoTreeExpander",
 			},
+
 			icon = {
 				folder_closed = "",
 				folder_open = "",
@@ -53,15 +58,18 @@ local function config_nvim_tree(config)
 				default = "*",
 				highlight = "NeoTreeFileIcon",
 			},
+
 			modified = {
 				symbol = "[+]",
 				highlight = "NeoTreeModified",
 			},
+
 			name = {
 				trailing_slash = false,
 				use_git_status_colors = true,
 				highlight = "NeoTreeFileName",
 			},
+
 			git_status = {
 				symbols = {
 					-- Change type
@@ -78,6 +86,7 @@ local function config_nvim_tree(config)
 				},
 			},
 		},
+
 		window = {
 			position = "left",
 			width = 30,
@@ -134,6 +143,7 @@ local function config_nvim_tree(config)
 				[">"] = "next_source",
 			},
 		},
+
 		nesting_rules = {},
 		filesystem = {
 			filtered_items = {
@@ -147,6 +157,7 @@ local function config_nvim_tree(config)
 				hide_by_pattern = { -- uses glob style patterns
 					"vendor/*", -- ignore for go vendor
                     "target/*", -- ignore for rust targets
+                    "~/.config/nvim/rplugin/python/cache",
 					--"*.meta",
 					--"*/src/*/tsconfig.json",
 				},

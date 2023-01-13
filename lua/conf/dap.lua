@@ -52,8 +52,8 @@ local function config_dap(dap, dap_ui)
 
 
     -- config go debuger
-    require("dapconf/dap-go").config(dap)
-    require("dapconf/dap-rust").config(dap)
+    require("conf.dap.go").config(dap)
+    require("conf.dap.rust").config(dap)
 end
 
 function M.setup()

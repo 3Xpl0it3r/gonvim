@@ -16,32 +16,32 @@ local function config_lspconfig(handler)
 	local server_configs = {
 		cpp = {
 			server = "clangd",
-			configs = require("lsp/ls/c_cpp"),
+			configs = require("conf/lsp/ls/c_cpp"),
 		},
 		python = {
 			server = "jedi_language_server",
 			-- server = "pyright",
-			configs = require("lsp/ls/python"),
+			configs = require("conf/lsp/ls/python"),
 		},
 		golang = {
 			server = "gopls",
-			configs = require("lsp/ls/golang"),
+			configs = require("conf/lsp/ls/golang"),
 		},
 		rust = {
 			server = "rust_analyzer",
-			configs = require("lsp/ls/rust"),
+			configs = require("conf/lsp/ls/rust"),
 		},
 		lua = {
 			server = "sumneko_lua",
-			configs = require("lsp/ls/lua"),
+			configs = require("conf/lsp/ls/lua"),
 		},
 		csharp = {
 			server = "omnisharp",
-			configs = require("lsp/ls/csharp"),
+			configs = require("conf/lsp/ls/csharp"),
 		},
 		java = {
 			server = "jdtls",
-			configs = require("lsp/ls/java"),
+			configs = require("conf/lsp/ls/java"),
 		},
 	}
 
@@ -53,7 +53,7 @@ local function config_lspconfig(handler)
 end
 
 function M.setup()
-	local handler = require("lsp/handler")
+	local handler = require("conf/lsp/handler")
 	handler.setup()
 	config_lspconfig(handler)
 end

@@ -38,9 +38,9 @@ local function config_luasnip(ls)
         end,
     })
 
-    ls.add_snippets("all", require("snippets/all"))
-    ls.add_snippets("go", require("snippets/go"))
-    ls.add_snippets("rust", require("snippets/rust"))
+    ls.add_snippets("all", require("conf/snippets/all"))
+    ls.add_snippets("go", require("conf/snippets/go"))
+    ls.add_snippets("rust", require("conf/snippets/rust"))
 
 
 
