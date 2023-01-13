@@ -43,7 +43,7 @@ local action_crate_query = function()
 			return
 		end
 
-		vim.ui.select(result, { prompt = "Select Crate" }, function(crate_version)
+		vim.ui.select(result, { prompt = "Search Result" }, function(crate_version)
 			if not crate_version then
 				return
 			end
