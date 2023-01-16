@@ -58,7 +58,7 @@ end
 function M.sources()
 	return {
 		method = require("null-ls").methods.CODE_ACTION,
-		filetypes = { "rust", "go" },
+		filetypes = { "rust" },
 		generator = {
 			fn = function(_)
 				return {
