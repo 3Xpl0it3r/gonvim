@@ -47,6 +47,9 @@ local function config_lspconfig(handler)
 
 	for _, sig_item in pairs(server_configs) do
 		local opts_clone = opts
+		if sig_item.server == "clangd" then
+			opts_clone.capabilities.offsetEncoding = { "utf-16" }
+		end
 		opts_clone = vim.tbl_deep_extend("force", sig_item["configs"][sig_item["server"]], opts)
 		lspconfig[sig_item["server"]].setup(opts_clone)
 	end

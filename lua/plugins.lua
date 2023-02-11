@@ -52,6 +52,9 @@ return require("packer").startup(function()
 			require("conf.themes")
 		end,
 	})
+	use({ "catppuccin/nvim", as = "catppuccin" })
+	use({ "rebelot/kanagawa.nvim"})
+
 	use({
 		"rcarriga/nvim-notify",
 		config = function()

@@ -1,3 +1,6 @@
+-- vim.cmd("colorscheme kanagawa")
+vim.cmd("colorscheme tokyonight")
+
 vim.cmd([[
     set list                 " hide non-printing characters
     set listchars=             " clear defaults
@@ -8,6 +11,7 @@ vim.cmd([[
     " set listchars+=eol:⏎        " show newline symbol at the end of a line
     set showbreak=↪
 ]])
+
 
 ------------------------------------------------
 ----      AutoCommands
@@ -20,16 +24,14 @@ vim.cmd([[
   augroup end
 ]])
 
--- vim.cmd("colorscheme kanagawa")
-vim.cmd("colorscheme tokyonight")
 vim.cmd([[
     let &t_SI.= "<Esc>[6 q"
     let &t_SR.= "<Esc>[4 q"
     let &t_EI.= "<Esc>[3 q"
 ]])
 
-
 vim.cmd([[ 
     runtime! plugin/rplugin.vim
     silent! UpdateRemotePlugins
 ]])
+

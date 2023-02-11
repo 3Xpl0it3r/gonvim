@@ -12,7 +12,7 @@ local function config_hop(config)
         case_insensitive = false,
         create_hl_autocmd = true,
         current_line_only = false,
-        multi_windows = false,
+        multi_windows = true,
     })
 end
 

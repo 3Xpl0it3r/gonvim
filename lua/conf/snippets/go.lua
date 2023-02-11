@@ -2,6 +2,7 @@ local M = {}
 
 local gosnippets = {
 	common = require("conf/snippets/go/common"),
+    wrap = require("conf/snippets/go/wrap"),
 	alg_array = require("conf/snippets/go/algorithm/sort"),
 }
 

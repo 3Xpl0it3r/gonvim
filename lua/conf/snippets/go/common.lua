@@ -17,6 +17,8 @@ local function string_split(s, delimter)
 	return result
 end
 
+local lsp_format = vim.lsp.buf.format
+
 local M = {
 	------------------------------------------------
 	----     Package  Statement
@@ -33,7 +35,11 @@ local M = {
 		callbacks = {
 			[0] = {
 				[events.enter] = function(node, _event_args)
-					vim.lsp.buf.formatting()
+					lsp_format({
+						filter = function(client)
+							return client.name == "null-ls"
+						end,
+					})
 				end,
 			},
 		},
@@ -49,7 +55,12 @@ local M = {
 		callbacks = {
 			[0] = {
 				[events.enter] = function(node, _event_args)
-					vim.lsp.buf.formatting()
+					-- vim.lsp.buf.formatting()
+					lsp_format({
+						filter = function(client)
+							return client.name == "null-ls"
+						end,
+					})
 				end,
 			},
 		},
@@ -96,7 +107,12 @@ local M = {
 		callbacks = {
 			[0] = {
 				[events.enter] = function(node, _event_args)
-					vim.lsp.buf.formatting()
+					-- vim.lsp.buf.formatting()
+					lsp_format({
+						filter = function(client)
+							return client.name == "null-ls"
+						end,
+					})
 				end,
 			},
 		},
@@ -124,7 +140,12 @@ local M = {
 		callbacks = {
 			[0] = {
 				[events.enter] = function(node, _event_args)
-					vim.lsp.buf.formatting()
+					-- vim.lsp.buf.formatting()
+					lsp_format({
+						filter = function(client)
+							return client.name == "null-ls"
+						end,
+					})
 				end,
 			},
 		},
@@ -150,7 +171,11 @@ local M = {
 		callbacks = {
 			[0] = {
 				[events.enter] = function(node, _event_args)
-					vim.lsp.buf.formatting()
+					lsp_format({
+						filter = function(client)
+							return client.name == "null-ls"
+						end,
+					})
 				end,
 			},
 		},
@@ -166,8 +191,8 @@ local M = {
 		dscr = "生成一个结构体方法(方法接收类型为指针)",
 	}, {
 		func(function(args, snip, _)
-			return "// " .. args[1][1] .. " represent " .. string.lower(args[1][1])
-		end, { 1 }, nil),
+			return "// " .. args[1][1] .. " [#TODO](should add some comments)"
+		end, { 2 }, nil),
 		text({ "", "" }),
 		text({ "func (" }),
 		func(function(args, snip, user_arg_1)
@@ -190,7 +215,11 @@ local M = {
 		callbacks = {
 			[0] = {
 				[events.enter] = function(node, _event_args)
-					vim.lsp.buf.formatting()
+					lsp_format({
+						filter = function(client)
+							return client.name == "null-ls"
+						end,
+					})
 				end,
 			},
 		},
@@ -202,8 +231,8 @@ local M = {
 		dscr = "生成一个结构体方法(方法接收类型为值类型)",
 	}, {
 		func(function(args, snip, _)
-			return "// " .. args[1][1] .. " represent " .. string.lower(args[1][1])
-		end, { 1 }, nil),
+			return "// " .. args[1][1] .. " [#TODO](should add some comments)"
+		end, { 2 }, nil),
 		text({ "", "" }),
 		text({ "func (" }),
 		func(function(args, snip, user_arg_1)
@@ -226,7 +255,12 @@ local M = {
 		callbacks = {
 			[0] = {
 				[events.enter] = function(node, _event_args)
-					vim.lsp.buf.formatting()
+					-- vim.lsp.buf.formatting()
+					lsp_format({
+						filter = function(client)
+							return client.name == "null-ls"
+						end,
+					})
 				end,
 			},
 		},
@@ -247,7 +281,12 @@ local M = {
 		callbacks = {
 			[0] = {
 				[events.enter] = function(node, _event_args)
-					vim.lsp.buf.code_action()
+					-- vim.lsp.buf.code_action()
+					lsp_format({
+						filter = function(client)
+							return client.name == "null-ls"
+						end,
+					})
 				end,
 			},
 		},
@@ -275,7 +314,12 @@ local M = {
 		callbacks = {
 			[0] = {
 				[events.enter] = function(node, _event_args)
-					vim.lsp.buf.formatting()
+					-- vim.lsp.buf.formatting()
+					lsp_format({
+						filter = function(client)
+							return client.name == "null-ls"
+						end,
+					})
 				end,
 			},
 		},
@@ -299,7 +343,12 @@ local M = {
 		callbacks = {
 			[0] = {
 				[events.enter] = function(node, _event_args)
-					vim.lsp.buf.formatting()
+					-- vim.lsp.buf.formatting()
+					lsp_format({
+						filter = function(client)
+							return client.name == "null-ls"
+						end,
+					})
 				end,
 			},
 		},
@@ -323,7 +372,12 @@ local M = {
 		callbacks = {
 			[0] = {
 				[events.enter] = function(node, _event_args)
-					vim.lsp.buf.formatting()
+					-- vim.lsp.buf.formatting()
+					lsp_format({
+						filter = function(client)
+							return client.name == "null-ls"
+						end,
+					})
 				end,
 			},
 		},
@@ -352,7 +406,12 @@ local M = {
 		callbacks = {
 			[0] = {
 				[events.enter] = function(node, _event_args)
-					vim.lsp.buf.formatting()
+					-- vim.lsp.buf.formatting()
+					lsp_format({
+						filter = function(client)
+							return client.name == "null-ls"
+						end,
+					})
 				end,
 			},
 		},
@@ -378,7 +437,12 @@ local M = {
 		callbacks = {
 			[0] = {
 				[events.enter] = function(node, _event_args)
-					vim.lsp.buf.formatting()
+					-- vim.lsp.buf.formatting()
+					lsp_format({
+						filter = function(client)
+							return client.name == "null-ls"
+						end,
+					})
 				end,
 			},
 		},
@@ -404,7 +468,12 @@ local M = {
 		callbacks = {
 			[0] = {
 				[events.enter] = function(node, _event_args)
-					vim.lsp.buf.formatting()
+					-- vim.lsp.buf.formatting()
+					lsp_format({
+						filter = function(client)
+							return client.name == "null-ls"
+						end,
+					})
 				end,
 			},
 		},
@@ -428,7 +497,12 @@ local M = {
 		callbacks = {
 			[0] = {
 				[events.enter] = function(node, _event_args)
-					vim.lsp.buf.formatting()
+					-- vim.lsp.buf.formatting()
+					lsp_format({
+						filter = function(client)
+							return client.name == "null-ls"
+						end,
+					})
 				end,
 			},
 		},
@@ -451,7 +525,12 @@ local M = {
 		callbacks = {
 			[0] = {
 				[events.enter] = function(node, _event_args)
-					vim.lsp.buf.formatting()
+					-- vim.lsp.buf.formatting()
+					lsp_format({
+						filter = function(client)
+							return client.name == "null-ls"
+						end,
+					})
 				end,
 			},
 		},
@@ -479,7 +558,12 @@ local M = {
 		callbacks = {
 			[0] = {
 				[events.enter] = function(node, _event_args)
-					vim.lsp.buf.formatting()
+					-- vim.lsp.buf.formatting()
+					lsp_format({
+						filter = function(client)
+							return client.name == "null-ls"
+						end,
+					})
 				end,
 			},
 		},
@@ -514,7 +598,12 @@ local M = {
 		callbacks = {
 			[0] = {
 				[events.enter] = function(node, _event_args)
-					vim.lsp.buf.formatting()
+					-- vim.lsp.buf.formatting()
+					lsp_format({
+						filter = function(client)
+							return client.name == "null-ls"
+						end,
+					})
 				end,
 			},
 		},
@@ -537,7 +626,12 @@ local M = {
 		callbacks = {
 			[0] = {
 				[events.enter] = function(node, _event_args)
-					vim.lsp.buf.formatting()
+					-- vim.lsp.buf.formatting()
+					lsp_format({
+						filter = function(client)
+							return client.name == "null-ls"
+						end,
+					})
 				end,
 			},
 		},
@@ -558,7 +652,12 @@ local M = {
 		callbacks = {
 			[0] = {
 				[events.enter] = function(node, _event_args)
-					vim.lsp.buf.formatting()
+					-- vim.lsp.buf.formatting()
+					lsp_format({
+						filter = function(client)
+							return client.name == "null-ls"
+						end,
+					})
 				end,
 			},
 		},
@@ -584,7 +683,12 @@ local M = {
 		callbacks = {
 			[0] = {
 				[events.enter] = function(node, _event_args)
-					vim.lsp.buf.formatting()
+					-- vim.lsp.buf.formatting()
+					lsp_format({
+						filter = function(client)
+							return client.name == "null-ls"
+						end,
+					})
 				end,
 			},
 		},
@@ -603,7 +707,12 @@ local M = {
 		callbacks = {
 			[0] = {
 				[events.enter] = function(node, _event_args)
-					vim.lsp.buf.formatting()
+					-- vim.lsp.buf.formatting()
+					lsp_format({
+						filter = function(client)
+							return client.name == "null-ls"
+						end,
+					})
 				end,
 			},
 		},
@@ -625,7 +734,12 @@ local M = {
 		callbacks = {
 			[0] = {
 				[events.enter] = function(node, _event_args)
-					vim.lsp.buf.formatting()
+					-- vim.lsp.buf.formatting()
+					lsp_format({
+						filter = function(client)
+							return client.name == "null-ls"
+						end,
+					})
 				end,
 			},
 		},
@@ -651,7 +765,12 @@ local M = {
 		callbacks = {
 			[0] = {
 				[events.enter] = function(node, _event_args)
-					vim.lsp.buf.formatting()
+					-- vim.lsp.buf.formatting()
+					lsp_format({
+						filter = function(client)
+							return client.name == "null-ls"
+						end,
+					})
 				end,
 			},
 		},
@@ -677,7 +796,12 @@ local M = {
 		callbacks = {
 			[0] = {
 				[events.enter] = function(node, _event_args)
-					vim.lsp.buf.formatting()
+					-- vim.lsp.buf.formatting()
+					lsp_format({
+						filter = function(client)
+							return client.name == "null-ls"
+						end,
+					})
 				end,
 			},
 		},
@@ -706,7 +830,12 @@ local M = {
 		callbacks = {
 			[0] = {
 				[events.enter] = function(node, _event_args)
-					vim.lsp.buf.formatting()
+					-- vim.lsp.buf.formatting()
+					lsp_format({
+						filter = function(client)
+							return client.name == "null-ls"
+						end,
+					})
 				end,
 			},
 		},
@@ -736,7 +865,12 @@ local M = {
 		callbacks = {
 			[0] = {
 				[events.enter] = function(node, _event_args)
-					vim.lsp.buf.formatting()
+					-- vim.lsp.buf.formatting()
+					lsp_format({
+						filter = function(client)
+							return client.name == "null-ls"
+						end,
+					})
 				end,
 			},
 		},
@@ -756,7 +890,12 @@ local M = {
 		callbacks = {
 			[0] = {
 				[events.enter] = function(node, _event_args)
-					vim.lsp.buf.formatting()
+					-- vim.lsp.buf.formatting()
+					lsp_format({
+						filter = function(client)
+							return client.name == "null-ls"
+						end,
+					})
 				end,
 			},
 		},

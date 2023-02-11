@@ -1,8 +1,8 @@
 if vim.fn.exists("g:neovide") then
         vim.g.neovide_floating_blur_amount_x = 2.0
         vim.g.neovide_floating_blur_amount_y = 2.0
-        -- vim.g.transparency = 0.8
-        -- vim.g.neovide_transparency = 0.0
+        -- vim.g.transparency = 1.0
+        -- vim.g.neovide_transparency = 1.0
         -- Refresh Rate
         vim.g.neovide_refresh_rate = 90
         vim.g.neovide_refresh_rate_idle = 5
