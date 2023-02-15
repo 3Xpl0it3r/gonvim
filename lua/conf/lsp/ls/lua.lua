@@ -1,6 +1,6 @@
 util = require("lspconfig/util")
 
-local sumneko_lua = {
+local lua_ls = {
 	cmd = { "lua-language-server" },
 	filetypes = { "lua" },
 	root_dir = util.root_pattern(".git"),
@@ -28,5 +28,5 @@ local sumneko_lua = {
 }
 
 return {
-	sumneko_lua = sumneko_lua,
+	lua_ls = lua_ls,
 }

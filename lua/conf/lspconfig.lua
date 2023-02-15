@@ -32,7 +32,7 @@ local function config_lspconfig(handler)
 			configs = require("conf/lsp/ls/rust"),
 		},
 		lua = {
-			server = "sumneko_lua",
+			server = "lua_ls",
 			configs = require("conf/lsp/ls/lua"),
 		},
 		csharp = {

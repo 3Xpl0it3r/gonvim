@@ -1,3 +1,6 @@
+local custom_icons = require("utils.icons")
+local custom_colors = require("utils.colors").custom
+
 local status_ok, lualine = pcall(require, "lualine")
 if not status_ok then
 	require("utils.notify").notify("Plugin lualine is not existed", "error", "Plugin")
@@ -24,6 +27,33 @@ local getGitBranchName = function()
 	else
 		return icon .. " " .. branchName
 	end
+end
+
+local treesitter_context = function(width)
+	local type_patterns = {
+		"class",
+		"function",
+		"method",
+		"interface",
+		"type_spec",
+	}
+
+	if vim.o.ft == "json" then
+		type_patterns = { "object", "pair" }
+	end
+
+	local f = require("nvim-treesitter").statusline({
+		indicator_size = width,
+		type_patterns = type_patterns,
+	})
+	local context = string.format("%s", f) -- convert to string, it may be a empty ts node
+
+	-- lprint(context)
+	if context == "vim.NIL" then
+		return " "
+	end
+
+	return context
 end
 
 -- Color table for highlights
@@ -66,6 +96,10 @@ local conditions = {
 	end,
 }
 
+vim.cmd([[ 
+   hi CusWinbarSeperator guifg=custom_colors.red
+]])
+
 -- Config
 local config = {
 	options = {
@@ -86,7 +120,7 @@ local config = {
 	},
 	sections = {
 		-- these are to remove the defaults
-		lualine_a = { },
+		lualine_a = {},
 		lualine_b = {},
 		lualine_y = {},
 		lualine_z = {},
@@ -106,19 +140,52 @@ local config = {
 	winbar = {
 		lualine_a = {
 			{
-				"filetype",
-				colored = true,
-				icon_only = true,
-			},
-		},
-		lualine_b = {
-			{
 				"filename",
 				path = 1,
 				color = { fg = "#FF9E3B", gui = "bold" },
 				fmt = function(filename)
-					return filename:gsub("/", " > ")
+					local slice = {}
+					local length = 0
+					for str in string.gmatch(filename, "([^" .. "/" .. "]+)") do
+						length = length + 1
+						table.insert(slice, str)
+					end
+
+					return custom_icons.ui.Folder
+						.. table.concat(slice, custom_icons.misc.seperator)
+						.. custom_icons.misc.seperator
+						.. " "
 				end,
+				padding = { right = 0 },
+			},
+		},
+		lualine_b = {
+			{
+				"filetype",
+				icon_only = true,
+				padding = { left = 0, right = 0 },
+			},
+			{
+				"filename",
+				path = 0,
+			},
+		},
+		lualine_c = {
+			{
+				function()
+					local columns = vim.api.nvim_get_option("columns")
+					local context = treesitter_context(columns)
+					if not pcall(require, "lsp_signature") then
+						return context
+					end
+					local sig = require("lsp_signature").status_line(columns)
+
+					if sig == nil or sig.label == nil or sig.range == nil then
+						return context
+					end
+					return custom_icons.misc.seperator .. sig.label
+				end,
+				padding = { left = 0 },
 			},
 		},
 	},
