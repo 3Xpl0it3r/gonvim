@@ -83,7 +83,7 @@ return require("packer").startup(function()
 		end,
 	})
 
-	use("anuvyklack/hydra.nvim")
+	-- use("anuvyklack/hydra.nvim")
 
 	------------------------------------------------
 	----      Language Functional ,          -------
