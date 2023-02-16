@@ -1,5 +1,4 @@
 local custom_icons = require("utils.icons")
-local custom_colors = require("utils.colors").custom
 
 local status_ok, lualine = pcall(require, "lualine")
 if not status_ok then
@@ -97,7 +96,9 @@ local conditions = {
 }
 
 vim.cmd([[ 
-   hi CusWinbarSeperator guifg=custom_colors.red
+   hi CusWinbarSeperator guifg=#FF5D62
+   hi CusWInbarFolder guifg=#FF9E3B
+   hi CusWinBarMethod guifg=#7E9CD8
 ]])
 
 -- Config
@@ -151,10 +152,13 @@ local config = {
 						table.insert(slice, str)
 					end
 
-					return custom_icons.ui.Folder
-						.. table.concat(slice, custom_icons.misc.seperator)
-						.. custom_icons.misc.seperator
-						.. " "
+					local hi_folder = "%#CusWInbarFolder#"
+					local seperator = "%#CusWinbarSeperator#  "
+					return hi_folder
+						.. custom_icons.ui.Folder
+						.. hi_folder
+						.. table.concat(slice, seperator .. hi_folder)
+						.. seperator
 				end,
 				padding = { right = 0 },
 			},
@@ -168,24 +172,29 @@ local config = {
 			{
 				"filename",
 				path = 0,
+				file_status = false,
 			},
 		},
 		lualine_c = {
 			{
 				function()
+					local seperator = "%#CusWinbarSeperator# "
+					local hi_method = "%#CusWinBarMethod#"
 					local columns = vim.api.nvim_get_option("columns")
 					local context = treesitter_context(columns)
 					if not pcall(require, "lsp_signature") then
-						return context
+						return seperator .. hi_method .. context
 					end
 					local sig = require("lsp_signature").status_line(columns)
 
 					if sig == nil or sig.label == nil or sig.range == nil then
-						return context
+						return seperator .. hi_method .. context
 					end
-					return custom_icons.misc.seperator .. sig.label
+					local label1 = sig.label
+					return seperator .. hi_method .. label1
 				end,
-				padding = { left = 0 },
+				color = { fg = colors.blue }, -- Sets highlighting of component
+				padding = { left = 0, right = 1 }, -- We don't need space before this
 			},
 		},
 	},
@@ -287,7 +296,12 @@ ins_left({ "progress", color = { fg = colors.fg, gui = "bold" } })
 ins_left({
 	"diagnostics",
 	sources = { "nvim_diagnostic" },
-	symbols = { error = " ", warn = " ", info = " ", hint = " " },
+	symbols = {
+		error = custom_icons.diagnostics.Error .. "  ",
+		warn = custom_icons.diagnostics.Warning .. "  ",
+		info = custom_icons.diagnostics.Information .. "  ",
+		hint = custom_icons.diagnostics.Hint .. "  ",
+	},
 	diagnostics_color = {
 		color_error = { fg = colors.red },
 		color_warn = { fg = colors.yellow },
@@ -308,7 +322,9 @@ ins_left({
 ins_left({
 	-- mode component
 	function()
-		return vim.fn.has("win32") == 1 and "" or vim.fn.has("macunix") == 1 and "" or ""
+		return vim.fn.has("win32") == 1 and custom_icons.os.windows
+			or vim.fn.has("macunix") == 1 and custom_icons.os.macos
+			or custom_icons.os.linux
 	end,
 	color = function()
 		-- auto change color according to neovims mode
@@ -332,7 +348,11 @@ ins_right({
 ins_right({
 	"diff",
 	-- Is it me or the symbol for modified us really weird
-	symbols = { added = "  ", modified = " ", removed = " " },
+	symbols = {
+		added = " " .. custom_icons.git.Add .. "  ",
+		modified = " " .. custom_icons.git.Mod .. "  ",
+		removed = " " .. custom_icons.git.Remove .. "  ",
+	},
 	diff_color = {
 		added = { fg = colors.green },
 		modified = { fg = colors.orange },

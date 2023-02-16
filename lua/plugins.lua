@@ -53,7 +53,7 @@ return require("packer").startup(function()
 		end,
 	})
 	use({ "catppuccin/nvim", as = "catppuccin" })
-	use({ "rebelot/kanagawa.nvim"})
+	use({ "rebelot/kanagawa.nvim" })
 
 	use({
 		"rcarriga/nvim-notify",
@@ -82,6 +82,12 @@ return require("packer").startup(function()
 			require("conf.lualine")
 		end,
 	})
+
+	use("anuvyklack/hydra.nvim")
+
+	------------------------------------------------
+	----      Language Functional ,          -------
+	------------------------------------------------
 
 	use({
 		"stevearc/aerial.nvim",
