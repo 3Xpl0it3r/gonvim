@@ -125,6 +125,21 @@ local action_crate_query = function()
 										}
 									end,
 								}),
+								attach_mappings = function(prompt_bufnr, map)
+									actions.select_default:replace(function()
+										actions.close(prompt_bufnr)
+										local entry = action_state.get_selected_entry()
+										local features = ""
+										for feature, _ in pairs(entry.value.features) do
+											features = features .. " --features " .. feature
+										end
+										local cmd_add_crate =
+											string.format("cargo add %s@%s %s", entry.value.crate, entry.value.version, features)
+
+										null_ls_utils.shell_command_toggle_wrapper(cmd_add_crate)
+									end)
+									return true
+								end,
 								previewer = previewers.new_buffer_previewer({
 									title = "Details",
 									define_preview = function(self, entry, status)

@@ -68,8 +68,15 @@ end
 
 function M.shell_command_toggle_wrapper(cus_cmd)
 	local __Terminal = require("toggleterm.terminal").Terminal
+	--[[ local adjust_cmd = ""
+	local shell = os.getenv("SHELL")
+	if string.find(tostring(shell), "zsh") then
+		adjust_cmd = cus_cmd .. "&& read -s -k $'?Press any key to continue.\n'"
+	else
+		adjust_cmd = cus_cmd .. "&& read -rsn1 -p'Press any key to continue';echo"
+	end ]]
 	local cmd_termal = __Terminal:new({
-		cmd = cus_cmd .. '&& read -n 1 -s  "[Press Key to continue]" && exec true',
+		cmd = cus_cmd,
 		direction = "float",
 		float_opts = {
 			border = "single",
