@@ -57,6 +57,9 @@ $ git clone https://github.com/3Xpl0it3r/gonvim.git
 $ git clone --depth 1 https://github.com/wbthomason/packer.nvim\\n ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 # 同步插件(recompile plugins)
 $ nvim +PackerSync
+
+# 更新Remote插件(这个用于支持rust和k8s相关功能)
+$ nvim +UpdateRemotePlugins
 ```
 
 ## Go binaries install and update
