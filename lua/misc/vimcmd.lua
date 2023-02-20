@@ -1,5 +1,6 @@
-vim.cmd("colorscheme kanagawa")
--- vim.cmd("colorscheme tokyonight")
+-- vim.cmd("colorscheme kanagawa")
+vim.cmd("colorscheme tokyonight")
+-- vim.cmd("colorscheme catppuccin-mocha")
 
 vim.cmd([[
     set list                 " hide non-printing characters

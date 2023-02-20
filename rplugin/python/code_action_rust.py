@@ -25,23 +25,24 @@ class CodeActionsRust(object):
             json_data = json.loads(response)
         except Exception as error:
             return None
-        # cache to files to speed query
-        return [_["id"] for _ in json_data["crates"]]
+        return [{"id":_["id"], "home": _["homepage"], "description": _["description"], "max_stable_version": _["max_stable_version"], "git": _["repository"], "doc": _["documentation"]} for _ in json_data["crates"]]
 
     @pynvim.function(name="CrateQuery", sync=True)
     def api_crate_query(self, args):
         crate_name = args[0]
         cache_file = os.path.join(self.cache_dir, "{}.json".format(crate_name))
+        json_data = None
         if os.path.exists(cache_file):
-            return self.cache_crate_db(crate_name)
-        try:
-            response = urlopen(self.crate_query_api.format(crate_name), timeout=20).read().decode("utf-8")
-            json_data = json.loads(response)
-        except HTTPError as error:
-            return None
-        with open(cache_file, "w+") as cache_fp:
-            json.dump(json_data, cache_fp)
-        return [{"version": _["num"], "features": " ".join(_["features"])} for _ in json_data["versions"]]
+            json_data =  self.cache_crate_db(crate_name)
+        else:
+            try:
+                response = urlopen(self.crate_query_api.format(crate_name), timeout=20).read().decode("utf-8")
+                json_data = json.loads(response)
+            except HTTPError as error:
+                return None
+            with open(cache_file, "w+") as cache_fp:
+                json.dump(json_data, cache_fp)
+        return [{"version": _["num"], "license": _["license"],"crate":_["crate"],"crate_size": _["crate_size"],"dl_path": _["dl_path"], "create_at": _["created_at"],"updated_at": _["updated_at"],"features": _["features"]} for _ in json_data["versions"]]
 
     @pynvim.command(name="CacheCrateClean")
     def cache_crate_clean(self):
@@ -51,9 +52,4 @@ class CodeActionsRust(object):
         cache_file = os.path.join(self.cache_dir, "{}.json".format(crate_name))
         with open(cache_file, "r") as fp:
             json_data = json.load(fp)
-        ret = {}
-        for item in json_data["versions"]:
-            ret.update({item["num"]: "--features " + " --features ".join(item["features"]) if len(
-                item["features"]) != 0 else ""})
-        return ret
-        # return [{"version": _["num"], "features": " ".join(_["features"])} for _ in json_data["versions"]]
+        return json_data

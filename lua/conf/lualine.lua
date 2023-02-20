@@ -191,7 +191,13 @@ local config = {
 						return seperator .. hi_method .. context
 					end
 					local label1 = sig.label
-					return seperator .. hi_method .. label1
+					local label2 = ""
+					if sig.range then
+						label1 = sig.label:sub(1, sig.range["start"] - 1)
+						label2 = sig.label:sub(sig.range["end"] + 1, #sig.label)
+					end
+
+					return seperator .. hi_method .. label1 .. seperator .. hi_method .. label2
 				end,
 				color = { fg = colors.blue }, -- Sets highlighting of component
 				padding = { left = 0, right = 1 }, -- We don't need space before this
