@@ -25,9 +25,10 @@ gonvim用作goide,针对go做了大量的配置,您可以用来作为您的主�
 * 更流畅的go package补全/ 通过gopls来补全package会有一些问题[issue](https://github.com/golang/go/issues/55873)
 * 基于文件名称检索
 * 基于内容检索文件
-* K8s 相关库版本查询/添加支持(https://github.com/neovim/pynvim/pull/496)
-* Create 在线查询添加
-> 相关修复: 采用pynvim来扩展neovim功能,当安装了pynvim之后需要手动修改下(https://github.com/neovim/pynvim/pull/496)
+* Rust支持,支持在线检索安装Crate(类似Package管理)
+* Kubernetes支持,有些小伙伴可能对k8s相关的package版本比较懵,gonvim提供在线检索k8s所有package管理/安装
+
+>  (Optional)如果需要用到Kubernetes和Rust相关支持,需要安装`pynvim` ,操作方式如下:`python3 -m pip install pynvim`; 如果没有数据可以参考`https://github.com/neovim/pynvim/pull/496`来修改相关的文件(此为pynvim的一个bug,或者直接安装master 分支的pynvim)
 
 ## (Option1)Docker Version
 您可以用过docker方式下载提前编译好的gonvim来体验下(当然您需要提前安装好docker)
