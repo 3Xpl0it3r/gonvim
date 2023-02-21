@@ -60,7 +60,7 @@ local function config_whichkeys(which_key)
 end
 
 function M.setup()
-	config_whichkeys(require("which_key"))
+	config_whichkeys(require("which-key"))
 end
 
 return M
