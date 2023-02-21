@@ -9,7 +9,7 @@ local M = {}
 local function config_dap(dap, dap_ui)
 	-- ---------------------dap icons  configuration ----------------------------
 
-	--[[ vim.fn.sign_define("DapBreakpoint", { text = " ", texthl = "debugBreakpoint", linehl = "", numhl = "" })
+	vim.fn.sign_define("DapBreakpoint", { text = " ", texthl = "debugBreakpoint", linehl = "", numhl = "" })
 	vim.fn.sign_define("DapBreakpointCondition", { text = " ", texthl = "DiagnosticWarn", linehl = "", numhl = "" })
 	vim.fn.sign_define("DapBreakpointRejected", { text = " ", texthl = "DiagnosticError", linehl = "", numhl = "" })
 	vim.fn.sign_define("DapLogPoint", { text = " ", texthl = "debugBreakpoint", linehl = "", numhl = "" })
@@ -28,11 +28,18 @@ local function config_dap(dap, dap_ui)
 	vim.keymap.set("n", "<leader>dr", require("dap").repl.toggle, { desc = "DAP: Toggle REPL" })
 	vim.keymap.set("n", "<leader>d.", require("dap").goto_, { desc = "DAP: Go to" })
 	vim.keymap.set("n", "<leader>dh", require("dap").run_to_cursor, { desc = "DAP: Run to cursor" })
-	vim.keymap.set( "n", "<leader>de", require("dap").set_exception_breakpoints, { desc = "DAP: Set exception breakpoints" })
+	vim.keymap.set(
+		"n",
+		"<leader>de",
+		require("dap").set_exception_breakpoints,
+		{ desc = "DAP: Set exception breakpoints" }
+	)
 	-- vim.keymap.set("n", "<leader>dv", require("telescope").extensions.dap.variables, { desc = "DAP-Telescope: Variables" })
 	-- vim.keymap.set("n", "<leader>dc", require("telescope").extensions.dap.commands, { desc = "DAP-Telescope: Commands" })
 	vim.keymap.set("n", "<leader>dx", require("dapui").eval, { desc = "DAP-UI: Eval" })
-	vim.keymap.set("n", "<leader>dX", function() dap_ui.eval(vim.fn.input("expression: ")) end, { desc = "DAP-UI: Eval expression" }) ]]
+	vim.keymap.set("n", "<leader>dX", function()
+		dap_ui.eval(vim.fn.input("expression: "))
+	end, { desc = "DAP-UI: Eval expression" })
 
 	dap.listeners.after["event_initialized"]["dapui"] = function()
 		dap_ui.open()

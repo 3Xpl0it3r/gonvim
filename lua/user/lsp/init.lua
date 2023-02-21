@@ -1,5 +1,6 @@
 local M = {}
 
+-- 基本上主流的lsp都已经内置,如果你想要尝试其他的lsp 只需要下面修改成你想要尝试的lsp就可以
 local lsp_config = {
 	lua = "lua_ls",
 	cpp = "clangd",
