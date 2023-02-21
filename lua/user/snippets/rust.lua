@@ -1,9 +1,8 @@
+
 local M = {}
 
 local gosnippets = {
-	common = require("conf/snippets/go/common"),
-    wrap = require("conf/snippets/go/wrap"),
-	alg_array = require("conf/snippets/go/algorithm/sort"),
+	common = require("user/snippets/rust/common"),
 }
 
 for _, snips_block in pairs(gosnippets) do
@@ -13,3 +12,4 @@ for _, snips_block in pairs(gosnippets) do
 end
 
 return M
+

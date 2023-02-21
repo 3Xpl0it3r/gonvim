@@ -7,7 +7,7 @@ end
 
 local action_go_gentest = function()
 	vim.ui.select(
-		require("conf.lsp.null-ls.utils").get_current_functions(),
+		require("plugins.lsp.null-ls.utils").get_current_functions(),
 		{ prompt = "Select Function To Generate Test" },
 		function(choice)
 			if not choice then

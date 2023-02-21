@@ -49,7 +49,7 @@ return require("packer").startup(function()
 	use({ -- colorstheme
 		"folke/tokyonight.nvim",
 		config = function()
-			require("conf.themes")
+			require("plugins.themes")
 		end,
 	})
 	use({ "catppuccin/nvim", as = "catppuccin" })
@@ -58,7 +58,7 @@ return require("packer").startup(function()
 	use({
 		"rcarriga/nvim-notify",
 		config = function()
-			require("conf.notify").setup()
+			require("plugins.notify").setup()
 		end,
 	})
 	use({
@@ -72,14 +72,14 @@ return require("packer").startup(function()
 		"goolord/alpha-nvim",
 		requires = { "nvim-tree/nvim-web-devicons" },
 		config = function()
-			require("conf.dashboard")
+			require("plugins.dashboard")
 		end,
 	})
 
 	use({
 		"nvim-lualine/lualine.nvim",
 		config = function()
-			require("conf.lualine")
+			require("plugins.lualine")
 		end,
 	})
 
@@ -92,7 +92,7 @@ return require("packer").startup(function()
 	use({
 		"stevearc/aerial.nvim",
 		config = function()
-			require("conf.aerial").setup()
+			require("plugins.aerial").setup()
 		end,
 	})
 
@@ -100,21 +100,21 @@ return require("packer").startup(function()
 		"folke/trouble.nvim",
 		requires = "nvim-tree/nvim-web-devicons",
 		config = function()
-			require("conf.trouble").setup()
+			require("plugins.trouble").setup()
 		end,
 	})
 
 	use({
 		"nvim-treesitter/nvim-treesitter",
 		config = function()
-			require("conf.nvim-treesitter").setup()
+			require("plugins.nvim-treesitter").setup()
 		end,
 	})
 	--[[ use({
 		"akinsho/bufferline.nvim",
 		tag = "*",
 		config = function()
-			require("conf.bufferline").setup()
+			require("plugins.bufferline").setup()
 		end,
 		requires = "nvim-tree/nvim-web-devicons",
 	}) ]]
@@ -126,7 +126,7 @@ return require("packer").startup(function()
 		"akinsho/toggleterm.nvim",
 		tag = "*",
 		config = function()
-			require("conf.toggleterm").setup()
+			require("plugins.toggleterm").setup()
 		end,
 	})
 
@@ -137,7 +137,7 @@ return require("packer").startup(function()
 		"nvim-telescope/telescope.nvim",
 		requires = { "nvim-telescope/telescope-ui-select.nvim" },
 		config = function()
-			require("conf.telescope").setup()
+			require("plugins.telescope").setup()
 		end,
 	})
 	use({
@@ -161,7 +161,7 @@ return require("packer").startup(function()
 			"MunifTanjim/nui.nvim",
 		},
 		config = function()
-			require("conf.neo-tree").setup()
+			require("plugins.neo-tree").setup()
 		end,
 	})
 
@@ -172,21 +172,21 @@ return require("packer").startup(function()
 	use({
 		"b3nj5m1n/kommentary",
 		config = function()
-			require("conf.kommentary").setup()
+			require("plugins.kommentary").setup()
 		end,
 	})
 
 	use({
 		"windwp/nvim-autopairs",
 		config = function()
-			require("conf.autopairs").setup()
+			require("plugins.autopairs").setup()
 		end,
 	})
 
 	use({
 		"phaazon/hop.nvim",
 		config = function()
-			require("conf.hop").setup()
+			require("plugins.hop").setup()
 		end,
 	})
 
@@ -196,7 +196,7 @@ return require("packer").startup(function()
 	use({
 		"hrsh7th/nvim-cmp",
 		config = function()
-			require("conf.cmp").setup()
+			require("plugins.cmp").setup()
 		end,
 		requires = {
 			{ "hrsh7th/cmp-path" }, -- path completion plugin
@@ -206,7 +206,7 @@ return require("packer").startup(function()
 			{
 				"L3MON4D3/LuaSnip",
 				config = function()
-					require("conf.luasnip").setup()
+					require("plugins.luasnip").setup()
 				end,
 			},
 			{ "saadparwaiz1/cmp_luasnip" }, -- completete for snippets
@@ -219,20 +219,20 @@ return require("packer").startup(function()
 			"nvim-treesitter/nvim-treesitter",
 		},
 		config = function()
-			require("conf.lspconfig").setup()
+			require("plugins.lspconfig").setup()
 		end,
 	})
 	use({ -- rust lsp
 		"jose-elias-alvarez/null-ls.nvim",
 		requires = { "nvim-lua/plenary.nvim" },
 		config = function()
-			require("conf.null-ls").setup()
+			require("plugins.null-ls").setup()
 		end,
 	})
 	use({ -- lsp_signature
 		"ray-x/lsp_signature.nvim",
 		config = function()
-			require("conf.lsp_signature").setup()
+			require("plugins.lsp_signature").setup()
 		end,
 	})
 
@@ -243,13 +243,13 @@ return require("packer").startup(function()
 		"michaelb/sniprun",
 		run = "bash ./install.sh",
 		config = function()
-			require("conf.sniprun").setup()
+			require("plugins.sniprun").setup()
 		end,
 	})
 	use({
 		"mfussenegger/nvim-dap",
 		config = function()
-			require("conf.dap").setup()
+			require("plugins.dap").setup()
 		end,
 	})
 	use({
@@ -257,14 +257,14 @@ return require("packer").startup(function()
 		after = "nvim-dap",
 		module = "dapui",
 		config = function()
-			require("conf.dap-ui").setup()
+			require("plugins.dap-ui").setup()
 		end,
 	})
 	use({
 		"theHamsta/nvim-dap-virtual-text",
 		after = "nvim-dap",
 		config = function()
-			require("conf.dap-virtual-text")
+			require("plugins.dap-virtual-text")
 		end,
 	})
 
@@ -280,7 +280,7 @@ return require("packer").startup(function()
 			"rouge8/neotest-rust",
 		},
 		config = function()
-			require("conf.neotest").setup()
+			require("plugins.neotest").setup()
 		end,
 	})
 
@@ -290,7 +290,7 @@ return require("packer").startup(function()
 	use({
 		"lewis6991/gitsigns.nvim",
 		config = function()
-			require("conf.gitsigns").setup()
+			require("plugins.gitsigns").setup()
 		end,
 	})
 
@@ -302,14 +302,14 @@ return require("packer").startup(function()
 	use({ -- which key
 		"folke/which-key.nvim",
 		config = function()
-			require("conf.which-key").setup()
+			require("plugins.which-key").setup()
 		end,
 	})
 	-- With the release of Neovim 0.6 we were given the start of extensible core UI hooks
 	use({
 		"stevearc/dressing.nvim",
 		config = function()
-			require("conf.dressigns").setup()
+			require("plugins.dressigns").setup()
 		end,
 	})
 

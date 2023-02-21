@@ -45,7 +45,7 @@ local M = {
 		},
 	}),
 	snip({
-		trig = "fmain",
+		trig = "fnmain",
 		docstring = "func main(){\n}",
 		dscr = "生成main函数",
 	}, {
@@ -387,7 +387,7 @@ local M = {
 	-- #                    Function Snippet Code                                   #
 	-- ##############################################################################
 	snip({
-		trig = "funcerr",
+		trig = "fnerr",
 		docstring = 'func FuncName(Params...) error {\n\tpanic("unimplemented")\n\treturn nil\n}',
 		dscr = "func语句,生成一个函数,函数返回值为error类型",
 	}, {
@@ -418,7 +418,7 @@ local M = {
 	}),
 	-- function  with return
 	snip({
-		trig = "funcvar",
+		trig = "fnvar",
 		docstring = 'funcName := func (Params...)(Rets...){\n\tpanic("unimplemented")\n}',
 		dscr = "定义一个值的类型是函数的变量",
 	}, {
@@ -449,7 +449,7 @@ local M = {
 	}),
 	-- function  with return
 	snip({
-		trig = "funcret",
+		trig = "fnret",
 		docstring = 'func FuncName(Params...)(Rets...){\n\tpanic("unimplemented")\n}',
 		dscr = "func语句,函数有返回值",
 	}, {
@@ -480,7 +480,7 @@ local M = {
 	}),
 	-- function  with no return
 	snip({
-		trig = "funcnil",
+		trig = "fnnil",
 		docstring = 'func FuncName(Params ...){\n\tpanic("unimplemented")\n}',
 		dscr = "func语句, 函数返回值为空(没有返回值)",
 	}, {
@@ -510,7 +510,7 @@ local M = {
 
 	-- function  with no return
 	snip({
-		trig = "functest",
+		trig = "fntest",
 		docstring = 'func TestFuncName(t *testing.T){\n\tpanic("unimplemented")\n}',
 		dscr = "func语句,生成测试函数",
 	}, {
@@ -520,6 +520,31 @@ local M = {
 		text("\t"),
 		text({ 'panic("unimplemented")', "" }),
 		text("}"),
+		insert(0),
+	}, {
+		callbacks = {
+			[0] = {
+				[events.enter] = function(node, _event_args)
+					-- vim.lsp.buf.formatting()
+					lsp_format({
+						filter = function(client)
+							return client.name == "null-ls"
+						end,
+					})
+				end,
+			},
+		},
+	}),
+
+	snip({
+		trig = "fngo",
+		docstring = 'go func(){\n\tpanic("unimplemented")\n}',
+		dscr = "go func语句",
+	}, {
+		text({ "go func(){", "" }),
+		text("\t"),
+		text({ 'panic("unimplemented")', "" }),
+		text({ "}()", "" }),
 		insert(0),
 	}, {
 		callbacks = {
@@ -876,30 +901,6 @@ local M = {
 		},
 	}),
 	-- for test
-	snip({
-		trig = "gofunc",
-		docstring = 'go func(){\n\tpanic("unimplemented")\n}',
-		dscr = "go func语句",
-	}, {
-		text({ "go func(){", "" }),
-		text("\t"),
-		text({ 'panic("unimplemented")', "" }),
-		text({ "}()", "" }),
-		insert(0),
-	}, {
-		callbacks = {
-			[0] = {
-				[events.enter] = function(node, _event_args)
-					-- vim.lsp.buf.formatting()
-					lsp_format({
-						filter = function(client)
-							return client.name == "null-ls"
-						end,
-					})
-				end,
-			},
-		},
-	}),
 }
 
 return M

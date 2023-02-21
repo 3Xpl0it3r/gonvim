@@ -1,4 +1,4 @@
-local null_ls_utils = require("conf.lsp.null-ls.utils")
+local null_ls_utils = require("user.null-ls.utils")
 local format_notify = require("utils.notify")
 
 local pickers = require("telescope.pickers") -- used for build a telescope picker
@@ -67,6 +67,7 @@ local action_cargo_add = function()
 			local cmd_add_crate = string.format("cargo add %s@%s %s", crate_name, crate_version, result[crate_version])
 
 			null_ls_utils.shell_command_toggle_wrapper(cmd_add_crate)
+            vim.cmd("LspRestart")
 		end)
 	end)
 end
@@ -133,8 +134,12 @@ local action_crate_query = function()
 										for feature, _ in pairs(entry.value.features) do
 											features = features .. " --features " .. feature
 										end
-										local cmd_add_crate =
-											string.format("cargo add %s@%s %s", entry.value.crate, entry.value.version, features)
+										local cmd_add_crate = string.format(
+											"cargo add %s@%s %s",
+											entry.value.crate,
+											entry.value.version,
+											features
+										)
 
 										null_ls_utils.shell_command_toggle_wrapper(cmd_add_crate)
 									end)

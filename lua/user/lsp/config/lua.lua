@@ -1,5 +1,5 @@
-util = require("lspconfig/util")
 
+local util = require("lspconfig/util")
 local lua_ls = {
 	cmd = { "lua-language-server" },
 	filetypes = { "lua" },
