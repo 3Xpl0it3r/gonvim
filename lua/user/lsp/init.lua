@@ -12,7 +12,7 @@ local lsp_config = {
 }
 
 for _, lsp_name in pairs(lsp_config) do
-	M[lsp_name] = require("user.lsp.config.init")[lsp_name]
+	M[lsp_name] = require("user.lsp.providers.init")[lsp_name]
 end
 
 return M
