@@ -1,11 +1,26 @@
 local M = {}
 
---[[ M.go = require("user.snippets.go")
-M.rust = require("user.snippets.rust")
-M.all = require("user.snippets.all")
-M.cpp = require("user.snippets.cpp") ]]
+local _path = "/lua/user/snippets"
 
--- If you want to add your snippet code, you shoud add blow like
--- M.<language> = require("user.snippets.<language>")
+local _require_prefix = "user.snippets."
+
+local languages = {}
+
+for _, file in ipairs(vim.fn.readdir(vim.fn.stdpath("config") .. _path)) do
+	if vim.fn.isdirectory(vim.fn.stdpath("config") .. _path .. "/" .. file) ~= 0 then
+		table.insert(languages, file)
+	end
+end
+
+for _, language in ipairs(languages) do
+	M[language] = {}
+	for _, submodule in
+		ipairs(vim.fn.readdir(vim.fn.stdpath("config") .. _path .. "/" .. language, [[v:val =~ '\.lua$']]))
+	do
+		for _, snippets in ipairs(require(_require_prefix .. language .. "." .. submodule:gsub("%.lua$", ""))) do
+			table.insert(M[language], snippets)
+		end
+	end
+end
 
 return M

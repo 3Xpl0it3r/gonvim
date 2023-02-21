@@ -6,10 +6,10 @@ end
 
 local M = {}
 
-local function config_luasnip(ls)
+local function config_luasnip(luasnip)
 	local types = require("luasnip.util.types")
 
-	ls.config.set_config({
+	luasnip.config.set_config({
 		history = true,
 		update_events = "TextChanged,TextChangedI",
 		delete_check_events = "TextChanged",
@@ -38,8 +38,8 @@ local function config_luasnip(ls)
 		end,
 	})
 
-	for language, snip in pairs(require("user.snippets.init")) do
-		ls.add_snippets(language, snip)
+	for language, snippets in pairs(require("user.snippets.init")) do
+		luasnip.add_snippets(language, snippets)
 	end
 
 	vim.api.nvim_set_keymap("i", "<C-s>", '<cmd>lua require("luasnip.extras.select_choice")()<cr>', {})
