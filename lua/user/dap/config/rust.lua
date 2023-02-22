@@ -1,12 +1,7 @@
-
 local M = {}
 
-function M.config(dap)
-    -- adapters
-    dap.adapters.rust = function(callback, config)
-    end
-    -- config
-	dap.configurations.rust = {}
-end
+M.adapters = function(callback, config) end
+
+M.configurations = {}
 
 return M

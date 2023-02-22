@@ -1,12 +1,7 @@
-
 local M = {}
 
-function M.config(dap)
-    -- adapters
-    dap.adapters.python = function(callback, config)
-    end
-    -- config
-	dap.configurations.python = {}
-end
+M.adapters = function(callback, config) end
+
+M.configurations = {}
 
 return M
