@@ -13,7 +13,7 @@ for _, file in ipairs(vim.fn.readdir(vim.fn.stdpath("config") .. _path)) do
 end
 
 for _, language in ipairs(languages) do
-	M[language] = require("utils.modules").auto_load_all_modules(
+	M[language] = require("utils.modules").auto_load_all_modules_that_ret_list(
 		"/lua/user/snippets/" .. language,
 		"user.snippets." .. language,
 		{}

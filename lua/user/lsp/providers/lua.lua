@@ -2,7 +2,6 @@ local M = {}
 
 local util = require("lspconfig/util")
 
-
 M.lua_ls = {
 	cmd = { "lua-language-server" },
 	filetypes = { "lua" },

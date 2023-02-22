@@ -9,7 +9,7 @@ local list_contains = function(list, expected)
 	return false
 end
 
-M.auto_load_all_modules = function(scan_path, require_prefix, black_list)
+M.auto_load_all_modules_that_ret_list = function(scan_path, require_prefix, black_list)
 	local result = {}
 	for _, file in ipairs(vim.fn.readdir(vim.fn.stdpath("config") .. scan_path, [[v:val =~ '\.lua$']])) do
 		if not list_contains(black_list, file) then
@@ -24,7 +24,7 @@ M.auto_load_all_modules = function(scan_path, require_prefix, black_list)
 	return result
 end
 
-M.auto_load_all_modules_handle_pairs = function(scan_path, require_prefix, black_list)
+M.auto_load_all_modules_that_ret_dict = function(scan_path, require_prefix, black_list)
 	local result = {}
 	for _, file in ipairs(vim.fn.readdir(vim.fn.stdpath("config") .. scan_path, [[v:val =~ '\.lua$']])) do
 		if not list_contains(black_list, file) then
