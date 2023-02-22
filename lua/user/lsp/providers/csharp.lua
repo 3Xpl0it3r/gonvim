@@ -1,6 +1,7 @@
 -- this is for c_sharp
 util = require("lspconfig/util")
-local omnisharp = {
+local M = {}
+M.omnisharp = {
 	cmd = { "dotnet", "/path/to/omnisharp/OmniSharp.dll" },
 	enable_editorconfig_support = true,
 	enable_ms_build_load_projects_on_demand = false,
@@ -14,6 +15,4 @@ local omnisharp = {
 	single_file_support = true,
 }
 
-return {
-	omnisharp = omnisharp,
-}
+return M

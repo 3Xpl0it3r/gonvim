@@ -11,8 +11,11 @@ local lsp_config = {
 	csharp = "omnisharp",
 }
 
+local all_providers =
+	require("utils.modules").auto_load_all_modules("/lua/user/lsp/providers", "user.lsp.providers.", {})
+
 for _, lsp_name in pairs(lsp_config) do
-	M[lsp_name] = require("user.lsp.providers.init")[lsp_name]
+	M[lsp_name] = all_providers
 end
 
 return M

@@ -1,6 +1,8 @@
+local M = {}
+
 local util = require("lspconfig/util")
 
-local rust_analyzer = {
+M.rust_analyzer = {
 	cmd = { "rust-analyzer" },
 	filetype = { "rust" },
 	root_dir = util.root_pattern("Cargo.toml", "rust-project.json"),
@@ -22,7 +24,7 @@ local rust_analyzer = {
 	},
 }
 
-local rls = {
+M.rls = {
 	cmd = { "rls" },
 	filetype = { "rust" },
 	root_dir = util.root_pattern("Cargo.toml", "rust-project.json"),
@@ -35,7 +37,4 @@ local rls = {
 	},
 }
 
-return {
-	rust_analyzer = rust_analyzer,
-	rls = rls,
-}
+return M

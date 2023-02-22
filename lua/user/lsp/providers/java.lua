@@ -1,6 +1,8 @@
 util = require("lspconfig/util")
 
-local java_language_server = {
+local M = {}
+
+M.java_language_server = {
 	cmd = { "lua-language-server" },
 	filetypes = { "java" },
 	root_dir = util.root_pattern(".git", vim.fn.getcwd()),
@@ -8,7 +10,7 @@ local java_language_server = {
 	single_file_support = true,
 }
 
-local jdtls = {
+M.jdtls = {
 	cmd = { "jdtls", "-configuration", "/home/runner/.cache/jdtls/config", "-data", "$HOME/.cache/jdtls/workspace" },
 	filetypes = { "java" },
 	handlers = {
@@ -18,11 +20,16 @@ local jdtls = {
 		jvm_args = {},
 		workspace = "$HOME/.cache/jdtls/workspace",
 	},
-	root_dir = util.root_pattern("build.xml", "pom.xml", "settings.gradle", "settings.gradle.kts", "build.gradle", "build.gradle.kts", vim.fn.getcwd()),
+	root_dir = util.root_pattern(
+		"build.xml",
+		"pom.xml",
+		"settings.gradle",
+		"settings.gradle.kts",
+		"build.gradle",
+		"build.gradle.kts",
+		vim.fn.getcwd()
+	),
 	single_file_support = true,
 }
 
-return {
-	java_language_server = java_language_server,
-	jdtls = jdtls,
-}
+return M

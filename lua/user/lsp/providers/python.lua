@@ -1,9 +1,11 @@
+local M = {}
+
 local util = require("lspconfig/util")
 
-local pyright = {
+M.pyright = {
 	cmd = { "pyright-langserver", "--stdio" },
 	filetype = { "python", "python3" },
-    root_dir = util.root_pattern(vim.fn.getcwd()),
+	root_dir = util.root_pattern(vim.fn.getcwd()),
 	settings = {
 		python = {
 			analysis = {
@@ -16,10 +18,10 @@ local pyright = {
 	single_file_support = true,
 }
 
-local pylsp = {
+M.pylsp = {
 	cmd = { "pylsp" },
 	filetype = { "python", "python3" },
-    root_dir = util.root_pattern(vim.fn.getcwd()),
+	root_dir = util.root_pattern(vim.fn.getcwd()),
 	settings = {
 		pylsp = {
 			plugins = {
@@ -33,15 +35,11 @@ local pylsp = {
 	single_file_support = true,
 }
 
-local jedi_language_server = {
+M.jedi_language_server = {
 	cmd = { "jedi-language-server" },
 	filetype = { "python", "python3" },
-    root_dir = util.root_pattern(vim.fn.getcwd()),
+	root_dir = util.root_pattern(vim.fn.getcwd()),
 	single_file_support = true,
 }
 
-return {
-	pyright = pyright,
-	pylsp = pylsp,
-	jedi_language_server = jedi_language_server,
-}
+return M

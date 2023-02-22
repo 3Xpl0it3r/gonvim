@@ -1,6 +1,9 @@
+local M = {}
 
 local util = require("lspconfig/util")
-local lua_ls = {
+
+
+M.lua_ls = {
 	cmd = { "lua-language-server" },
 	filetypes = { "lua" },
 	root_dir = util.root_pattern(".git"),
@@ -27,6 +30,5 @@ local lua_ls = {
 	single_file_support = true,
 }
 
-return {
-	lua_ls = lua_ls,
-}
+
+return M

@@ -1,7 +1,9 @@
 -- local lspconfig = require("lspconfig")
 local util = require("lspconfig/util")
 
-local gopls = {
+local M = {}
+
+M.gopls = {
 	cmd = { "gopls", "serve", "-debug=localhost:8098" },
 	filetypes = { "go", "gomod" },
 	root_dir = util.root_pattern("go.work", "go.mod", ".git"),
@@ -43,7 +45,7 @@ local gopls = {
 	single_file_support = true,
 }
 
-local golangci_lint_ls = {
+M.golangci_lint_ls = {
 	cmd = { "golangci-lint-langserver" },
 	init_options = {
 		command = { "golangci-lint", "run", "--out-format", "json" },
@@ -53,7 +55,4 @@ local golangci_lint_ls = {
 	single_file_support = true,
 }
 
-return {
-	gopls = gopls,
-	golangci_lint_ls = golangci_lint_ls,
-}
+return M

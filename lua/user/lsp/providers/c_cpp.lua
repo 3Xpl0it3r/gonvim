@@ -1,5 +1,6 @@
 util = require("lspconfig/util")
-local clangd = {
+local M = {}
+M.clangd = {
 	cmd = {
 		"clangd",
 		"--background-index", -- 后台建立索引，并持久化到disk
@@ -30,7 +31,7 @@ local clangd = {
 	single_file_support = true,
 }
 
-local ccls = {
+M.ccls = {
 	cmd = { "ccls" },
 	filetypes = { "c", "cpp" },
 	single_file_support = true,
@@ -38,7 +39,4 @@ local ccls = {
 	root_dir = util.root_pattern("compile_commands.json", ".ccls", ".git"),
 }
 
-return {
-	clangd = clangd,
-	ccls = ccls,
-}
+return M
