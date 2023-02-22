@@ -1,4 +1,5 @@
-local custom_icons = require("utils.icons")
+local icons = require("ui.icons")
+local colors=require("ui.colors")
 
 local status_ok, lualine = pcall(require, "lualine")
 if not status_ok then
@@ -55,8 +56,6 @@ local treesitter_context = function(width)
 	return context
 end
 
--- Color table for highlights
-local colors = require("utils.colors").custom
 
 local mode_color = {
 	n = colors.blue,
@@ -155,7 +154,7 @@ local config = {
 					local hi_folder = "%#CusWInbarFolder#"
 					local seperator = "%#CusWinbarSeperator#  "
 					return hi_folder
-						.. custom_icons.ui.Folder
+						.. icons.ui.Folder
 						.. hi_folder
 						.. table.concat(slice, seperator .. hi_folder)
 						.. seperator
@@ -303,10 +302,10 @@ ins_left({
 	"diagnostics",
 	sources = { "nvim_diagnostic" },
 	symbols = {
-		error = custom_icons.diagnostics.Error .. "  ",
-		warn = custom_icons.diagnostics.Warning .. "  ",
-		info = custom_icons.diagnostics.Information .. "  ",
-		hint = custom_icons.diagnostics.Hint .. "  ",
+		error = icons.diagnostics.Error .. "  ",
+		warn = icons.diagnostics.Warning .. "  ",
+		info = icons.diagnostics.Information .. "  ",
+		hint = icons.diagnostics.Hint .. "  ",
 	},
 	diagnostics_color = {
 		color_error = { fg = colors.red },
@@ -328,9 +327,9 @@ ins_left({
 ins_left({
 	-- mode component
 	function()
-		return vim.fn.has("win32") == 1 and custom_icons.os.windows
-			or vim.fn.has("macunix") == 1 and custom_icons.os.macos
-			or custom_icons.os.linux
+		return vim.fn.has("win32") == 1 and icons.os.windows
+			or vim.fn.has("macunix") == 1 and icons.os.macos
+			or icons.os.linux
 	end,
 	color = function()
 		-- auto change color according to neovims mode
@@ -355,9 +354,9 @@ ins_right({
 	"diff",
 	-- Is it me or the symbol for modified us really weird
 	symbols = {
-		added = " " .. custom_icons.git.Add .. "  ",
-		modified = " " .. custom_icons.git.Mod .. "  ",
-		removed = " " .. custom_icons.git.Remove .. "  ",
+		added = " " .. icons.git.Add .. "  ",
+		modified = " " .. icons.git.Mod .. "  ",
+		removed = " " .. icons.git.Remove .. "  ",
 	},
 	diff_color = {
 		added = { fg = colors.green },

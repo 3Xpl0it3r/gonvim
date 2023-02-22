@@ -28,7 +28,6 @@ local function config_telescope(telescope)
 		}):sync()
 	end
 
-	local actions = require("telescope.actions")
 	telescope.setup({
 		defaults = {
 			-- Default configuration for telescope goes here:
@@ -50,21 +49,11 @@ local function config_telescope(telescope)
 				width = 0.85,
 				preview_cutoff = 1,
 			},
-			borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+			borderchars = require("ui.icons").borderchars,
 			color_devicons = true,
 			use_less = true,
 			set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
-			mappings = {
-				i = {
-					["<Enter>"] = actions.select_default,
-					["<C-t>"] = actions.select_tab,
-					["<C-v>"] = actions.select_vertical,
-					-- ["<esc>"] = require("telescope.actions").close,
-				},
-				n = {
-					["<esc>"] = require("telescope.actions").close,
-				},
-			},
+			mappings = require("user.keybinds.telescope").defaults_key_mapping,
 		},
 		pickers = {
 			find_files = { -- basic filename to fine files
@@ -73,17 +62,7 @@ local function config_telescope(telescope)
 					prompt_position = "top",
 					preview_width = 0.5,
 				},
-				mappings = {
-					i = {
-						["Enter"] = require("telescope.actions").select_default,
-						["<C-t>"] = require("telescope.actions").select_tab,
-						["<C-v>"] = require("telescope.actions").select_vertical,
-						-- ["<esc>"] = require("telescope.actions").close,
-					},
-					n = {
-						["<esc>"] = require("telescope.actions").close,
-					},
-				},
+				mappings = require("user.keybinds.telescope").find_files_key_mapping,
 			},
 			live_grep = { -- basic context to find files
 				layout_strategy = "vertical",
@@ -98,17 +77,7 @@ local function config_telescope(telescope)
                     height = 0.90,
                     width = 0.90,
                 }, ]]
-				mappings = {
-					i = {
-						["Enter"] = require("telescope.actions").select_default,
-						["<C-t>"] = require("telescope.actions").select_tab,
-						["<C-v>"] = require("telescope.actions").select_vertical,
-						-- ["<esc>"] = require("telescope.actions").close,
-					},
-					n = {
-						["<esc>"] = require("telescope.actions").close,
-					},
-				},
+				mappings = require("user.keybinds.telescope").live_grep_key_mapping,
 			},
 		},
 		extensions = {

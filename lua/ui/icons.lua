@@ -118,6 +118,14 @@ return {
 		Question = "",
 		Hint = "",
 	},
+	signs = {
+		-- error = "", warning = "", hint = "", information = "", other = "﫠",
+		error = "",
+		warning = "",
+		hint = "",
+		information = "",
+		other = "",
+	},
 	misc = {
 		Robot = "ﮧ",
 		Squirrel = "",
@@ -185,5 +193,16 @@ return {
 		Event = " ",
 		Operator = " ",
 		TypeParameter = " ",
+	},
+
+	borderchars = {
+		"─",
+		"│",
+		"─",
+		"│",
+		"╭",
+		"╮",
+		"╯",
+		"╰",
 	},
 }

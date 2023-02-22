@@ -3,18 +3,12 @@ if not status_ok then
 	require("utils.notify").notify("cmp not found!", "error", "Plugin")
 	return
 end
-local status_luasnip_ok, luasnip = pcall(require, "luasnip")
-if not status_luasnip_ok then
-	return
-end
+
+local icons = require("ui.icons")
 
 local M = {}
 
 local function config_nvim_cmp(cmp)
-	local check_backspace = function()
-		local col = vim.fn.col(".") - 1
-		return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
-	end
 	local cmp_config = {
 		apperance = {
 			menu = {
@@ -42,7 +36,7 @@ local function config_nvim_cmp(cmp)
 				if max_width ~= 0 and #vim_item.abbr > max_width then
 					vim_item.abbr = string.sub(vim_item.abbr, 1, max_width - 1) .. "…"
 				end
-				vim_item.kind = require("utils.icons").lspKind[vim_item.kind]
+				vim_item.kind = icons.lspKind[vim_item.kind]
 				vim_item.menu = ({
 					nvim_lsp = "(LSP)",
 					treesitter = "(TS)",
@@ -85,43 +79,7 @@ local function config_nvim_cmp(cmp)
 				return not context.in_treesitter_capture("comment") and not context.in_syntax_group("Comment")
 			end
 		end,
-		mapping = cmp.mapping.preset.insert({
-			["<C-k>"] = cmp.mapping.select_prev_item(),
-			["<C-j>"] = cmp.mapping.select_next_item(),
-			["<C-d>"] = cmp.mapping.scroll_docs(-4),
-			["<C-f>"] = cmp.mapping.scroll_docs(4),
-			["<C-Space>"] = cmp.mapping.complete(),
-			["<CR>"] = cmp.mapping.confirm({
-				behavior = cmp.ConfirmBehavior.Replace,
-				select = true,
-			}),
-			-- TODO: potentially fix emmet nonsense
-			["<Tab>"] = cmp.mapping(function(fallback)
-				if luasnip.expand_or_jumpable() then
-					luasnip.expand_or_jump()
-				elseif cmp.visible() then
-					cmp.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = true })
-					-- vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
-				elseif check_backspace() then
-					fallback()
-				else
-					fallback()
-				end
-			end, {
-				"i",
-				"s",
-			}),
-			["<S-Tab>"] = cmp.mapping(function(fallback)
-				if luasnip.jumpable(-1) then
-					luasnip.jump(-1)
-				else
-					fallback()
-				end
-			end, {
-				"i",
-				"s",
-			}),
-		}),
+		mapping = cmp.mapping.preset.insert(require("user.keybinds.cmp").key_bind(cmp)),
 	}
 
 	-- Set configuration for specific filetype.

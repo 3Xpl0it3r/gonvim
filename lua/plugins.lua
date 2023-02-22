@@ -72,7 +72,7 @@ return require("packer").startup(function()
 		"goolord/alpha-nvim",
 		requires = { "nvim-tree/nvim-web-devicons" },
 		config = function()
-			require("plugins.dashboard")
+			require("plugins.alpha-nvim")
 		end,
 	})
 
@@ -84,6 +84,12 @@ return require("packer").startup(function()
 	})
 
 	-- use("anuvyklack/hydra.nvim")
+	use({
+		"gen740/SmoothCursor.nvim",
+		config = function()
+			require("plugins.smoothcursor").setup()
+		end,
+	})
 
 	------------------------------------------------
 	----      Language Functional ,          -------
@@ -168,6 +174,13 @@ return require("packer").startup(function()
 	use({
 		"JoosepAlviste/nvim-ts-context-commentstring",
 	})
+
+	--[[ use({
+        "numToStr/Comment.nvim",
+        config = function ()
+            require("plugins.comment").setup()
+        end
+    }) ]]
 
 	use({
 		"b3nj5m1n/kommentary",

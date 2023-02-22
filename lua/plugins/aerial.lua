@@ -4,6 +4,8 @@ if not status_ok then
 	return
 end
 
+local icons = require("ui.icons")
+
 local M = {}
 
 local function config_aerial(config)
@@ -101,7 +103,7 @@ local function config_aerial(config)
 		highlight_on_jump = 300,
 
 		-- This can be a filetype map (see :help aerial-filetype-map)
-		icons = require("utils.icons")["lspKind"],
+		icons = icons["lspKind"],
 
 		-- Control which windows and buffers aerial should ignore.
 		-- If attach_mode is "global", focusing an ignored window/buffer will
