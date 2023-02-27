@@ -9,7 +9,7 @@ local lsp_config = {
 	go = "gopls",
 	rust = "rust_analyzer",
 	java = "jdtls",
-	python = "pyright",
+	python = "jedi_language_server",
 	csharp = "omnisharp",
 }
 

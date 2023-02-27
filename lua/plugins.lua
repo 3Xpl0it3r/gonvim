@@ -249,6 +249,14 @@ return require("packer").startup(function()
 		end,
 	})
 
+	use({
+		"lvimuser/lsp-inlayhints.nvim",
+        branch = "anticonceal",
+		config = function()
+			require("plugins.inlayhints").setup()
+		end,
+	})
+
 	----------------------------------------------------------------
 	----      Dap Debugger
 	----------------------------------------------------------------

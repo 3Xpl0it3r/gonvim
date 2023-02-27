@@ -20,6 +20,24 @@ M.rust_analyzer = {
 			procMacro = {
 				enable = true,
 			},
+			runnables = {
+				use_telescope = true,
+			},
+			inlayHints = {
+				chainingHints = {
+					enable = true,
+				},
+				closureReturnTypeHints = {
+					enable = true,
+				},
+				expressionAdjustmentHints = {
+					enable = true,
+				},
+
+				typeHints = {
+					enable = true,
+				},
+			},
 		},
 	},
 }

@@ -65,7 +65,7 @@ function M.sources()
 			fn = function(context)
 				return {
 					{
-						title = "Import Packages",
+						title = "Select Imports",
 						action = function()
 							local get_pkgs = function()
 								local results = {}
@@ -124,15 +124,15 @@ function M.sources()
 						end,
 					},
 					{
-						title = "Vendor",
+						title = "Go Mod Vendor",
 						action = action_go_vendor,
 					},
 					{
-						title = "GenTest",
+						title = "Generate Test",
 						action = action_go_gentest,
 					},
 					{
-						title = "K8sPackage",
+						title = "Kubernetes Mod",
 						action = action_k8s_mod_download,
 					},
 				}

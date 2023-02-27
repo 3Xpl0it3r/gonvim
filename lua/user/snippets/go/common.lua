@@ -45,7 +45,7 @@ local M = {
 		},
 	}),
 	snip({
-		trig = "fnmain",
+		trig = "funmain",
 		docstring = "func main(){\n}",
 		dscr = "生成main函数",
 	}, {
@@ -387,7 +387,7 @@ local M = {
 	-- #                    Function Snippet Code                                   #
 	-- ##############################################################################
 	snip({
-		trig = "fnerr",
+		trig = "funerr",
 		docstring = 'func FuncName(Params...) error {\n\tpanic("unimplemented")\n\treturn nil\n}',
 		dscr = "func语句,生成一个函数,函数返回值为error类型",
 	}, {
@@ -418,16 +418,15 @@ local M = {
 	}),
 	-- function  with return
 	snip({
-		trig = "fnvar",
-		docstring = 'funcName := func (Params...)(Rets...){\n\tpanic("unimplemented")\n}',
+		trig = "funclosure",
+		docstring = ' func (Params...)(Rets...){\n\tpanic("unimplemented")\n}',
 		dscr = "定义一个值的类型是函数的变量",
 	}, {
-		insert(1, "funcName"),
-		text(" := func "),
+		text(" func "),
 		text("("),
-		insert(2, "Params..."),
+		insert(1, "Params..."),
 		text(")("),
-		insert(3, "Rets..."),
+		insert(2, "Rets..."),
 		text({ "){", "" }),
 		text("\t"),
 		text({ 'panic("unimplemented")', "" }),
@@ -449,7 +448,7 @@ local M = {
 	}),
 	-- function  with return
 	snip({
-		trig = "fnret",
+		trig = "funret",
 		docstring = 'func FuncName(Params...)(Rets...){\n\tpanic("unimplemented")\n}',
 		dscr = "func语句,函数有返回值",
 	}, {
@@ -480,7 +479,7 @@ local M = {
 	}),
 	-- function  with no return
 	snip({
-		trig = "fnnil",
+		trig = "funnil",
 		docstring = 'func FuncName(Params ...){\n\tpanic("unimplemented")\n}',
 		dscr = "func语句, 函数返回值为空(没有返回值)",
 	}, {
@@ -510,7 +509,7 @@ local M = {
 
 	-- function  with no return
 	snip({
-		trig = "fntest",
+		trig = "funtest",
 		docstring = 'func TestFuncName(t *testing.T){\n\tpanic("unimplemented")\n}',
 		dscr = "func语句,生成测试函数",
 	}, {
@@ -537,7 +536,7 @@ local M = {
 	}),
 
 	snip({
-		trig = "fngo",
+		trig = "fungo",
 		docstring = 'go func(){\n\tpanic("unimplemented")\n}',
 		dscr = "go func语句",
 	}, {
