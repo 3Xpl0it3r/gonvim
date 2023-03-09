@@ -5,7 +5,7 @@ local text = ls.text_node
 local insert = ls.insert_node
 local func = ls.function_node
 local choice = ls.choice_node
-local dynamic = ls.dynamic_node
+-- local dynamic = ls.dynamic_node
 local events = require("luasnip.util.events")
 local snip_node = ls.snippet_node
 

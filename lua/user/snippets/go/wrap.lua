@@ -2,6 +2,9 @@ local ls = require("luasnip")
 -- some shorthands...
 local func = ls.function_node
 local postfix = require("luasnip.extras.postfix").postfix
+-- some shorthands...
+-- local dynamic = ls.dynamic_node
+
 
 local M = {
 	postfix(".len", {
