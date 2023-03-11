@@ -67,16 +67,16 @@ local function get_function_list_of_parent(parent)
 end
 
 function M.shell_command_toggle_wrapper(cus_cmd)
-	local __Terminal = require("toggleterm.terminal").Terminal
-	--[[ local adjust_cmd = ""
+	local wraper_cmd = ""
 	local shell = os.getenv("SHELL")
 	if string.find(tostring(shell), "zsh") then
-		adjust_cmd = cus_cmd .. "&& read -s -k $'?Press any key to continue.\n'"
+		wraper_cmd = cus_cmd .. "&& read -s -k $'?Press any key to continue.\n'"
 	else
-		adjust_cmd = cus_cmd .. "&& read -rsn1 -p'Press any key to continue';echo"
-	end ]]
+		wraper_cmd = cus_cmd .. "&& read -rsn1 -p'Press any key to continue';echo"
+	end
+	local __Terminal = require("toggleterm.terminal").Terminal
 	local cmd_termal = __Terminal:new({
-		cmd = cus_cmd,
+		cmd = wraper_cmd,
 		direction = "float",
 		float_opts = {
 			border = "single",
