@@ -67,7 +67,7 @@ local action_cargo_add = function()
 			local cmd_add_crate = string.format("cargo add %s@%s %s", crate_name, crate_version, result[crate_version])
 
 			null_ls_utils.shell_command_toggle_wrapper(cmd_add_crate)
-            vim.cmd("LspRestart")
+			vim.cmd("LspRestart")
 		end)
 	end)
 end
@@ -195,6 +195,17 @@ local action_cargo_build = function()
 	null_ls_utils.shell_command_toggle_wrapper("cargo build")
 end
 
+local action_cargo_run = function()
+	null_ls_utils.shell_command_toggle_wrapper("cargo build")
+	vim.ui.input({ prompt = "Input Arguments" }, function(input)
+		local args = ""
+		if input then
+			args = "-- " .. input
+		end
+		null_ls_utils.shell_command_toggle_wrapper("cargo run " .. args)
+	end)
+end
+
 function M.sources()
 	return {
 		method = require("null-ls").methods.CODE_ACTION,
@@ -212,7 +223,7 @@ function M.sources()
 					},
 					{
 						title = "Cargo Run",
-						action = action_cargo_build,
+						action = action_cargo_run,
 					},
 					{
 						title = "Crate Manager",
