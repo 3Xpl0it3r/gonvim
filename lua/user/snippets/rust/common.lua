@@ -51,8 +51,59 @@ local M = {
 		},
 	}),
 
+	snip({ trig = "typs", docstring = "struct Name{\n\tField:\tType\n}", dscr = "生成一个结构体" }, {
+		func(function(args, snip, _)
+			return "// " .. args[1][1] .. "[#TODO] (shoule add some comments )"
+		end, { 1 }, nil),
+		text({ "", "" }),
+		text({ "struct " }),
+		insert(1, "Name"),
+		text({ " {", "" }),
+		text("\t"),
+		insert(2, "Field"),
+		text(":\t"),
+		insert(3, "Type"),
+		text({ "", "}" }),
+		insert(0),
+	}, {
+		callbacks = {
+			[0] = {
+				[events.enter] = function(node, _event_args)
+					vim.lsp.buf.formatting()
+				end,
+			},
+		},
+	}),
+
+	snip({
+		trig = "typi",
+		docstring = 'impl StructName {\n\tfn new() -> Self {\n\t\tunreachable!("impl this");\n\t}\n}',
+		dscr = "实现方法",
+	}, {
+		func(function(args, snip, _)
+			return "// " .. args[1][1] .. "[#TODO] (should add some comments)"
+		end, { 1 }, nil),
+		text({ "", "" }),
+		text({ "impl " }),
+		insert(1, "Name"),
+		text({ " {", "" }),
+		text({ "\tfn new() -> Self {", "" }),
+		text({ "\t\tunreachable!(\"impl this\")", "" }),
+		text({ "\t}", "" }),
+		text({ "}" }),
+		insert(0),
+	}, {
+		callbacks = {
+			[0] = {
+				[events.enter] = function(node, _event_args)
+					vim.lsp.buf.formatting()
+				end,
+			},
+		},
+	}),
+
 	-- generate a test mod
-	snip({ trig = "test" }, {
+	snip({ trig = "test", dscr = "创建test mod" }, {
 		text({ "#[cfg(test)]", "" }),
 		text({ "mod tests{", "" }),
 		text({ "\t#[test]", "" }),
