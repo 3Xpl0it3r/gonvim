@@ -196,7 +196,6 @@ local action_cargo_build = function()
 end
 
 local action_cargo_run = function()
-	null_ls_utils.shell_command_toggle_wrapper("cargo build")
 	vim.ui.input({ prompt = "Input Arguments" }, function(input)
 		local args = ""
 		if input then
@@ -204,6 +203,10 @@ local action_cargo_run = function()
 		end
 		null_ls_utils.shell_command_toggle_wrapper("cargo run " .. args)
 	end)
+end
+
+local action_cargo_test = function()
+	null_ls_utils.shell_command_toggle_wrapper("cargo run ")
 end
 
 function M.sources()
@@ -224,6 +227,10 @@ function M.sources()
 					{
 						title = "Cargo Run",
 						action = action_cargo_run,
+					},
+					{
+						title = "Cargo Test",
+						action = action_cargo_test,
 					},
 					{
 						title = "Crate Manager",

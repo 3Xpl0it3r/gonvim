@@ -281,7 +281,7 @@ local M = {
 		callbacks = {
 			[0] = {
 				[events.enter] = function(node, _event_args)
-					-- vim.lsp.buf.code_action()
+					vim.lsp.buf.code_action()
 					lsp_format({
 						filter = function(client)
 							return client.name == "null-ls"

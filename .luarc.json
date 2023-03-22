@@ -57,6 +57,7 @@
         "/Users/l0calh0st/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp/after",
         "/Users/l0calh0st/.local/share/nvim/site/pack/packer/start/cmp-path/after",
         "/Users/l0calh0st/.local/share/nvim/site/pack/packer/start/cmp_luasnip/after",
-        "${3rd}/luassert/library"
+        "${3rd}/luassert/library",
+        "${3rd}/luv/library"
     ]
 }

@@ -62,6 +62,8 @@ vim.defer_fn(function()
 		end, 1000)
 end
 -- https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_dap.md
+--
+
 M.configurations = {
 	{
 		type = "go",

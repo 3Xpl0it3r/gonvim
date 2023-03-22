@@ -51,6 +51,24 @@ local M = {
 		},
 	}),
 
+	snip({ trig = "fntest" }, {
+		text({ "#[test]", "" }),
+		text("fn "),
+		insert(1, "TestFnName"),
+		text({ "(){", "" }),
+		text({ '\tunimplemented!("unimplemented");', "" }),
+		text("}"),
+		insert(0),
+	}, {
+		callbacks = {
+			[0] = {
+				[events.enter] = function(node, _event_args)
+					vim.lsp.buf.formatting()
+				end,
+			},
+		},
+	}),
+
 	snip({ trig = "typs", docstring = "struct Name{\n\tField:\tType\n}", dscr = "生成一个结构体" }, {
 		func(function(args, snip, _)
 			return "// " .. args[1][1] .. "[#TODO] (shoule add some comments )"
@@ -76,7 +94,7 @@ local M = {
 	}),
 
 	snip({
-		trig = "typi",
+		trig = "impl_self",
 		docstring = 'impl StructName {\n\tfn new() -> Self {\n\t\tunreachable!("impl this");\n\t}\n}',
 		dscr = "实现方法",
 	}, {
@@ -88,7 +106,7 @@ local M = {
 		insert(1, "Name"),
 		text({ " {", "" }),
 		text({ "\tfn new() -> Self {", "" }),
-		text({ "\t\tunreachable!(\"impl this\")", "" }),
+		text({ '\t\tunreachable!("impl this")', "" }),
 		text({ "\t}", "" }),
 		text({ "}" }),
 		insert(0),
@@ -102,12 +120,53 @@ local M = {
 		},
 	}),
 
+	snip({
+		trig = "impl_for",
+		docstring = "impl TraitName for StructName {\n\t\n}",
+		dscr = "实现方法",
+	}, {
+		func(function(args, snip, _)
+			return "// " .. args[1][1] .. "[#TODO] (should add some comments)"
+		end, { 1 }, nil),
+		text({ "", "" }),
+		text({ "impl " }),
+		insert(1, "TraitName"),
+		text({ " for " }),
+		insert(2, "StructName"),
+		text({ " {", "" }),
+		text({ "" }),
+		text({ "}" }),
+		insert(0),
+	}, {
+		callbacks = {
+			[0] = {
+				[events.enter] = function(node, _event_args)
+					vim.lsp.buf.code_action({
+						command = "rust-analyzer.codeAction.executeCommand",
+						arguments = {
+							title = "rust-analyzer: Implement missing members",
+						},
+					})
+					lsp_format({
+						filter = function(client)
+							return client.name == "null-ls"
+						end,
+					})
+				end,
+			},
+		},
+	}),
+
 	-- generate a test mod
-	snip({ trig = "test", dscr = "创建test mod" }, {
+	snip({
+		trig = "modtest",
+		docstring = '#[cfg(test)]\nmod tests{\n\tuse super::*;\n\t#[test]\n\tfn basics(){\n\t\tunreachable!("impl it");\n\t}\n}',
+		dscr = "创建test mod",
+	}, {
 		text({ "#[cfg(test)]", "" }),
 		text({ "mod tests{", "" }),
 		text({ "\t#[test]", "" }),
-		text({ "\tfn test_example(){", "" }),
+		text({ "\tfn basics(){", "" }),
 		text({ '\t\tunreachable!("impl it")', "" }),
 		text({ "\t}", "" }),
 		text("}"),
