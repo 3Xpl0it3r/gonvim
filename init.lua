@@ -1,5 +1,4 @@
--- install plugins
-require("plugins")
+require("plugins_packer")
 
 -- commonn configure , no dep plugins
 require("misc.init")

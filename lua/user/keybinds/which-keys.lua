@@ -81,6 +81,11 @@ M.normal = {
 	-- Plugin Manager
 	p = {
 		name = "+Plugins",
+		--[[ c = { require("lazy").check({}), "Check" },
+		i = { require("lazy").install({}), "Install" },
+		s = { require("lazy").sync(), "Sync" },
+		u = { require("lazy").update(), "Update" }, ]]
+
 		c = { "<cmd>PackerCompile<cr>", "Compile" },
 		i = { "<cmd>PackerInstall<cr>", "Install" },
 		s = { "<cmd>PackerSync<cr>", "Sync" },
