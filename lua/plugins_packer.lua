@@ -163,7 +163,7 @@ return require("packer").startup(function()
 		"nvim-neo-tree/neo-tree.nvim", -- directory browser
 		requires = {
 			"nvim-lua/plenary.nvim",
-			"kyazdani42/nvim-web-devicons",
+			"nvim-tree/nvim-web-devicons",
 			"MunifTanjim/nui.nvim",
 		},
 		config = function()
