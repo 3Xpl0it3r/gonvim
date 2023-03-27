@@ -3,6 +3,7 @@ local format_notify = require("utils.notify")
 
 local action_go_vendor = function()
 	require("utils.notify").notify_execute_command({ "go", "mod", "vendor" })
+    vim.cmd("LspRestart")
 end
 
 local action_go_gentest = function()
