@@ -51,6 +51,46 @@ local M = {
 		},
 	}),
 
+	snip({ trig = "pfnnil" }, {
+		text("pub fn "),
+		insert(1, "FuncName"),
+		text("("),
+		insert(2, "Args..."),
+		text({ "){", "" }),
+		text({ '\tunimplemented!("unimplemented");', "" }),
+		text("}"),
+		insert(0),
+	}, {
+		callbacks = {
+			[0] = {
+				[events.enter] = function(node, _event_args)
+					vim.lsp.buf.formatting()
+				end,
+			},
+		},
+	}),
+
+	snip({ trig = "pfnret" }, {
+		text("pub fn "),
+		insert(1, "FuncName"),
+		text("("),
+		insert(2, "Args..."),
+		text(") -> "),
+		insert(3, "RetType"),
+		text({ "{", "" }),
+		text({ '\tunimplemented!("unimplemented");', "" }),
+		text({ "}" }),
+		insert(0),
+	}, {
+		callbacks = {
+			[0] = {
+				[events.enter] = function(node, _event_args)
+					vim.lsp.buf.formatting()
+				end,
+			},
+		},
+	}),
+
 	snip({ trig = "fntest" }, {
 		text({ "#[test]", "" }),
 		text("fn "),
@@ -165,6 +205,7 @@ local M = {
 	}, {
 		text({ "#[cfg(test)]", "" }),
 		text({ "mod tests{", "" }),
+		text({ "\tuse super::*;", "" }),
 		text({ "\t#[test]", "" }),
 		text({ "\tfn basics(){", "" }),
 		text({ '\t\tunreachable!("impl it")', "" }),

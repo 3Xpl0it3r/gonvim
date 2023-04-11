@@ -206,7 +206,7 @@ local action_cargo_run = function()
 end
 
 local action_cargo_test = function()
-	null_ls_utils.shell_command_toggle_wrapper("cargo run ")
+	null_ls_utils.shell_command_toggle_wrapper("cargo test -- --nocapture")
 end
 
 function M.sources()
