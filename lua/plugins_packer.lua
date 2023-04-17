@@ -298,7 +298,7 @@ return require("packer").startup(function()
 			"nvim-lua/plenary.nvim",
 			"nvim-treesitter/nvim-treesitter",
 			"nvim-neotest/neotest-go",
-			"rouge8/neotest-rust",
+			-- "rouge8/neotest-rust",
 		},
 		config = function()
 			require("plugins.neotest").setup()
