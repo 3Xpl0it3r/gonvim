@@ -27,7 +27,7 @@ local get_buffer_list = function()
 	return results
 end
 
-M.adapters = function(callback, config)
+--[[ M.adapters_back = function(callback, config)
 	local stdout = vim.loop.new_pipe(false)
 	local handle
 	local pid_or_err
@@ -40,9 +40,9 @@ M.adapters = function(callback, config)
 		initialize_timeout_sec = 60,
 	}
 	-- this place should add some extra command to
-	--[[ if config.mode == "test" then
-        table.insert(opts.args, "test")
-    end ]]
+	if config.mode == "test" then
+        table.insert(opts.args, config.command_args)
+    end
 	handle, pid_or_err = vim.loop.spawn("dlv", opts, function(code)
 		stdout:close()
 		handle:close()
@@ -62,7 +62,16 @@ M.adapters = function(callback, config)
 	vim.defer_fn(function()
 		callback({ type = "server", host = "127.0.0.1", port = port })
 	end, 100)
-end
+end ]]
+
+M.adapters = {
+	type = "server",
+	port = "${port}",
+	executable = {
+		command = "dlv",
+		args = { "dap", "-l", "127.0.0.1:${port}" },
+	},
+}
 -- https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_dap.md
 --
 
