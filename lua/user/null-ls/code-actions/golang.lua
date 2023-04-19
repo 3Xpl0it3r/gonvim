@@ -3,12 +3,12 @@ local format_notify = require("utils.notify")
 
 local action_go_vendor = function()
 	require("utils.notify").notify_execute_command({ "go", "mod", "vendor" })
-    vim.cmd("LspRestart")
+	vim.cmd("LspRestart")
 end
 
 local action_go_gentest = function()
 	vim.ui.select(
-		require("plugins.lsp.null-ls.utils").get_current_functions(),
+		require("utils.treesitter").all_available_functions(),
 		{ prompt = "Select Function To Generate Test" },
 		function(choice)
 			if not choice then

@@ -1,4 +1,4 @@
-local null_ls_utils = require("user.null-ls.utils")
+local shell = require("utils.shell")
 local format_notify = require("utils.notify")
 
 local pickers = require("telescope.pickers") -- used for build a telescope picker
@@ -66,7 +66,7 @@ local action_cargo_add = function()
 
 			local cmd_add_crate = string.format("cargo add %s@%s %s", crate_name, crate_version, result[crate_version])
 
-			null_ls_utils.shell_command_toggle_wrapper(cmd_add_crate)
+			shell.execute(cmd_add_crate)
 			vim.cmd("LspRestart")
 		end)
 	end)
