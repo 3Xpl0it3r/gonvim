@@ -32,7 +32,7 @@ M.adapters = {
 	port = "${port}",
 	executable = {
 		-- CHANGE THIS to your path!
-		command = "codelldb",
+		command = "/Users/l0calh0st/.vscode/extensions/vadimcn.vscode-lldb-1.9.0/adapter/codelldb",
 		args = { "--port", "${port}" },
 
 		-- On windows you may have to uncomment this:
@@ -46,10 +46,13 @@ M.configurations = {
 		type = "rust",
 		request = "launch",
 		program = function()
-			-- 调用函数，传入当前工作目录和要找的文件夹作为参数
-			local really_root = get_git_root_dir(vim.fn.getcwd(), "/.git")
-			---@diagnostic disable-next-line: redundant-parameter
-			return vim.fn.input("Path to executable: ", really_root .. "/target/debug/", "file")
+			for line in io.lines("Cargo.toml") do
+				local name = string.match(line, 'name = "(%w+)"')
+				if name ~= nil then
+					return "target/debug/" .. name
+				end
+			end
+			return "target/debug/" .. "${workspaceFolder}"
 		end,
 		cwd = "${workspaceFolder}",
 		stopOnEntry = false,
