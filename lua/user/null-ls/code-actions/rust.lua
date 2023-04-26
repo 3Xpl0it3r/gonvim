@@ -141,7 +141,7 @@ local action_crate_query = function()
 											features
 										)
 
-										null_ls_utils.shell_command_toggle_wrapper(cmd_add_crate)
+										shell.execute(cmd_add_crate)
 									end)
 									return true
 								end,
@@ -192,7 +192,7 @@ local action_crate_query = function()
 end
 
 local action_cargo_build = function()
-	null_ls_utils.shell_command_toggle_wrapper("cargo build")
+    shell.execute("cargo build")
 end
 
 local action_cargo_run = function()
@@ -201,12 +201,12 @@ local action_cargo_run = function()
 		if input then
 			args = "-- " .. input
 		end
-		null_ls_utils.shell_command_toggle_wrapper("cargo run " .. args)
+		shell.execute("cargo run " .. args)
 	end)
 end
 
 local action_cargo_test = function()
-	null_ls_utils.shell_command_toggle_wrapper("cargo test -- --nocapture")
+	shell.execute("cargo test -- --nocapture")
 end
 
 function M.sources()
