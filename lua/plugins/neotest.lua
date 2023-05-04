@@ -9,7 +9,7 @@ local M = {}
 local function config_neotest(config)
     config.setup({
         adapters = {
-            require("neotest-rust"),
+            -- require("neotest-rust"),
             require("neotest-go")({
                 experimental = {
                     test_table = true,
