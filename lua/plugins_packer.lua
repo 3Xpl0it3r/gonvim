@@ -215,6 +215,7 @@ return require("packer").startup(function()
 			{ "hrsh7th/cmp-path" }, -- path completion plugin
 			{ "hrsh7th/cmp-buffer" }, -- buffer completion plugin
 			{ "hrsh7th/cmp-nvim-lsp" }, -- lsp
+			{ "hrsh7th/cmp-cmdline" },
 			-- snippet support
 			{
 				"L3MON4D3/LuaSnip",
@@ -251,7 +252,7 @@ return require("packer").startup(function()
 
 	use({
 		"lvimuser/lsp-inlayhints.nvim",
-        branch = "anticonceal",
+		branch = "anticonceal",
 		config = function()
 			require("plugins.inlayhints").setup()
 		end,

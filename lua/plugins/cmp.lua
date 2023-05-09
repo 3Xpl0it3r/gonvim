@@ -118,14 +118,14 @@ local function config_nvim_cmp(cmp)
 	})
 
 	-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-	--[[ cmp.setup.cmdline(":", {
+	cmp.setup.cmdline(":", {
 		mapping = cmp.mapping.preset.cmdline(),
 		sources = cmp.config.sources({
 			{ name = "cmdline" },
 		}, {
 			{ name = "path" },
 		}),
-	}) ]]
+	})
 
 	-- disable autocompletion for guihua
 	--[[ vim.cmd("autocmd FileType guihua lua require('cmp').setup.buffer { enabled = false }")
