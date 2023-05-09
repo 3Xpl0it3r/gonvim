@@ -122,8 +122,6 @@ local function config_nvim_cmp(cmp)
 		mapping = cmp.mapping.preset.cmdline(),
 		sources = cmp.config.sources({
 			{ name = "cmdline" },
-		}, {
-			{ name = "path" },
 		}),
 	})
 
