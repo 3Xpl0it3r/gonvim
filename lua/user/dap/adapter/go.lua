@@ -1,6 +1,7 @@
 local M = {}
 
 local file_utils = require("utils.files")
+local notify_utils = require("utils.notify")
 
 --[[ local pickers = require "telescope.pickers"
 local finders = require "telescope.finders"
@@ -90,20 +91,19 @@ M.configurations = {
 		program = function()
 			return coroutine.create(function(dap_run_co)
 				local pkgs = file_utils.readlines("go.debug")
-				if pkgs == nil then
-					if file_utils.file_exists("go.debug") == false then
-						local tmp_file = io.open("go.debug", "w")
-						if tmp_file ~= nil then
-							tmp_file:close()
-						end
-					end
+				if pkgs == nil or #pkgs == 0 then
 					vim.ui.input({ prompt = "[Dap] Input Package Name" }, function(pkg_name)
-						pkg_name = "./" .. pkg_name
+						local full_path = vim.fn.resolve(vim.fn.getcwd() .. "/" .. pkg_name)
+						if file_utils.dir_exists(full_path) ~= true then
+							notify_utils.notify("Package " .. pkg_name .. " is not existed", "error", "[Dap: Go]")
+						end
 						coroutine.resume(dap_run_co, pkg_name)
 					end)
 				else
 					vim.ui.select(pkgs, { prompt = "[Dap] Select Package Name" }, function(choice)
-						choice = "./" .. choice
+						if choice ~= nil then
+							choice = "./" .. choice
+						end
 						coroutine.resume(dap_run_co, choice)
 					end)
 				end

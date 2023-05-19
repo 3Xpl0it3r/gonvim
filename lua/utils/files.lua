@@ -10,6 +10,28 @@ function M.file_exists(file_nme)
 	end
 end
 
+function M.dir_exists(dir_name)
+	local ok, err, code = os.rename(dir_name .. "/", dir_name .. "/")
+	if not ok then
+		-- permission denied ,but it exists
+		if code == 13 then
+			return true
+		end
+	end
+	return ok, err
+end
+
+function M.exists(file)
+	local ok, err, code = os.rename(file, file)
+	if not ok then
+		-- permission denied ,but it exists
+		if code == 13 then
+			return true
+		end
+	end
+	return ok, err
+end
+
 function M.readlines(file_name)
 	local lines = {}
 	local file = io.open(file_name)
