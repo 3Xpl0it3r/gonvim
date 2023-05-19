@@ -1,5 +1,7 @@
 local M = {}
 
+local file_utils = require("utils.files")
+
 --[[ local pickers = require "telescope.pickers"
 local finders = require "telescope.finders"
 local conf = require("telescope.config").values ]]
@@ -27,49 +29,12 @@ local get_buffer_list = function()
 	return results
 end
 
---[[ M.adapters_back = function(callback, config)
-	local stdout = vim.loop.new_pipe(false)
-	local handle
-	local pid_or_err
-	local port = 38697
-
-	local opts = {
-		stdio = { nil, stdout },
-		args = { "dap", "-l", "127.0.0.1:" .. port },
-		detached = true,
-		initialize_timeout_sec = 60,
-	}
-	-- this place should add some extra command to
-	if config.mode == "test" then
-        table.insert(opts.args, config.command_args)
-    end
-	handle, pid_or_err = vim.loop.spawn("dlv", opts, function(code)
-		stdout:close()
-		handle:close()
-		if code ~= 0 then
-			print("dlv exited with code", code)
-		end
-	end)
-	assert(handle, "Error running dlv: " .. tostring(pid_or_err))
-	stdout:read_start(function(err, chunk)
-		assert(not err, err)
-		if chunk then
-			vim.schedule(function()
-				require("dap.repl").append(chunk)
-			end)
-		end
-	end)
-	vim.defer_fn(function()
-		callback({ type = "server", host = "127.0.0.1", port = port })
-	end, 100)
-end ]]
-
 M.adapters = {
 	type = "server",
 	port = "${port}",
 	executable = {
 		command = "dlv",
-		args = { "dap", "-l", "127.0.0.1:${port}" },
+		args = { "dap", "-l", "127.0.0.1:${port}", "--log", "--log-dest", "dap.log" },
 	},
 }
 -- https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_dap.md
@@ -103,6 +68,49 @@ M.configurations = {
 			end)
 		end,
 	},
+
+	{
+		type = "go",
+		name = "Debug (go.mod)",
+		request = "launch",
+		cwd = "${workspaceFolder}",
+		args = function()
+			return coroutine.create(function(dap_run_co)
+				vim.ui.input({
+					prompt = "Program arguments: ",
+					completion = "file",
+					highlight = function()
+						return { fg = "blue", bg = "white" }
+					end,
+				}, function(input)
+					coroutine.resume(dap_run_co, vim.fn.split(input, " ", true))
+				end)
+			end)
+		end,
+		program = function()
+			return coroutine.create(function(dap_run_co)
+				local pkgs = file_utils.readlines("go.debug")
+				if pkgs == nil then
+					if file_utils.file_exists("go.debug") == false then
+						local tmp_file = io.open("go.debug", "w")
+						if tmp_file ~= nil then
+							tmp_file:close()
+						end
+					end
+					vim.ui.input({ prompt = "[Dap] Input Package Name" }, function(pkg_name)
+						pkg_name = "./" .. pkg_name
+						coroutine.resume(dap_run_co, pkg_name)
+					end)
+				else
+					vim.ui.select(pkgs, { prompt = "[Dap] Select Package Name" }, function(choice)
+						choice = "./" .. choice
+						coroutine.resume(dap_run_co, choice)
+					end)
+				end
+			end)
+		end,
+	},
+
 	{
 		type = "go",
 		name = "Debug test",
@@ -111,6 +119,7 @@ M.configurations = {
 		program = "${file}",
 		-- extra_command_args
 	},
+
 	{
 		type = "go",
 		name = "Debug test (go.mod)",
