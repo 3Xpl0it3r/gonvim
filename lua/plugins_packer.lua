@@ -91,6 +91,13 @@ return require("packer").startup(function()
 		end,
 	})
 
+	use({
+		"shellRaining/hlchunk.nvim",
+		config = function()
+			require("plugins.hlchunk").setup()
+		end,
+	})
+
 	------------------------------------------------
 	----      Language Functional ,          -------
 	------------------------------------------------
