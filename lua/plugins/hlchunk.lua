@@ -20,7 +20,8 @@ local function config_hlchunk(hlchunk)
 				right_arrow = ">",
 			},
 			style = {
-				{ fg = "#806d9c" },
+				-- { fg = "#806d9c" },
+                {fg = "#9CCC65"}
 			},
 		},
 		blank = {

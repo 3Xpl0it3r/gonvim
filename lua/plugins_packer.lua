@@ -334,6 +334,13 @@ return require("packer").startup(function()
 		end,
 	})
 
+	use({
+		"anuvyklack/pretty-fold.nvim",
+		config = function()
+			require("plugins.fold").setup()
+		end,
+	})
+
 	--  Automatically set up your configuration after cloning packer.nvim
 	if PACKER_BOOTSTRAP then
 		require("packer").sync()
