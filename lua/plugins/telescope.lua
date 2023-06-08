@@ -63,6 +63,7 @@ local function config_telescope(telescope)
 					preview_width = 0.5,
 				},
 				mappings = require("user.keybinds.telescope").find_files_key_mapping,
+				find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*", "-L" },
 			},
 			live_grep = { -- basic context to find files
 				layout_strategy = "vertical",
