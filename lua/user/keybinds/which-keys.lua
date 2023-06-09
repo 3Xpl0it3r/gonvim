@@ -76,6 +76,7 @@ M.normal = {
 			"Symbol(doc)",
 		},
 		S = { "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<cr>", "Symbol(workspace)" },
+		t = { "<cmd>lua require('telescope.builtin').treesitter()<cr>", "Treesitter" },
 		u = { "<cmd>lua require('aerial').toggle()<cr>", "outline(aerial)" },
 	},
 	-- Plugin Manager
@@ -100,7 +101,6 @@ M.normal = {
 		f = { "<cmd>lua require('telescope.builtin').find_files()<cr>", "FindFile" },
 		g = { "<cmd>lua require('telescope.builtin').live_grep()<cr>", "FindText" },
 		p = { "<cmd>lua require('telescope.builtin').live_grep()<cr>", "Project" },
-		t = { "<cmd>lua require('telescope.builtin').treesitter()<cr>", "Treesitter" },
 		u = { "<cmd>lua require('aerial').toggle()<cr>", "outline(aerial)" },
 	},
 

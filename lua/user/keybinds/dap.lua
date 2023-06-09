@@ -4,11 +4,12 @@ M.key_binds = function(dap, dap_ui)
 	-- ---------------------dap keymap configuration --------------------------
     
     -- system manage reference
-	vim.keymap.set("n", "<leader>dC", dap.continue, { desc = "DAP: Continue" })
+	vim.keymap.set("n", "<leader>dc", dap.continue, { desc = "DAP: Continue" })
 	vim.keymap.set("n", "<leader>db", dap.toggle_breakpoint, { desc = "DAP: Toggle breackpoint" })
 	vim.keymap.set("n", "<leader>dB", function()
 		require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))
 	end, { desc = "DAP: Set breakpoint" })
+
 
 	vim.keymap.set("n", "<leader>dR", dap.restart, { desc = "DAP: Restart process" })
 	vim.keymap.set("n", "<leader>de", dap.set_exception_breakpoints, { desc = "DAP: Set exception breakpoints" })
@@ -17,6 +18,7 @@ M.key_binds = function(dap, dap_ui)
 
 
     -- debug reference  
+    -- running programming
 	vim.keymap.set("n", "<leader>dn", dap.step_over, { desc = "DAP: Step over to next cursor line" })
 	vim.keymap.set("n", "<leader>ds", dap.step_into, { desc = "DAP: Single step through program" })
 	vim.keymap.set("n", "<leader>do", dap.step_out, { desc = "DAP: Step out of the current function" })
