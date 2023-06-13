@@ -2,6 +2,7 @@ local M = {}
 
 local file_utils = require("utils.files")
 local notify_utils = require("utils.notify")
+local lsputil = require("lspconfig/util")
 
 --[[ local pickers = require "telescope.pickers"
 local finders = require "telescope.finders"
@@ -9,23 +10,17 @@ local conf = require("telescope.config").values ]]
 
 local get_buffer_list = function()
 	local results = {}
+	local root_dir = lsputil.root_pattern("go.work", "go.mod", ".git")(vim.fn.getcwd()) .. "/"
 	local buffers = vim.api.nvim_list_bufs()
 	for _, buffer in ipairs(buffers) do
-		-- if vim.api.nvim_buf_is_loaded(buffer) then
-		local filename = vim.api.nvim_buf_get_name(buffer)
-		if string.find(filename, "%w.go$") then
-			table.insert(results, filename)
+		if vim.api.nvim_buf_is_loaded(buffer) then
+			local filename = vim.api.nvim_buf_get_name(buffer)
+			if string.find(filename, "%w.go$") then
+				local relative_fname = (filename:sub(0, #root_dir) == root_dir) and filename:sub(#root_dir + 1)
+					or filename
+				table.insert(results, relative_fname)
+			end
 		end
-		if string.find(filename, "%w.rs$") then
-			table.insert(results, filename)
-		end
-		if string.find(filename, "%w.py$") then
-			table.insert(results, filename)
-		end
-		if string.find(filename, "%w.cpp$") then
-			table.insert(results, filename)
-		end
-		-- end
 	end
 	return results
 end

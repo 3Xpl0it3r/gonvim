@@ -22,7 +22,7 @@ local function config_dap(dap, dap_ui)
 	dap.listeners.after["event_terminated"]["dapui"] = function()
 		dap_ui.close()
 	end
-	dap.listeners.before.event_exited["dapui_config"] = function()
+	dap.listeners.before["event_exited"]["dapui_config"] = function()
 		dap_ui.close()
 	end
 
