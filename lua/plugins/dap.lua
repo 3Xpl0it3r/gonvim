@@ -7,6 +7,7 @@ end
 local M = {}
 
 local function config_dap(dap, dap_ui)
+	dap.set_log_level("TRACE")
 	-- ---------------------dap icons  configuration ----------------------------
 
 	vim.fn.sign_define("DapBreakpoint", { text = " ", texthl = "debugBreakpoint", linehl = "", numhl = "" })
@@ -20,7 +21,9 @@ local function config_dap(dap, dap_ui)
 	end
 	dap.listeners.after["event_terminated"]["dapui"] = function()
 		dap_ui.close()
-		vim.cmd("bd! \\[dap-repl]")
+	end
+	dap.listeners.before.event_exited["dapui_config"] = function()
+		dap_ui.close()
 	end
 
 	dap.listeners.before["event_progressStart"]["progress-notifications"] = require("utils.notify").event_progressStart
