@@ -7,7 +7,6 @@ end
 local M = {}
 
 local function config_dap(dap, dap_ui)
-	dap.set_log_level("TRACE")
 	-- ---------------------dap icons  configuration ----------------------------
 
 	vim.fn.sign_define("DapBreakpoint", { text = " ", texthl = "debugBreakpoint", linehl = "", numhl = "" })

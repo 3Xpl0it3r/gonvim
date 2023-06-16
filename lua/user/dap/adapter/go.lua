@@ -59,7 +59,9 @@ M.configurations = {
 			return coroutine.create(function(dap_run_co)
 				local items = get_buffer_list()
 				vim.ui.select(items, { prompt = "Path to executable: " }, function(choice)
-					coroutine.resume(dap_run_co, choice)
+					local root_dir = lsputil.root_pattern("go.work", "go.mod", ".git")(vim.fn.getcwd()) .. "/"
+					local execute_file = root_dir .. choice
+					coroutine.resume(dap_run_co, execute_file)
 				end)
 			end)
 		end,
