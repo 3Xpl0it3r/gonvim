@@ -1,13 +1,7 @@
-local status_ok, _ = pcall(require, "lsp_signature")
-if not status_ok then
-	require("utils.notify").notify("Plugin lsp_signature is not existed", "error", "Plugin")
-	return
-end
-
 local M = {}
 
-local function config_lsp_signature(config)
-	config.setup({
+function M.new_options()
+	return {
 		bind = true, -- this is mandatory, otherwise border config won't get register
 		wrap = true, -- allow doc/signature text wrap inside floating_window, useful if your lsp return doc/sig is too long
 		doc_lines = 10,
@@ -38,11 +32,7 @@ local function config_lsp_signature(config)
 
 		select_signature_key = nil, -- cycle to next signature, e.g. '<M-n>' function overloading
 		move_cursor_key = nil, -- imap, use nvim_set_current_win to move cursor between current win and floating
-	})
-end
-
-function M.setup()
-	config_lsp_signature(require("lsp_signature"))
+	}
 end
 
 return M

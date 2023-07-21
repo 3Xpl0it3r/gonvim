@@ -1,13 +1,7 @@
-local status_ok, _ = pcall(require, "dapui")
-if not status_ok then
-	require("utils.notify").notify("Plugin dapui is not existed", "error", "Plugin")
-	return
-end
-
 local M = {}
 
-function M.setup()
-	require("dapui").setup({
+function M.new_options()
+	return {
 		icons = { expanded = "▾", collapsed = "▸", current_frame = "▸" },
 		mappings = {
 			-- Use a table to apply multiple mappings
@@ -62,7 +56,7 @@ function M.setup()
 			max_type_length = nil, -- Can be integer or nil.
 			max_value_lines = 100, -- Can be integer or nil.
 		},
-	})
+	}
 end
 
 return M

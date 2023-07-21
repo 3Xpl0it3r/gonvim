@@ -78,19 +78,20 @@ M.normal = {
 		S = { "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<cr>", "Symbol(workspace)" },
 		u = { "<cmd>lua require('aerial').toggle()<cr>", "outline(aerial)" },
 	},
+	-- book marks
+	m = {
+		name = "+BookMarks",
+		c = { "<cmd>delmarks 0-9a-z<cr>", "Compile" },
+	},
 	-- Plugin Manager
 	p = {
 		name = "+Plugins",
-		--[[ c = { require("lazy").check({}), "Check" },
-		i = { require("lazy").install({}), "Install" },
-		s = { require("lazy").sync(), "Sync" },
-		u = { require("lazy").update(), "Update" }, ]]
-
-		c = { "<cmd>PackerCompile<cr>", "Compile" },
-		i = { "<cmd>PackerInstall<cr>", "Install" },
-		s = { "<cmd>PackerSync<cr>", "Sync" },
-		S = { "<cmd>PackerStatus<cr>", "Status" },
-		u = { "<cmd>PackerUpdate<cr>", "Update" },
+		c = { require("lazy").check, "Check" },
+		C = { require("lazy").clean, "Clean" },
+		h = { require("lazy").health, "Health" },
+		i = { require("lazy").install, "Install" },
+		s = { require("lazy").sync, "Sync" },
+		u = { require("lazy").update, "Update" },
 	},
 
 	-- Search functions ,search file., seathc targs and other .....

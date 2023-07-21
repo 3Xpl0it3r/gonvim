@@ -1,15 +1,9 @@
-local status_ok, _ = pcall(require, "trouble")
-if not status_ok then
-	require("utils.notify").notify("Plugin trouble is not existed", "error", "Plugin")
-	return
-end
-
 local icons = require("ui.icons")
 
 local M = {}
 
-local function config_trouble(trouble)
-	trouble.setup({
+function M.new_options()
+	return {
 		position = "right", -- position of the list can be: bottom, top, left, right
 		height = 10, -- height of the trouble list when position is top or bottom
 		width = 50, -- width of the list when position is left or right
@@ -48,12 +42,8 @@ local function config_trouble(trouble)
 		auto_jump = { "lsp_definitions" }, -- for the given modes, automatically jump if there is only a single result
 		signs = icons.signs,
 		use_diagnostic_signs = false, -- enabling this will use the signs defined in your lsp client
-	})
+	}
 end
 
-function M.setup()
-	local trouble = require("trouble")
-	config_trouble(trouble)
-end
 
 return M

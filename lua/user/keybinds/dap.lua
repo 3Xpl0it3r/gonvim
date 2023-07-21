@@ -27,11 +27,7 @@ M.key_binds = function(dap, dap_ui)
 
     -- console reference
 	vim.keymap.set("n", "<leader>dr", dap.repl.toggle, { desc = "DAP: Toggle REPL" })
-	-- vim.keymap.set("n", "<leader>d.", dap.goto_, { desc = "DAP: Go to" })  -- doesn's support dap debug
 
-
-	-- vim.keymap.set("n", "<leader>dv", require("telescope").extensions.dap.variables, { desc = "DAP-Telescope: Variables" })
-	-- vim.keymap.set("n", "<leader>dc", require("telescope").extensions.dap.commands, { desc = "DAP-Telescope: Commands" })
 	vim.keymap.set("n", "<leader>dx", require("dapui").eval, { desc = "DAP-UI: Eval" })
 	vim.keymap.set("n", "<leader>dX", function()
 		dap_ui.eval(vim.fn.input("expression: "))

@@ -1,13 +1,7 @@
-local status_ok, _ = pcall(require, "dressing")
-if not status_ok then
-	require("utils.notify").notify("Plugin dressing is not existed", "error", "Plugin")
-	return
-end
-
 local M = {}
 
-local function config_dressing(config)
-	config.setup({
+local function new_recomment_options()
+	return {
 		input = {
 			-- Set to false to disable the vim.ui.input implementation
 			enabled = true,
@@ -174,7 +168,7 @@ local function config_dressing(config)
 			-- see :help dressing_get_config
 			get_config = nil,
 		},
-	})
+	}
 end
 
 local function config_highlight()
@@ -191,10 +185,10 @@ local function config_highlight()
 	end
 end
 
-function M.setup()
-	local dressing = require("dressing")
-	config_dressing(dressing)
+
+function M.new_options()
 	config_highlight()
+    return new_recomment_options()
 end
 
 return M

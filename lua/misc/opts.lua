@@ -51,15 +51,14 @@ local options = {
 	diffopt = "vertical,filler,internal,context:4", -- vertical diff split view
 	-- cscopequickfix="s-,c-,d-,i-,t-,e-",       -- cscope output to quickfix window
 	confirm = false,
+
+    -- shada = "\"0,'10,"
 }
 
 for k, v in pairs(options) do
 	vim.opt[k] = v
 end
 
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-vim.g.leetcode_browser = "chrome"
 
 vim.api.nvim_set_keymap("n", "<C-h>", "<C-w>h", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<C-j>", "<C-w>j", { noremap = true, silent = true })

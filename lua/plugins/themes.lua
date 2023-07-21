@@ -1,6 +1,7 @@
-local kanagawa_ok, kanagawa_config = pcall(require, "kanagawa")
-if kanagawa_ok then
-	kanagawa_config.setup({
+local M = {}
+
+function M.new_kanagawa_options()
+	return {
 		undercurl = true, -- enable undercurls
 		commentStyle = { italic = true },
 		functionStyle = {},
@@ -16,13 +17,11 @@ if kanagawa_ok then
 		terminalColors = true, -- define vim.g.terminal_color_{0,17}
 		colors = {},
 		-- overrides = {},
-	})
-	-- setup must be called before loading
+	}
 end
 
-local onenord_ok, onenord_config = pcall(require, "onenord")
-if onenord_ok then
-	onenord_config.setup({
+function M.new_onenord_options()
+	return {
 		theme = "dark", -- "dark" or "light". Alternatively, remove the option and set vim.o.background instead
 		borders = true, -- Split window borders
 		fade_nc = false, -- Fade non-current windows, making them more distinguishable
@@ -46,13 +45,11 @@ if onenord_ok then
 		},
 		custom_highlights = {}, -- Overwrite default highlight groups
 		custom_colors = {}, -- Overwrite default colors
-	})
-	-- setup must be called before loading
+	}
 end
 
-local nightfox_ok, nightfox_config = pcall(require, "nightfox")
-if nightfox_ok then
-	nightfox_config.setup({
+function M.new_nightfox_options()
+	return {
 		options = {
 			-- Compiled file's destination location
 			compile_path = vim.fn.stdpath("cache") .. "/nightfox",
@@ -84,13 +81,11 @@ if nightfox_ok then
 		palettes = {},
 		specs = {},
 		groups = {},
-	})
+	}
 end
--- Nordfox
 
-local status_ok, onedarkpro_config = pcall(require, "onedarkpro")
-if status_ok then
-	onedarkpro_config.setup({
+function M.new_onedarkpro_options()
+	return {
 		dark_theme = "onedark", -- The default dark theme
 		light_theme = "onelight", -- The default light theme
 		colors = {}, -- Override default colors by specifying colors for 'onelight' or 'onedark' themes
@@ -115,13 +110,11 @@ if status_ok then
 			terminal_colors = false, -- Use the colorscheme's colors for Neovim's :terminal?
 			window_unfocused_color = false, -- When the window is out of focus, change the normal background?
 		},
-	})
+	}
 end
 
-local Tokyonight_ok, tokyonight_config = pcall(require, "tokyonight")
-if tokyonight_ok then
-	-- vim.g.tokyonight_dark_float = false
-	tokyonight_config.setup({
+function M.new_tokyonight_options()
+	return {
 		style = "night", -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
 		light_style = "day", -- The theme is used when the background is set to light
 		transparent = false, -- Enable this to disable setting the background color
@@ -153,5 +146,7 @@ if tokyonight_ok then
 		---@param highlights Highlights
 		---@param colors ColorScheme
 		on_highlights = function(highlights, colors) end,
-	})
+	}
 end
+
+return M

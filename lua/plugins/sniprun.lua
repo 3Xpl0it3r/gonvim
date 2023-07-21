@@ -1,13 +1,7 @@
-local status_ok, config = pcall(require, "sniprun")
-if not status_ok then
-	require("utils.notify").notify("Plugin sniprun is not existed", "error", "Plugin")
-	return
-end
-
 local M = {}
 
-local function config_sniprun(sniprun)
-	sniprun.setup({
+function M.new_options()
+	return {
 		selected_interpreters = {}, --# use those instead of the default for the current filetype
 		repl_enable = {}, --# enable REPL-like behavior for the given interpreters
 		repl_disable = {}, --# disable REPL-like behavior for the given interpreters
@@ -66,11 +60,7 @@ local function config_sniprun(sniprun)
 		borders = "single", --# display borders around floating windows
 		--# possible values are 'none', 'single', 'double', or 'shadow'
 		live_mode_toggle = "off", --# live mode toggle, see Usage - Running for more info
-	})
-end
-
-function M.setup()
-	config_sniprun(require("sniprun"))
+	}
 end
 
 return M

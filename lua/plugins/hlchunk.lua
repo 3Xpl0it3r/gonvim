@@ -1,14 +1,7 @@
-local status_ok, _ = pcall(require, "hlchunk")
-
-if not status_ok then
-	require("utils.notify").notify("hlchunk not found!", "error", "Plugin")
-	return
-end
-
 local M = {}
 
-local function config_hlchunk(hlchunk)
-	local options = {
+function M.new_options()
+	return {
 		chunk = {
 			enable = true,
 			use_treesitter = true,
@@ -21,7 +14,7 @@ local function config_hlchunk(hlchunk)
 			},
 			style = {
 				-- { fg = "#806d9c" },
-                {fg = "#9CCC65"}
+				{ fg = "#9CCC65" },
 			},
 		},
 		blank = {
@@ -30,13 +23,10 @@ local function config_hlchunk(hlchunk)
 		indent = {
 			enable = false,
 		},
+		line_num = {
+			enable = false,
+		},
 	}
-	hlchunk.setup(options)
-end
-
-function M.setup()
-	local hlchunk = require("hlchunk")
-	config_hlchunk(hlchunk)
 end
 
 return M

@@ -12,6 +12,8 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 vim.o.termguicolors = true
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 local plugins = {
 	------------------------------------------------
@@ -19,29 +21,28 @@ local plugins = {
 	------------------------------------------------
 	{
 		"folke/tokyonight.nvim",
-		config = function()
-			require("plugins.themes")
-		end,
+		"rebelot/kanagawa.nvim",
+		-- opts = require("plugins.themes").new_tokyonight_options(),
 	},
-	{ "catppuccin/nvim", as = "catppuccin" },
-	{ "rebelot/kanagawa.nvim" },
 
 	{
 		"rcarriga/nvim-notify",
-		config = function()
-			require("plugins.notify").setup()
-		end,
+		opts = require("plugins.notify").new_options(),
 	},
+
 	{
 		"nvim-tree/nvim-web-devicons",
-		config = function()
-			require("nvim-web-devicons").setup({ default = true })
-		end,
 	},
+
 	{
 		"goolord/alpha-nvim",
+		event = "VimEnter",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
+		config = function()
+			require("plugins.alpha-nvim")
+		end,
 	},
+
 	{
 		"nvim-lualine/lualine.nvim",
 		config = function()
@@ -51,30 +52,29 @@ local plugins = {
 
 	{
 		"gen740/SmoothCursor.nvim",
-		config = function()
-			require("plugins.smoothcursor").setup()
-		end,
+		opts = require("plugins.smoothcursor").new_options(),
+	},
+
+	{
+		"shellRaining/hlchunk.nvim",
+		opts = require("plugins.hlchunk").new_options(),
 	},
 	------------------------------------------------
 	----      Language Functional ,          -------
 	------------------------------------------------
 	{
 		"stevearc/aerial.nvim",
-		config = function()
-			require("plugins.aerial").setup()
-		end,
+		opts = require("plugins.aerial").new_options(),
 	},
 	{
 		"folke/trouble.nvim",
 		dependencies = "nvim-tree/nvim-web-devicons",
-		config = function()
-			require("plugins.trouble").setup()
-		end,
+		opts = require("plugins.trouble").new_options(),
 	},
 	{
 		"nvim-treesitter/nvim-treesitter",
 		config = function()
-			require("plugins.nvim-treesitter").setup()
+		require("plugins.nvim-treesitter").setup()
 		end,
 	},
 	------------------------------------------------
@@ -115,9 +115,6 @@ local plugins = {
 			"nvim-tree/nvim-web-devicons",
 			"MunifTanjim/nui.nvim",
 		},
-		config = function()
-			require("plugins.neo-tree").setup()
-		end,
 	},
 	{
 		"JoosepAlviste/nvim-ts-context-commentstring",
@@ -134,11 +131,11 @@ local plugins = {
 			require("plugins.autopairs").setup()
 		end,
 	},
+
 	{
-		"phaazon/hop.nvim",
-		config = function()
-			require("plugins.hop").setup()
-		end,
+		"folke/flash.nvim",
+		event = "VeryLazy",
+		opts = require("plugins.flash").new_options(),
 	},
 	----------------------------------------------------------------
 	----      Completion , Diagnostics , Snippets,  LSP
@@ -152,6 +149,7 @@ local plugins = {
 			{ "hrsh7th/cmp-path" }, -- path completion plugin
 			{ "hrsh7th/cmp-buffer" }, -- buffer completion plugin
 			{ "hrsh7th/cmp-nvim-lsp" }, -- lsp
+			{ "hrsh7th/cmp-cmdline" },
 			-- snippet support
 			{
 				"L3MON4D3/LuaSnip",
@@ -181,16 +179,7 @@ local plugins = {
 	},
 	{ -- lsp_signature
 		"ray-x/lsp_signature.nvim",
-		config = function()
-			require("plugins.lsp_signature").setup()
-		end,
-	},
-	{
-		"lvimuser/lsp-inlayhints.nvim",
-		branch = "anticonceal",
-		config = function()
-			require("plugins.inlayhints").setup()
-		end,
+		opts = require("plugins.lsp_signature").new_options(),
 	},
 	----------------------------------------------------------------
 	----      Dap Debugger
@@ -198,9 +187,7 @@ local plugins = {
 	{
 		"michaelb/sniprun",
 		build = "bash ./install.sh",
-		config = function()
-			require("plugins.sniprun").setup()
-		end,
+		opts = require("plugins.sniprun").new_options(),
 	},
 	{
 		"mfussenegger/nvim-dap",
@@ -211,16 +198,12 @@ local plugins = {
 	{
 		"rcarriga/nvim-dap-ui",
 		dependencies = "nvim-dap",
-		config = function()
-			require("plugins.dap-ui").setup()
-		end,
+		opts = require("plugins.dap-ui").new_options(),
 	},
 	{
 		"theHamsta/nvim-dap-virtual-text",
 		dependencies = "nvim-dap",
-		config = function()
-			require("plugins.dap-virtual-text")
-		end,
+		opts = require("plugins.dap-virtual-text").new_options(),
 	},
 	----------------------------------------------------------------
 	----      Unit Test
@@ -233,52 +216,33 @@ local plugins = {
 			"nvim-neotest/neotest-go",
 			"rouge8/neotest-rust",
 		},
-		config = function()
-			require("plugins.neotest").setup()
-		end,
 	},
+
 	----------------------------------------------------------------
 	----      Git Plugins
 	----------------------------------------------------------------
 	{
 		"lewis6991/gitsigns.nvim",
-		config = function()
-			require("plugins.gitsigns").setup()
-		end,
+		opts = require("plugins.gitsigns").new_options(),
 	},
+
 	----------------------------------------------------------------
 	----      Some Misc Plugin (but should placed at the end)
 	----------------------------------------------------------------
 	{ "wakatime/vim-wakatime" },
+
 	{ -- which key
 		"folke/which-key.nvim",
 		config = function()
 			require("plugins.which-key").setup()
 		end,
 	},
+
 	-- With the release of Neovim 0.6 we were given the start of extensible core UI hooks
 	{
 		"stevearc/dressing.nvim",
-		config = function()
-			require("plugins.dressigns").setup()
-		end,
-	},
-	{
-		"stevearc/dressing.nvim",
-		config = function()
-			require("plugins.dressigns").setup()
-		end,
+		opts = require("plugins.dressing").new_options(),
 	},
 }
 
-local opts = {
-	checker = {
-		-- automatically check for plugin updates
-		enabled = false,
-		concurrency = nil, ---@type number? set to 1 to check for updates very slowly
-		notify = true, -- get a notification when new updates are found
-		frequency = 3600, -- check for updates every hour
-	},
-}
-
-require("lazy").setup(plugins, opts)
+require("lazy").setup(plugins, require("plugins.lazy").new_options())

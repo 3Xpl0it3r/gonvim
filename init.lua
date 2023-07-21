@@ -1,8 +1,7 @@
-require("plugins_packer")
+require("plugin")
 
 -- commonn configure , no dep plugins
-require("misc.init")
+require("misc")
 
 -- wrape neovide
 require("neovide")
-

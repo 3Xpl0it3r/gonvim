@@ -1,13 +1,7 @@
-local status_ok, _ = pcall(require, "gitsigns")
-if not status_ok then
-	require("utils.notify").notify("Plugin gitsigns is not existed", "error", "Plugin")
-	return
-end
-
 local M = {}
 
-local function config_gitsigns(config)
-	config.setup({
+function M.new_options()
+	return {
 		signs = {
 			add = { hl = "GitSignsAdd", text = "│", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
 			change = { hl = "GitSignsChange", text = "│", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn" },
@@ -56,12 +50,7 @@ local function config_gitsigns(config)
 		yadm = {
 			enable = false,
 		},
-	})
-end
-
-function M.setup()
-	local gitsigns = require("gitsigns")
-	config_gitsigns(gitsigns)
+	}
 end
 
 return M

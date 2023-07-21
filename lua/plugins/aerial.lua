@@ -1,16 +1,9 @@
-local status_ok, _ = pcall(require, "aerial")
-if not status_ok then
-	require("utils.notify").notify("Plugin aerial is not existed", "error", "Plugin")
-	return
-end
-
 local icons = require("ui.icons")
 
 local M = {}
 
-local function config_aerial(config)
-	-- Call the setup function to change the default behavior
-	config.setup({
+function M.new_options()
+	return {
 		-- Priority list of preferred backends for aerial.
 		-- This can be a filetype map (see :help aerial-filetype-map)
 		backends = { "treesitter", "lsp", "markdown", "man" },
@@ -247,12 +240,7 @@ local function config_aerial(config)
 			-- How long to wait (in ms) after a buffer change before updating
 			update_delay = 300,
 		},
-	})
-end
-
-function M.setup()
-	local aerial = require("aerial")
-	config_aerial(aerial)
+	}
 end
 
 return M

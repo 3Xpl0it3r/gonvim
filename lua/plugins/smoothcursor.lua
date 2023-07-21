@@ -1,13 +1,7 @@
-local status_ok, _ = pcall(require, "smoothcursor")
-if not status_ok then
-	require("utils.notify").notify("smoothcursor not found!", "error", "Plugin")
-	return
-end
-
 local M = {}
 
-local function config_smoothcursor(smoothcursor)
-	smoothcursor.setup({
+function M.new_options()
+	return {
 		autostart = true,
 		cursor = "", -- cursor shape (need nerd font)
 		texthl = "SmoothCursor", -- highlight group, default is { bg = nil, fg = "#FFD400" }
@@ -37,11 +31,7 @@ local function config_smoothcursor(smoothcursor)
 		disable_float_win = false, -- disable on float window
 		enabled_filetypes = nil, -- example: { "lua", "vim" }
 		disabled_filetypes = nil, -- this option will be skipped if enabled_filetypes is set. example: { "TelescopePrompt", "NvimTree" }
-	})
-end
-
-function M.setup()
-	config_smoothcursor(require("smoothcursor"))
+	}
 end
 
 return M

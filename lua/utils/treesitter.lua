@@ -1,7 +1,7 @@
-
 local M = {}
 
 local parsers = require("nvim-treesitter.parsers")
+
 local function get_root()
 	local parser = parsers.get_parser()
 	if parser == nil then
