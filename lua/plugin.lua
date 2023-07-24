@@ -74,7 +74,7 @@ local plugins = {
 	{
 		"nvim-treesitter/nvim-treesitter",
 		config = function()
-		require("plugins.nvim-treesitter").setup()
+			require("plugins.nvim-treesitter").setup()
 		end,
 	},
 	------------------------------------------------
@@ -115,6 +115,7 @@ local plugins = {
 			"nvim-tree/nvim-web-devicons",
 			"MunifTanjim/nui.nvim",
 		},
+		opts = require("plugins.neo-tree").new_options(),
 	},
 	{
 		"JoosepAlviste/nvim-ts-context-commentstring",
