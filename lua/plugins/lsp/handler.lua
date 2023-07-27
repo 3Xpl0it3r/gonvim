@@ -1,5 +1,7 @@
 local M = {}
 
+local icons = require("ui.icons")
+
 vim.api.nvim_create_autocmd("CursorHold", {
 	buffer = bufnr,
 	callback = function()
@@ -48,10 +50,10 @@ end
 
 M.setup = function()
 	local signs = {
-		{ name = "DiagnosticSignError", text = "" },
-		{ name = "DiagnosticSignWarn", text = "" },
-		{ name = "DiagnosticSignHint", text = "" },
-		{ name = "DiagnosticSignInfo", text = "" },
+		{ name = "DiagnosticSignError", text = icons.diagnostics.Error },
+		{ name = "DiagnosticSignWarn", text = icons.diagnostics.Warn },
+		{ name = "DiagnosticSignHint", text = icons.diagnostics.Hint },
+		{ name = "DiagnosticSignInfo", text = icons.diagnostics.Info },
 	}
 
 	for _, sign in ipairs(signs) do
@@ -60,7 +62,7 @@ M.setup = function()
 
 	local config = {
 		virtual_text = {
-			prefix = "◉", -- Could be '●', '▎', 'x', '■' '◉ '
+			prefix = icons.misc.fake, -- Could be '●', '▎', 'x', '■' '◉ '
 		},
 		signs = {
 			active = signs,

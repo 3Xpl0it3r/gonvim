@@ -154,7 +154,7 @@ local config = {
 					local hi_folder = "%#CusWInbarFolder#"
 					local seperator = "%#CusWinbarSeperator#  "
 					return hi_folder
-						.. icons.ui.Folder
+						.. icons.misc.Folder
 						.. hi_folder
 						.. table.concat(slice, seperator .. hi_folder)
 						.. seperator
@@ -303,8 +303,8 @@ ins_left({
 	sources = { "nvim_diagnostic" },
 	symbols = {
 		error = icons.diagnostics.Error .. "  ",
-		warn = icons.diagnostics.Warning .. "  ",
-		info = icons.diagnostics.Information .. "  ",
+		warn = icons.diagnostics.Warn .. "  ",
+		info = icons.diagnostics.Info .. "  ",
 		hint = icons.diagnostics.Hint .. "  ",
 	},
 	diagnostics_color = {

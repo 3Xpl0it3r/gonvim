@@ -186,11 +186,6 @@ local plugins = {
 	----      Dap Debugger
 	----------------------------------------------------------------
 	{
-		"michaelb/sniprun",
-		build = "bash ./install.sh",
-		opts = require("plugins.sniprun").new_options(),
-	},
-	{
 		"mfussenegger/nvim-dap",
 		config = function()
 			require("plugins.dap").setup()
