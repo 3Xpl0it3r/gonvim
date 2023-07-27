@@ -36,3 +36,4 @@ vim.cmd([[
     silent! UpdateRemotePlugins
 ]])
 
+

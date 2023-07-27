@@ -19,7 +19,7 @@ local options = {
 	conceallevel = 0, -- so that `` is visible in markdown files
 	hlsearch = true, -- highlight all matches on previous search pattern
 	ignorecase = true, -- ignore case in search patterns
-	mouse = "", -- disable mouse completely
+	mouse = "n", -- disable mouse completely
 	pumheight = 10, -- pop up menu height
 	showmode = false, -- we don't need to see things like -- INSERT -- anymore
 	showtabline = 0, -- [0: never show, 1: if has more than 2tabs , 2 : always]
@@ -52,16 +52,21 @@ local options = {
 	-- cscopequickfix="s-,c-,d-,i-,t-,e-",       -- cscope output to quickfix window
 	confirm = false,
 
-    -- shada = "\"0,'10,"
+	-- shada = "\"0,'10,"
+	so = 999,
 }
 
 for k, v in pairs(options) do
 	vim.opt[k] = v
 end
 
-
 vim.api.nvim_set_keymap("n", "<C-h>", "<C-w>h", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<C-j>", "<C-w>j", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<C-k>", "<C-w>k", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<C-l>", "<C-w>l", { noremap = true, silent = true })
 
+-- enable scrolle only
+vim.api.nvim_set_keymap("n", "<LeftMouse>", "<NOP>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<RightMouse>", "<NOP>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<ScrollWheelLeft>", "<NOP>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<ScrollWheelRight>", "<NOP>", { noremap = true, silent = true })
