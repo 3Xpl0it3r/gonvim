@@ -19,7 +19,6 @@ local function new_recomment_options()
 			start_in_insert = true,
 
 			-- These are passed to nvim_open_win
-			anchor = "SW",
 			border = "rounded",
 			-- 'editor' and 'win' will default to being centered( cursor)
 			relative = "win",
@@ -34,6 +33,8 @@ local function new_recomment_options()
 			win_options = {
 				-- Window transparency (0-100)
 				winblend = 10,
+
+				list = true,
 
 				-- Change default highlight groups (see :help winhl)
 				winhighlight = "",
@@ -126,7 +127,6 @@ local function new_recomment_options()
 			-- Options for built-in selector
 			builtin = {
 				-- These are passed to nvim_open_win
-				anchor = "NW",
 				border = "rounded",
 				-- 'editor' and 'win' will default to being centered
 				relative = "editor",
@@ -185,10 +185,9 @@ local function config_highlight()
 	end
 end
 
-
 function M.new_options()
 	config_highlight()
-    return new_recomment_options()
+	return new_recomment_options()
 end
 
 return M
