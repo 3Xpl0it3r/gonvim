@@ -70,3 +70,11 @@ vim.api.nvim_set_keymap("n", "<LeftMouse>", "<NOP>", { noremap = true, silent = 
 vim.api.nvim_set_keymap("n", "<RightMouse>", "<NOP>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<ScrollWheelLeft>", "<NOP>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<ScrollWheelRight>", "<NOP>", { noremap = true, silent = true })
+
+vim.cmd([[ 
+map <2-LeftMouse> <Nop>
+map! <2-LeftMouse> <Nop>
+
+map <2-RightMouse> <Nop>
+map! <2-RightMouse> <Nop>
+]])
