@@ -56,7 +56,7 @@ local function config_telescope(telescope)
 			mappings = require("user.keybinds.telescope").defaults_key_mapping,
 		},
 		pickers = {
-			find_files = { -- basic filename to fine files
+            find_files = { -- basic filename to fine files
 				layout_strategy = "horizontal",
 				layout_config = {
 					prompt_position = "top",
