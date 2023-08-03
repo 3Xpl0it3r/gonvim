@@ -58,11 +58,11 @@ M.normal = {
 	l = {
 		name = "+Lsp",
 		c = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Change(Rename)" },
-		d = { "<cmd>lua require('telescope.builtin').lsp_definitions(show_line=false)<cr>", "Define" },
-		D = { "<cmd>lua require('telescope.builtin').lsp_type_definitions(show_line = false)<cr>", "TypeDefine" },
+		d = { "<cmd>lua require('telescope.builtin').lsp_definitions({show_line=false})<cr>", "Define" },
+		D = { "<cmd>lua require('telescope.builtin').lsp_type_definitions({show_line = false})<cr>", "TypeDefine" },
 		e = { "<cmd>lua require('telescope.builtin').diagnostics()<cr>", "diagnostics" },
 		f = { "<cmd>lua vim.lsp.buf.formatting({async=true})<cr>", "LspFormat" },
-		i = { "<cmd>lua require('telescope.builtin').lsp_implementations(show_line = false)<cr>", "Interface" },
+		i = { "<cmd>lua require('telescope.builtin').lsp_implementations({show_line = false})<cr>", "Interface" },
 		r = { "<cmd>lua require('telescope.builtin').lsp_references({show_line = false})<cr>", "Reference" },
 		s = {
 			function()
