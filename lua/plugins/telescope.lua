@@ -56,7 +56,7 @@ local function config_telescope(telescope)
 			mappings = require("user.keybinds.telescope").defaults_key_mapping,
 		},
 		pickers = {
-            find_files = { -- basic filename to fine files
+			find_files = { -- basic filename to fine files
 				layout_strategy = "horizontal",
 				layout_config = {
 					prompt_position = "top",
@@ -66,20 +66,21 @@ local function config_telescope(telescope)
 				find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*", "-L" },
 			},
 			live_grep = { -- basic context to find files
-				layout_strategy = "vertical",
+				--[[ layout_strategy = "vertical",
 				layout_config = {
 					prompt_position = "top",
 					height = 0.90,
 					width = 0.80,
-				},
-				--[[ layout_strategy = "horizontal",
+				}, ]]
+				layout_strategy = "horizontal",
                 layout_config = {
                     prompt_position = "bottom",
                     height = 0.90,
                     width = 0.90,
-                }, ]]
+                },
 				mappings = require("user.keybinds.telescope").live_grep_key_mapping,
 			},
+
 		},
 		extensions = {
 			fzf = {
