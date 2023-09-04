@@ -84,7 +84,7 @@ M.normal = {
 	-- book marks
 	m = {
 		name = "+BookMarks",
-		c = { "<cmd>delmarks 0-9a-z<cr>", "Compile" },
+		c = { "<cmd>delmarks 0-9a-z<cr>", "Clean All" },
 	},
 	-- Plugin Manager
 	p = {

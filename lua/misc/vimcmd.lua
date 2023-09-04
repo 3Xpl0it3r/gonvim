@@ -36,4 +36,10 @@ vim.cmd([[
     silent! UpdateRemotePlugins
 ]])
 
-
+-- keep cursor on middle of screen
+-- vim.cmd([[ 
+--     augroup KeepCentered
+--       autocmd!
+--       autocmd CursorMoved * normal zz
+--     augroup END
+-- ]])
