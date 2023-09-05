@@ -141,6 +141,18 @@ local plugins = {
 	----------------------------------------------------------------
 	----      Completion , Diagnostics , Snippets,  LSP
 	----------------------------------------------------------------
+
+	{
+		"L3MON4D3/LuaSnip",
+		-- follow latest release.
+		version = "2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+		-- install jsregexp (optional!).
+		build = "make install_jsregexp",
+		config = function()
+			require("plugins.luasnip").setup()
+		end,
+	},
+
 	{
 		"hrsh7th/nvim-cmp",
 		config = function()
@@ -151,13 +163,6 @@ local plugins = {
 			{ "hrsh7th/cmp-buffer" }, -- buffer completion plugin
 			{ "hrsh7th/cmp-nvim-lsp" }, -- lsp
 			{ "hrsh7th/cmp-cmdline" },
-			-- snippet support
-			{
-				"L3MON4D3/LuaSnip",
-				config = function()
-					require("plugins.luasnip").setup()
-				end,
-			},
 			{ "saadparwaiz1/cmp_luasnip" }, -- completete for snippets
 		},
 	},

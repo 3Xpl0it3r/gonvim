@@ -30,40 +30,41 @@ local M = {
 			return res
 		end, {}, { user_args = { "pwd" } })
 	),
+
 	postfix('.wrap""', {
-		func(function(_, snip)
-			return '"' .. snip.snippet.env.POSTFIX_MATCH .. '"'
+		func(function(_, parent)
+			return '"' .. parent.snippet.env.POSTFIX_MATCH .. '"'
 		end, {}),
 	}),
 	postfix(".wrap''", {
-		func(function(_, snip)
-			return "'" .. snip.snippet.env.POSTFIX_MATCH .. "'"
+		func(function(_, parent)
+			return "'" .. parent.snippet.env.POSTFIX_MATCH .. "'"
 		end, {}),
 	}),
 	postfix(".wrap()", {
-		func(function(_, snip)
-			return "(" .. snip.snippet.env.POSTFIX_MATCH .. ")"
+		func(function(_, parent)
+			return "(" .. parent.snippet.env.POSTFIX_MATCH .. ")"
 		end, {}),
 	}),
 	postfix(".wrap[]", {
-		func(function(_, snip)
-			return "[" .. snip.snippet.env.POSTFIX_MATCH .. "]"
+		func(function(_, parent)
+			return "[" .. parent.snippet.env.POSTFIX_MATCH .. "]"
 		end, {}),
 	}),
 
 	postfix(".wrap{}", {
-		func(function(_, snip)
-			return "{" .. snip.snippet.env.POSTFIX_MATCH .. "}"
+		func(function(_, parent)
+			return "{" .. parent.snippet.env.POSTFIX_MATCH .. "}"
 		end, {}),
 	}),
 	postfix(".wrap<>", {
-		func(function(_, snip)
-			return "<" .. snip.snippet.env.POSTFIX_MATCH .. ">"
+		func(function(_, parent)
+			return "<" .. parent.snippet.env.POSTFIX_MATCH .. ">"
 		end, {}),
 	}),
 	postfix(".end", {
-		func(function(_, snip)
-			return snip.snippet.env.POSTFIX_MATCH
+		func(function(_, parent)
+			return parent.snippet.env.POSTFIX_MATCH
 		end, {}),
 	}),
 

@@ -74,7 +74,7 @@ local function config_telescope(telescope)
 				}, ]]
 				layout_strategy = "horizontal",
                 layout_config = {
-                    prompt_position = "bottom",
+                    prompt_position = "top",
                     height = 0.90,
                     width = 0.90,
                 },
