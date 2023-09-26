@@ -245,6 +245,12 @@ local plugins = {
 		"stevearc/dressing.nvim",
 		opts = require("plugins.dressing").new_options(),
 	},
+
+	-- api
+	--[[ {
+		"Exafunction/codeium.vim",
+		event = "BufEnter",
+	}, ]]
 }
 
 require("lazy").setup(plugins, require("plugins.lazy").new_options())
