@@ -177,8 +177,7 @@ local plugins = {
 		end,
 	},
 	{ -- null lsp
-		-- "jose-elias-alvarez/null-ls.nvim",
-		"3Xpl0it3r/null-ls.nvim",
+		"nvimtools/none-ls.nvim",
 		dependencies = { "nvim-lua/plenary.nvim" },
 		config = function()
 			require("plugins.null-ls").setup()
