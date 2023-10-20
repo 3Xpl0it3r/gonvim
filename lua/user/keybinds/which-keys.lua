@@ -90,7 +90,7 @@ M.normal = {
 		l = { "<cmd>lua require('extender.bookmarks.mark').list()<cr>", "List Bookmarks" },
 		j = { "<cmd>lua require('extender.bookmarks.mark').jump()<cr>", "Jump to Bookmarks" },
 		r = { "<cmd>lua require('extender.bookmarks.mark').init()<cr>", "Rest Bookmarks" },
-		q = { "<cmd>lua require('extender.bookmarks.mark').init()<cr>", "Clean All" },
+		q = { "<cmd>lua require('extender.bookmarks.mark').clean_all()<cr>", "Clean All" },
 	},
 
 	-- Plugin Manager

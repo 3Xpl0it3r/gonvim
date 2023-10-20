@@ -1,10 +1,14 @@
 local M = {}
 
-local format_notify = require("utils.notify")
+local notifier = require("utils.notify")
 local file_utils = require("utils.files")
-local dbfile = ".bookmarks.json"
 
-local NotifyTitle = "BookMarks"
+local pickers = require("telescope.pickers")
+local finders = require("telescope.finders")
+local conf = require("telescope.config").values
+
+-- some const values
+local dbfile = ".bookmarks.json" -- Default stotage file
 
 function M.init()
 	vim.cmd("delmarks a-zA-Z")
@@ -57,15 +61,23 @@ function M.register()
 	local cache = vim.fn.JsonLoadF(reg_file)
 
 	vim.ui.input({ prompt = "Input BookMark Annotation" }, function(annotation)
+		local title = "Register BookMarks" -- Define notify tile
+		local message_success = title .. " Successfully!"
+		local message_failed = title .. " Failed: "
+
 		if cache["register"][annotation] ~= nil then
-			format_notify.notify("Bookmark: " .. annotation .. " has Existed", "error", NotifyTitle)
+			notifier.notify(message_failed .. "bookmark" .. annotation .. "has existed", notifier.Level.error, title)
 			return
 		end
 
 		-- the number of must be less than 10
 		if #cache["free"] == 0 then
-			format_notify.notify("Bookmark: Number of bookmarks must be less than 10", "error", NotifyTitle)
+			notifier.notify(message_failed .. "too many bookmarks", notifier.Level.warn, title)
 			return
+		end
+
+		if annotation == nil then
+			notifier.notify(message_failed .. "canceled", notifier.Level.warn, title)
 		end
 
 		local mark = table.remove(cache["free"], 1)
@@ -75,14 +87,20 @@ function M.register()
 
 		-- update storage
 		vim.fn.JsonDumpF(reg_file, cache)
+
+		notifier.notify(message_success, notifier.Level.info, title)
 	end)
 end
 
 function M.delete()
+	local title = "Delete BookMarks" -- Define notify tile
+	local message_success = title .. " Successfully!"
+	local message_failed = title .. " Failed: "
+
 	local reg_file = vim.lsp.buf.list_workspace_folders()[1] .. "/" .. dbfile
 	if file_utils.file_exists(reg_file) == false then
 		M.init()
-		format_notify("BookMarks is Empty", "warn", NotifyTitle)
+		notifier("BookMarks is Empty", "warn", title)
 	end
 
 	local cache = vim.fn.JsonLoadF(reg_file)
@@ -95,6 +113,7 @@ function M.delete()
 	vim.ui.select(mark_anno_list, { prompt = "Select Marks to delete" }, function(choice)
 		-- if not chose mark to delete ,then return do nothing
 		if not choice then
+			notifier.notify(message_failed .. "canceled", notifier.Level.warn, title)
 			return
 		end
 		-- delete marks from cache
@@ -112,38 +131,45 @@ function M.delete()
 		table.insert(cache["free"], mark)
 
 		vim.fn.JsonDumpF(reg_file, cache)
+
+		notifier.notify(message_success, notifier.Level.info, title)
 	end)
 end
 
 function M.list()
+	local title = "Delete BookMarks" -- Define notify tile
 	local reg_file = vim.lsp.buf.list_workspace_folders()[1] .. "/" .. dbfile
+
 	if file_utils.file_exists(reg_file) == false then
 		M.init()
-		format_notify("BookMarks is Empty", "warn", NotifyTitle)
+		notifier("BookMarks is Empty", "warn", title)
 	end
 
 	local cache = vim.fn.JsonLoadF(reg_file)
 
-	local mark_anno_list = {}
+	local annonations = {}
 	for anno, mark in pairs(cache["register"]) do
-		local col, row, _, bfname = unpack(vim.api.nvim_get_mark(mark, {}))
-		table.insert(mark_anno_list, anno .. " | (" .. col .. "." .. row .. ") filename: " .. bfname)
+		table.insert(annonations, anno)
 	end
 
-	vim.ui.select(mark_anno_list, { prompt = "All BookMarks" }, function(choice)
-		-- if not chose mark to delete ,then return do nothing
-		if not choice then
-			return
-		end
-		-- delete marks from cache
-	end)
+	local opts = {}
+	pickers
+		.new(opts, {
+			prompt_title = "List Bookmarks",
+			finder = finders.new_table({
+				results = annonations,
+			}),
+			sort = conf.generic_sorter(opts),
+		})
+		:find()
 end
 
 function M.jump()
+	local title = "Jump BookMarks" -- Define notify tile
 	local reg_file = vim.lsp.buf.list_workspace_folders()[1] .. "/" .. dbfile
 	if file_utils.file_exists(reg_file) == false then
 		M.init()
-		format_notify("BookMarks is Empty", "warn", NotifyTitle)
+		notifier("BookMarks is Empty", notifier.Level.warn, title)
 	end
 
 	local cache = vim.fn.JsonLoadF(reg_file)
@@ -154,14 +180,20 @@ function M.jump()
 	end
 
 	vim.ui.select(mark_anno_list, { prompt = "Jump Bookmark" }, function(choice)
+		local message_success = title .. " Successfully!"
+		local message_failed = title .. " Failed: "
+
 		-- if not chose mark to delete ,then return do nothing
 		if not choice then
+			notifier.notify(message_failed .. " canceled ", notifier.Level.warn, title)
 			return
 		end
 		-- delete marks from cache
 		local mark = cache["register"][choice]
 
 		vim.cmd("normal! '" .. mark)
+
+		notifier.notify(message_success, notifier.Level.info, title)
 	end)
 end
 
