@@ -1,9 +1,9 @@
 local M = {}
 
-function M.file_exists(file_nme)
-	local f = io.open(file_nme, "r")
+function M.file_exists(file_name)
+	local f = io.open(file_name, "r")
 	if f ~= nil then
-		io.close(file_nme)
+		io.close(f)
 		return true
 	else
 		return false

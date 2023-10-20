@@ -128,6 +128,7 @@ local plugins = {
 	},
 	{
 		"windwp/nvim-autopairs",
+        commit = "fa6876f832ea1b71801c4e481d8feca9a36215ec",
 		config = function()
 			require("plugins.autopairs").setup()
 		end,
