@@ -27,6 +27,7 @@ gonvim用作goide,针对go做了大量的配置,您可以用来作为您的主�
 * 基于内容检索文件
 * Rust支持,支持在线检索安装Crate(类似Package管理)
 * Kubernetes支持,有些小伙伴可能对k8s相关的package版本比较懵,gonvim提供在线检索k8s所有package管理/安装
+* 支持给bookmarks 起别名(namedBookmarks)
 
 >  (Optional)如果需要用到Kubernetes和Rust相关支持,需要安装`pynvim` ,操作方式如下:`python3 -m pip install pynvim`; 如果没有数据可以参考`https://github.com/neovim/pynvim/pull/496`来修改相关的文件(此为pynvim的一个bug,或者直接安装master 分支的pynvim)
 
