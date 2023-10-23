@@ -118,7 +118,10 @@ function M.operator()
 		table.insert(bk_key_list, { bk_name })
 	end
 
-	local opts = {}
+	local opts = { layout_config = {
+		prompt_position = "top",
+		preview_width = 0.7,
+	} }
 	pickers
 		.new(opts, {
 			prompt_title = "Bookmarks",
@@ -126,6 +129,7 @@ function M.operator()
 				results = bk_key_list,
 				entry_maker = function(entry)
 					local bk_item = registry["registry"][entry[1]]
+
 					local display = "[" .. tostring(bk_item.index) .. "] " .. entry[1]
 					return {
 						value = entry[1],
