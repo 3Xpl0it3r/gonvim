@@ -85,12 +85,9 @@ M.normal = {
 	-- book marks
 	m = {
 		name = "+BookMarks",
-		a = { "<cmd>lua require('extender.bookmarks.mark').register()<cr>", "Add a Bookmarks" },
-		d = { "<cmd>lua require('extender.bookmarks.mark').delete()<cr>", "Delete a Bookmarks" },
-		l = { "<cmd>lua require('extender.bookmarks.mark').list()<cr>", "List Bookmarks" },
-		j = { "<cmd>lua require('extender.bookmarks.mark').jump()<cr>", "Jump to Bookmarks" },
-		r = { "<cmd>lua require('extender.bookmarks.mark').init()<cr>", "Rest Bookmarks" },
-		q = { "<cmd>lua require('extender.bookmarks.mark').clean_all()<cr>", "Clean All" },
+		a = { "<cmd>lua require('ext.bookmarks').add()<cr>", "Add BookMarks" },
+		c = { "<cmd>lua require('ext.bookmarks').clean_all()<cr>", "Clean All" },
+		l = { "<cmd>lua require('ext.bookmarks').operator()<cr>", "Add a Bookmarks" },
 	},
 
 	-- Plugin Manager
