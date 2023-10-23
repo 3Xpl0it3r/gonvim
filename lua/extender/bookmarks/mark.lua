@@ -142,7 +142,7 @@ function M.list()
 
 	if file_utils.file_exists(reg_file) == false then
 		M.init()
-		notifier("BookMarks is Empty", "warn", title)
+		notifier.notify("BookMarks is Empty", "warn", title)
 	end
 
 	local cache = vim.fn.JsonLoadF(reg_file)
