@@ -1,8 +1,10 @@
 local M = {}
 
+local json = require("utils.json")
 local notifier = require("utils.notify")
-local file_utils = require("utils.files")
+local path = require("utils.path")
 
+-- import telescope
 local pickers = require("telescope.pickers")
 local finders = require("telescope.finders")
 local telescope_config = require("telescope.config").values
@@ -49,7 +51,8 @@ function M.init()
 		},
 		alloc = {},
 	}
-	vim.fn.JsonDumpF(reg_file, initial)
+	-- vim.fn.JsonDumpF(reg_file, initial)
+	assert(json.dump(reg_file, initial), "Write BookMark Initial Data to cache file Failed")
 end
 
 function M.add()
@@ -57,11 +60,12 @@ function M.add()
 	-- if annotation not existed, then add
 	local reg_file = vim.lsp.buf.list_workspace_folders()[1] .. "/" .. cache_file
 
-	if file_utils.file_exists(reg_file) == false then
+	if path.exists(reg_file) == false then
 		M.init()
 	end
 
-	local registry = vim.fn.JsonLoadF(reg_file)
+	-- local registry = vim.fn.JsonLoadF(reg_file)
+	local registry = assert(json.load(reg_file), "Load BookMark Cache Data Failed")
 
 	vim.ui.input({ prompt = "Input BookMark Annotation" }, function(bk_name)
 		local title = "Register BookMarks" -- Define notify tile
@@ -96,7 +100,8 @@ function M.add()
 		registry.index = registry.index + 1
 
 		-- update storage
-		vim.fn.JsonDumpF(reg_file, registry)
+		-- vim.fn.JsonDumpF(reg_file, registry)
+		json.dump(reg_file, registry)
 
 		notifier.notify(message_success, notifier.Level.info, title)
 	end)
@@ -106,12 +111,13 @@ function M.operator()
 	local title = "BookMarks" -- Define notify tile
 	local reg_file = vim.lsp.buf.list_workspace_folders()[1] .. "/" .. cache_file
 
-	if file_utils.file_exists(reg_file) == false then
+	if path.exists(reg_file) == false then
 		M.init()
 		notifier.notify("BookMarks is Empty", "warn", title)
 	end
 
-	local registry = vim.fn.JsonLoadF(reg_file)
+	-- local registry = vim.fn.JsonLoadF(reg_file)
+	local registry = assert(json.load(reg_file), "Load BookMark from cache file failed:")
 
 	local bk_key_list = {}
 	for bk_name, _ in pairs(registry["registry"]) do
@@ -157,7 +163,8 @@ function M.operator()
 						end
 					end
 					table.insert(registry["free"], selection.mark)
-					vim.fn.JsonDumpF(reg_file, registry)
+					assert(json.dump(reg_file, registry))
+					-- vim.fn.JsonDumpF(reg_file, registry)
 					notifier.notify(
 						"Delelte Bookmark: " .. selection.value .. " Successfully",
 						notifier.Level.info,
@@ -171,7 +178,8 @@ function M.operator()
 						local bk_item = registry["registry"][selection.value]
 						registry["registry"][selection.value] = nil
 						registry["registry"][new_name] = bk_item
-						vim.fn.JsonDumpF(reg_file, registry)
+						-- vim.fn.JsonDumpF(reg_file, registry)
+						assert(json.dump(reg_file, registry))
 					end)
 				end)
 				map("i", "<CR>", function() -- selected and jump to bookmark
@@ -193,7 +201,7 @@ end
 
 function M.clean_all()
 	local reg_file = vim.lsp.buf.list_workspace_folders()[1] .. "/" .. cache_file
-	if file_utils.file_exists(reg_file) == true then
+	if path.exists(reg_file) == true then
 		os.remove(reg_file)
 	end
 end

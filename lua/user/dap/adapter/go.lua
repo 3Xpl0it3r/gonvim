@@ -1,6 +1,6 @@
 local M = {}
 
-local file_utils = require("utils.files")
+local path = require("utils.path")
 local notify_utils = require("utils.notify")
 local lsputil = require("lspconfig/util")
 
@@ -105,11 +105,11 @@ M.configurations = {
 		end,
 		program = function()
 			return coroutine.create(function(dap_run_co)
-				local pkgs = file_utils.readlines("go.debug")
+				local pkgs = path.read_file("go.debug")
 				if pkgs == nil or #pkgs == 0 then
 					vim.ui.input({ prompt = "[Dap] Input Package Name" }, function(pkg_name)
 						local full_path = vim.fn.resolve(vim.fn.getcwd() .. "/" .. pkg_name)
-						if file_utils.dir_exists(full_path) ~= true then
+						if path.exists(full_path) ~= true then
 							notify_utils.notify("Package " .. pkg_name .. " is not existed", "error", "[Dap: Go]")
 						end
 						coroutine.resume(dap_run_co, pkg_name)
