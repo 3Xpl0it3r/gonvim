@@ -371,7 +371,7 @@ function json.decode(str)
 	return res
 end
 
--- dump
+
 function json.dump(filename, val)
 	local fp = io.open(filename, "w")
 	if fp == nil then
@@ -380,7 +380,7 @@ function json.dump(filename, val)
 	local str = json.encode(val)
 	fp:write(str)
 	fp:close()
-    return true
+	return true
 end
 
 function json.load(filename)

@@ -1,14 +1,10 @@
 local M = {}
 
 function M.exists(file)
-	local ok, err, code = os.rename(file, file)
-	if not ok then
-		-- permission denied ,but it exists
-		if code == 13 then
-			return true
-		end
+	if os.rename(file, file) then
+		return true
 	end
-	return ok
+	return false
 end
 
 function M.read_dir(dir) end
