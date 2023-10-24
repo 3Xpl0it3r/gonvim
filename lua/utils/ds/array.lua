@@ -17,6 +17,10 @@ function M.queue_pop(list)
 	return table.remove(list, 1)
 end
 
+function M.empty(list)
+	return #list == 0
+end
+
 function M.queue_push(list, value)
 	table.insert(list, value)
 end
