@@ -1,11 +1,10 @@
 local M = {}
 
-
 local array = require("utils.ds.array")
 
 M.auto_import_all_modules = function(scan_path, require_prefix, black_list)
 	for _, file in ipairs(vim.fn.readdir(vim.fn.stdpath("config") .. scan_path, [[v:val =~ '\.lua$']])) do
-		if not arrary.contains(black_list, file) then
+		if not array.contains(black_list, file) then
 			if string.sub(require_prefix, -1) == "." then
 				require_prefix = string.sub(require_prefix, 1, -2)
 			end
