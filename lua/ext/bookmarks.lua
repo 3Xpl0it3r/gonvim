@@ -62,7 +62,12 @@ function M.add()
 	local message_failed = title .. " Failed: "
 	-- if annotation existed, throw an error, don't update
 	-- if annotation not existed, then add
-	local reg_file = vim.lsp.buf.list_workspace_folders()[1] .. "/" .. cache_file
+	local root_dir = vim.lsp.buf.list_workspace_folders()
+	if root_dir == nil or #root_dir == 0 then
+        notifier.notify(message_failed .. "No Lsp Found", notifier.Level.warn, title)
+		return
+	end
+	local reg_file = root_dir[1] .. "/" .. cache_file
 
 	if path.exists(reg_file) == false then
 		M.init()
@@ -126,7 +131,13 @@ end
 
 function M.operator()
 	local title = "BookMarks" -- Define notify tile
-	local reg_file = vim.lsp.buf.list_workspace_folders()[1] .. "/" .. cache_file
+
+	local root_dir = vim.lsp.buf.list_workspace_folders()
+	if root_dir == nil or #root_dir == 0 then
+        notifier.notify("No Lsp Found", notifier.Level.warn, title)
+		return
+	end
+	local reg_file = root_dir[1] .. "/" .. cache_file
 
 	if path.exists(reg_file) == false then
 		M.init()
