@@ -1,7 +1,8 @@
 local M = {}
+local notifier = require("utils.notify")
 
 local parsers = require("nvim-treesitter.parsers")
-local ts_utils = require("nvim-treesitter.ts_utils")
+local ui_icons = require("ui.icons")
 
 local function get_root()
 	local parser = parsers.get_parser()
@@ -99,60 +100,35 @@ end
 
 -- this is code is copyed from https://www.reddit.com/r/neovim/comments/pd8f07/using_treesitter_to_efficiently_show_the_function/
 function M.function_surrounding_cursor()
-	local prev_function_node = nil
-	local prev_function_name = ""
+	local current_node = vim.treesitter.get_node()
 
-	local current_node = ts_utils.get_node_at_cursor()
-	if not current_node then
-		return ""
-	end
+	local prev_node = current_node
 
-	local func = current_node
-
-	while func do
-		if func:type() == "function_definition" then
+	while current_node ~= true do
+		if current_node:type() == "source_file" then
 			break
 		end
-
-		func = func:parent()
+		prev_node = current_node
+		current_node = current_node:parent()
 	end
 
-	if not func then
-		prev_function_node = nil
-		prev_function_name = ""
-		return ""
+	if prev_node == nil then
+		return
 	end
 
-	if func == prev_function_node then
-		return prev_function_name
-	end
-	prev_function_node = func
+	local node_type = prev_node:type()
+	local name = ""
+	local icon = ""
 
-	local find_name
-	find_name = function(node)
-		for i = 0, node:named_child_count() - 1, 1 do
-			local child = node:named_child(i)
-			local type = child:type()
-
-			if type == "identifier" or type == "operator_name" then
-				return (ts_utils.get_node_text(child))[1]
-			else
-				local name = find_name(child)
-
-				if name then
-					return name
-				end
-			end
-		end
-
-		return nil
-	end
-	local fname = find_name(func)
-	if fname == nil then
-		return ""
+	if node_type == "function_declaration" then
+		name = vim.treesitter.get_node_text(prev_node:named_child(0), 0)
+		icon = ui_icons.lspKind.Function
+	elseif node_type == "method_declaration" then
+		name = vim.treesitter.get_node_text(prev_node:named_child(1), 0)
+		icon = ui_icons.lspKind.Method
 	end
 
-	return fname
+	return { type = node_type, name = name, icon = icon }
 end
 
 return M

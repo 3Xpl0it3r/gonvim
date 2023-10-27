@@ -3,6 +3,7 @@ local json = require("utils.json")
 local notifier = require("utils.notify")
 local path = require("utils.path")
 local map = require("utils.ds.map")
+local treesitter_utils = require("utils.treesitter")
 
 -- import telescope
 local pickers = require("telescope.pickers")
@@ -13,6 +14,9 @@ local action_state = require("telescope.actions.state")
 
 -- some const values
 local cache_file = ".bookmarks.json" -- Default stotage file
+
+local SIZE_TXT = 32
+local SIZE_TYPE = 32
 
 local init = function()
 	vim.cmd("delmarks a-zA-Z")
@@ -40,7 +44,7 @@ function M.add()
 	local reg_file = root_dir[1] .. "/" .. cache_file
 
 	if path.exists(reg_file) == false then
-        init()
+		init()
 	end
 
 	local registry = json.load(reg_file)
@@ -65,8 +69,13 @@ function M.add()
 		-- get filename and current lines in current buffer
 		local filename = vim.api.nvim_buf_get_name(0)
 		local r, _ = unpack(vim.api.nvim_win_get_cursor(0))
+		local node_info = treesitter_utils.function_surrounding_cursor()
 
-		map.set(registry["registry"], bk_name, { index = registry.index, filename = filename, lnum = r })
+		map.set(
+			registry["registry"],
+			bk_name,
+			{ index = registry.index, filename = filename, lnum = r, ts = node_info }
+		)
 
 		-- inc index automatically
 		registry.index = registry.index + 1
@@ -96,7 +105,7 @@ function M.operator()
 	local reg_file = root_dir[1] .. "/" .. cache_file
 
 	if path.exists(reg_file) == false then
-        init()
+		init()
 		notifier.notify("Cache File is not existed", "warn", title)
 	end
 
@@ -110,10 +119,12 @@ function M.operator()
 		table.insert(bk_key_list, { key })
 	end
 
-	local opts = { layout_config = {
-		prompt_position = "top",
-		preview_width = 0.7,
-	} }
+	local opts = {
+		layout_config = {
+			prompt_position = "top",
+			preview_width = 0.5,
+		},
+	}
 	pickers
 		.new(opts, {
 			prompt_title = title,
@@ -122,7 +133,15 @@ function M.operator()
 				entry_maker = function(entry)
 					local bk_item = map.get(registry["registry"], entry[1])
 
-					local display = "[" .. tostring(bk_item.index) .. "] " .. entry[1]
+					local display = entry[1]
+					if #entry[1] <= SIZE_TXT then
+						for _ = 1, SIZE_TXT - #entry[1], 1 do
+							display = display .. " "
+						end
+					end
+					display = display .. bk_item.ts.icon .. " "
+					display = display .. bk_item.ts.name
+
 					return {
 						value = entry[1],
 						display = display,
