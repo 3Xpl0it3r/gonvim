@@ -14,7 +14,7 @@ local action_state = require("telescope.actions.state")
 -- some const values
 local cache_file = ".bookmarks.json" -- Default stotage file
 
-function M.init()
+local init = function()
 	vim.cmd("delmarks a-zA-Z")
 	local reg_file = vim.lsp.buf.list_workspace_folders()[1] .. "/" .. cache_file
 	os.remove(reg_file)
@@ -40,7 +40,7 @@ function M.add()
 	local reg_file = root_dir[1] .. "/" .. cache_file
 
 	if path.exists(reg_file) == false then
-		M.init()
+        init()
 	end
 
 	local registry = json.load(reg_file)
@@ -96,7 +96,7 @@ function M.operator()
 	local reg_file = root_dir[1] .. "/" .. cache_file
 
 	if path.exists(reg_file) == false then
-		M.init()
+        init()
 		notifier.notify("Cache File is not existed", "warn", title)
 	end
 
