@@ -64,7 +64,7 @@ function M.add()
 	-- if annotation not existed, then add
 	local root_dir = vim.lsp.buf.list_workspace_folders()
 	if root_dir == nil or #root_dir == 0 then
-        notifier.notify(message_failed .. "No Lsp Found", notifier.Level.warn, title)
+		notifier.notify(message_failed .. "No Lsp Found", notifier.Level.warn, title)
 		return
 	end
 	local reg_file = root_dir[1] .. "/" .. cache_file
@@ -134,7 +134,7 @@ function M.operator()
 
 	local root_dir = vim.lsp.buf.list_workspace_folders()
 	if root_dir == nil or #root_dir == 0 then
-        notifier.notify("No Lsp Found", notifier.Level.warn, title)
+		notifier.notify("No Lsp Found", notifier.Level.warn, title)
 		return
 	end
 	local reg_file = root_dir[1] .. "/" .. cache_file
@@ -183,21 +183,20 @@ function M.operator()
 				mapfn("n", "d", function() -- delete bookmark
 					actions.close(prompt_bufnr)
 					local selection = action_state.get_selected_entry()
+
+					local mark = map.get(registry["registry"][selection.value], "mark")
+
 					-- delete marks from cache
 					map.remove(registry["registry"], selection.value)
-					-- delete from vim register
-					vim.api.nvim_del_mark(selection.mark)
+                    -- recycle mark from alloc ,then reback to free list
+					array.delete(registry["alloc"], mark)
+					array.queue_push(registry["free"], mark)
 
-					array.delete(registry["alloc"], selection.mark)
-					array.queue_push(registry["free"], selection.mark)
+					vim.api.nvim_del_mark(mark)
 
+                    -- persistent cache storage
 					assert(json.dump(reg_file, registry))
-					-- vim.fn.JsonDumpF(reg_file, registry)
-					notifier.notify(
-						"Delelte Bookmark: " .. selection.value .. " Successfully",
-						notifier.Level.info,
-						title
-					)
+					notifier.notify( "Delelte Bookmark: " .. selection.value .. " Successfully", notifier.Level.info, title)
 				end)
 				mapfn("n", "r", function() -- rename bookmark
 					actions.close(prompt_bufnr)
