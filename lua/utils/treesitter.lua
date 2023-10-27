@@ -1,6 +1,7 @@
 local M = {}
 
 local parsers = require("nvim-treesitter.parsers")
+local ts_utils = require("nvim-treesitter.ts_utils")
 
 local function get_root()
 	local parser = parsers.get_parser()
@@ -67,7 +68,6 @@ local function get_function_list_of_parent(parent)
 	return content
 end
 
-
 function M.all_available_functions()
 	local root = get_root()
 	if root == nil then
@@ -95,6 +95,64 @@ function M.all_available_functions()
 	end
 
 	return funcs
+end
+
+-- this is code is copyed from https://www.reddit.com/r/neovim/comments/pd8f07/using_treesitter_to_efficiently_show_the_function/
+function M.function_surrounding_cursor()
+	local prev_function_node = nil
+	local prev_function_name = ""
+
+	local current_node = ts_utils.get_node_at_cursor()
+	if not current_node then
+		return ""
+	end
+
+	local func = current_node
+
+	while func do
+		if func:type() == "function_definition" then
+			break
+		end
+
+		func = func:parent()
+	end
+
+	if not func then
+		prev_function_node = nil
+		prev_function_name = ""
+		return ""
+	end
+
+	if func == prev_function_node then
+		return prev_function_name
+	end
+	prev_function_node = func
+
+	local find_name
+	find_name = function(node)
+		for i = 0, node:named_child_count() - 1, 1 do
+			local child = node:named_child(i)
+			local type = child:type()
+
+			if type == "identifier" or type == "operator_name" then
+				return (ts_utils.get_node_text(child))[1]
+			else
+				local name = find_name(child)
+
+				if name then
+					return name
+				end
+			end
+		end
+
+		return nil
+	end
+	local fname = find_name(func)
+	if fname == nil then
+		return ""
+	end
+
+	return fname
 end
 
 return M

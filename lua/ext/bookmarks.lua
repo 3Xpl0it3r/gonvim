@@ -3,7 +3,6 @@ local json = require("utils.json")
 local notifier = require("utils.notify")
 local path = require("utils.path")
 local map = require("utils.ds.map")
-local array = require("utils.ds.array")
 
 -- import telescope
 local pickers = require("telescope.pickers")
@@ -22,37 +21,8 @@ function M.init()
 	local initial = {
 		index = 0,
 		registry = {}, -- {name={index=0, mark='A'}}
-		free = {
-			"A",
-			"B",
-			"C",
-			"D",
-			"E",
-			"F",
-			"G",
-			"H",
-			"I",
-			"J",
-			"K",
-			"L",
-			"M",
-			"N",
-			"O",
-			"P",
-			"Q",
-			"R",
-			"S",
-			"T",
-			"U",
-			"V",
-			"W",
-			"X",
-			"Y",
-			"Z",
-		},
-		alloc = {},
 	}
-	-- vim.fn.JsonDumpF(reg_file, initial)
+
 	assert(json.dump(reg_file, initial), "Write BookMark Initial Data to cache file Failed")
 end
 
@@ -78,11 +48,6 @@ function M.add()
 		return
 	end
 
-	if array.empty(registry["free"]) then
-		notifier.notify(message_failed .. "num of bk reached the max", notifier.Level.warn, title)
-		return
-	end
-
 	vim.ui.input({ prompt = "Input BookMark Annotation" }, function(bk_name)
 		if bk_name == nil then
 			return notifier.notify(message_failed .. "Cancel ", notifier.Level.info, title)
@@ -93,30 +58,15 @@ function M.add()
 			return
 		end
 
-		-- the number of must be less than 10
-		if map.empty(registry["free"]) then
-			notifier.notify(message_failed .. "too many bookmarks", notifier.Level.warn, title)
-			return
-		end
-
 		if bk_name == nil then
 			notifier.notify(message_failed .. "canceled", notifier.Level.warn, title)
 		end
 
-		-- pop mark from freelist,then push the mark into allocat list
+		-- get filename and current lines in current buffer
+		local filename = vim.api.nvim_buf_get_name(0)
+		local r, _ = unpack(vim.api.nvim_win_get_cursor(0))
 
-		local mark = array.queue_pop(registry["free"])
-		array.queue_push(registry["alloc"], mark)
-
-		-- set bookmark
-		vim.cmd("normal! m" .. mark)
-		local row, _, _, buffername = unpack(vim.api.nvim_get_mark(mark, {}))
-
-		map.set(
-			registry["registry"],
-			bk_name,
-			{ index = registry.index, mark = mark, filename = buffername, lnum = row }
-		)
+		map.set(registry["registry"], bk_name, { index = registry.index, filename = filename, lnum = r })
 
 		-- inc index automatically
 		registry.index = registry.index + 1
@@ -127,6 +77,12 @@ function M.add()
 
 		notifier.notify(message_success, notifier.Level.info, title)
 	end)
+end
+
+local jump_to_file = function(filename, line)
+	vim.cmd("e" .. filename)
+	vim.cmd('execute  "normal! ' .. line .. 'G;zz"')
+	vim.cmd('execute  "normal! zz"')
 end
 
 function M.operator()
@@ -144,7 +100,6 @@ function M.operator()
 		notifier.notify("Cache File is not existed", "warn", title)
 	end
 
-	-- local registry = vim.fn.JsonLoadF(reg_file)
 	local registry = json.load(reg_file)
 	if registry == nil then
 		return
@@ -184,19 +139,16 @@ function M.operator()
 					actions.close(prompt_bufnr)
 					local selection = action_state.get_selected_entry()
 
-					local mark = map.get(registry["registry"][selection.value], "mark")
-
 					-- delete marks from cache
 					map.remove(registry["registry"], selection.value)
-                    -- recycle mark from alloc ,then reback to free list
-					array.delete(registry["alloc"], mark)
-					array.queue_push(registry["free"], mark)
 
-					vim.api.nvim_del_mark(mark)
-
-                    -- persistent cache storage
+					-- persistent cache storage
 					assert(json.dump(reg_file, registry))
-					notifier.notify( "Delelte Bookmark: " .. selection.value .. " Successfully", notifier.Level.info, title)
+					notifier.notify(
+						"Delelte Bookmark: " .. selection.value .. " Successfully",
+						notifier.Level.info,
+						title
+					)
 				end)
 				mapfn("n", "r", function() -- rename bookmark
 					actions.close(prompt_bufnr)
@@ -210,12 +162,18 @@ function M.operator()
 				mapfn("i", "<CR>", function() -- selected and jump to bookmark
 					actions.close(prompt_bufnr)
 					local selection = action_state.get_selected_entry()
-					vim.cmd("normal! '" .. map.get(registry["registry"][selection.value], "mark"))
+					jump_to_file(
+						registry["registry"][selection.value]["filename"],
+						registry["registry"][selection.value]["lnum"]
+					)
 				end)
 				mapfn("n", "<CR>", function() -- selected and jump to bookmark
 					actions.close(prompt_bufnr)
 					local selection = action_state.get_selected_entry()
-					vim.cmd("normal! '" .. map.get(registry["registry"][selection.value], "mark"))
+					jump_to_file(
+						registry["registry"][selection.value]["filename"],
+						registry["registry"][selection.value]["lnum"]
+					)
 				end)
 
 				return true
