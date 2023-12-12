@@ -94,7 +94,7 @@ local jump_to_file = function(filename, line)
 	vim.cmd('execute  "normal! zz"')
 end
 
-function M.operator()
+function M.actions()
 	local title = "BookMarks" -- Define notify tile
 
 	local root_dir = vim.lsp.buf.list_workspace_folders()
