@@ -98,7 +98,6 @@ function M.all_available_functions()
 	return funcs
 end
 
--- this is code is copyed from https://www.reddit.com/r/neovim/comments/pd8f07/using_treesitter_to_efficiently_show_the_function/
 function M.function_surrounding_cursor()
 	local current_node = vim.treesitter.get_node()
 
@@ -113,7 +112,7 @@ function M.function_surrounding_cursor()
 	end
 
 	if prev_node == nil then
-		return
+		return { type = "", name = "", icon = "" }
 	end
 
 	local node_type = prev_node:type()

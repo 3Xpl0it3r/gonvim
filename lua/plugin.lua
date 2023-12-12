@@ -73,6 +73,7 @@ local plugins = {
 	},
 	{
 		"nvim-treesitter/nvim-treesitter",
+		build = ":TSUpdate",
 		config = function()
 			require("plugins.nvim-treesitter").setup()
 		end,
@@ -119,6 +120,9 @@ local plugins = {
 	},
 	{
 		"JoosepAlviste/nvim-ts-context-commentstring",
+		config = function()
+			require("plugins.ts-context-comment").setup()
+		end,
 	},
 	{
 		"b3nj5m1n/kommentary",
@@ -128,7 +132,7 @@ local plugins = {
 	},
 	{
 		"windwp/nvim-autopairs",
-        -- commit = "fa6876f832ea1b71801c4e481d8feca9a36215ec",
+		-- commit = "fa6876f832ea1b71801c4e481d8feca9a36215ec",
 		config = function()
 			require("plugins.autopairs").setup()
 		end,
@@ -251,6 +255,14 @@ local plugins = {
 		"Exafunction/codeium.vim",
 		event = "BufEnter",
 	}, ]]
+	{
+		-- dir = "/Users/l0calh0st/Git/l0calh0st/NeovimPlugin/bookmarks.nvim",
+		"3Xpl0it3r/bookmarks.nvim",
+	},
+	{
+
+		dir = "/Users/l0calh0st/Git/l0calh0st/NeovimPlugin/tsexample",
+	},
 }
 
 require("lazy").setup(plugins, require("plugins.lazy").new_options())

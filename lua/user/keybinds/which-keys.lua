@@ -7,6 +7,8 @@ M.normal = {
 	["f"] = { "<cmd>lua require'telescope.builtin'.find_files()<cr>", "FindFile" },
 	["n"] = { "<cmd>Neotree toggle reveal<CR>", "DirExploer" },
 	["q"] = { "<cmd>q!<CR>", "Quit" },
+    -- test
+	["z"] = { "<cmd>lua require'tsexample'.test()<cr>", "TestTS" },
 
 	-- code runner
 	c = {
@@ -87,7 +89,7 @@ M.normal = {
 		name = "+BookMarks",
 		a = { "<cmd>lua require('ext.bookmarks').add()<cr>", "Add BookMarks" },
 		c = { "<cmd>lua require('ext.bookmarks').clean_all()<cr>", "Clean All" },
-		l = { "<cmd>lua require('ext.bookmarks').operator()<cr>", "Add a Bookmarks" },
+		l = { "<cmd>lua require('ext.bookmarks').actions()<cr>", "Add a Bookmarks" },
 	},
 
 	-- Plugin Manager

@@ -32,7 +32,7 @@ local function config_nvim_treesitter(config)
 			additional_vim_regex_higlighting = true,
 		},
 		indent = { enable = false, disable = { "" } },
-		context_commentstring = {
+		--[[ context_commentstring = {
 			enable = true,
 			single_line_comment_string = "auto",
 			multi_line_comment_strings = "auto",
@@ -42,7 +42,7 @@ local function config_nvim_treesitter(config)
 				c = { __default = "// %s", __multiline = "/* %s */" },
 				python = { __default = "# %s", __multiline = "# %s" },
 			},
-		},
+		}, ]]
 	})
 
 	-- vim.o.foldmethod = "expr"
