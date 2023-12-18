@@ -257,7 +257,7 @@ local plugins = {
 	}, ]]
 	{
 		-- dir = "/Users/l0calh0st/Git/l0calh0st/NeovimPlugin/bookmarks.nvim",
-		"3Xpl0it3r/bookmarks.nvim",
+		-- "3Xpl0it3r/bookmarks.nvim",
 	},
 	{
 

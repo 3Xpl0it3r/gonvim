@@ -211,12 +211,12 @@ local M = {
 		callbacks = {
 			[0] = {
 				[events.enter] = function(node, _event_args)
-					vim.lsp.buf.code_action({
+					--[[ vim.lsp.buf.code_action({
 						command = "rust-analyzer.codeAction.executeCommand",
 						arguments = {
 							title = "rust-analyzer: Implement missing members",
 						},
-					})
+					}) ]]
 					lsp_format({
 						filter = function(client)
 							return client.name == "null-ls"

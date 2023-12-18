@@ -1,7 +1,7 @@
 local M= {}
 
 function M.execute(cus_cmd)
-	local wraper_cmd = ""
+	local wraper_cmd = "time "
 	local shell = os.getenv("SHELL")
 	if string.find(tostring(shell), "zsh") then
 		wraper_cmd = cus_cmd .. "&& read -s -k $'?Press any key to continue.\n'"
