@@ -28,16 +28,9 @@ local get_git_root_dir = function(start_dir, be_finded_dir)
 end
 
 M.adapters = {
-	type = "server",
-	port = "${port}",
-	executable = {
-		-- CHANGE THIS to your path!
-		command = "/Users/l0calh0st/.vscode/extensions/vadimcn.vscode-lldb-1.9.0/adapter/codelldb",
-		args = { "--port", "${port}" },
-
-		-- On windows you may have to uncomment this:
-		-- detached = false,
-	},
+	type = "executable",
+	command = os.getenv("LLVM_HOME") and os.getenv("LLVM_HOME") .. "/bin/lldb-vscode" or "lldb-vscode",
+	name = "rust",
 }
 
 M.configurations = {
