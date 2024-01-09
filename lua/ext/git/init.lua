@@ -69,6 +69,8 @@ function M.diff()
 
 		json_util.dump(state_file, cur_state)
 		vim.cmd("diffsplit  " .. diff_target)
+
+		-- get all windows
 	end)
 
 	-- record some temp file
@@ -97,6 +99,9 @@ function M.quit()
 	vim.cmd("tabnew " .. state["filename"])
 	-- close previous tabpage
 	vim.cmd("-tabclose")
+
+	-- restore win view
+	vim.fn.winrestview(state["view"])
 
 	os.remove(state["tmpfile"])
 	-- delete cache file
