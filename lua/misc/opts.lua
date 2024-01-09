@@ -45,10 +45,11 @@ local options = {
 	foldmethod = "expr", -- fold with nvim_treesitter
 	foldexpr = "nvim_treesitter#foldexpr()",
 	foldenable = false, -- no fold to be applied when open a file
-	foldlevel = 99, -- if not set this, fold will be everywhere
+	foldlevel = 99, -- if not set this, fold wllill be everywhere
+	foldlevelstart = 99,
 	spell = false, -- add spell support
-	spelllang = { "en_us" }, -- support which languages?
-	diffopt = "vertical,filler,internal,context:4", -- vertical diff split view
+	spelllang = { "en_us" }, -- support wllhich languages?
+	diffopt = "vertical,filler,internal,context:4,foldcolumn:0", -- vertical diff split view
 	-- cscopequickfix="s-,c-,d-,i-,t-,e-",       -- cscope output to quickfix window
 	confirm = false,
 

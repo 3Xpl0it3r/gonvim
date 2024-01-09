@@ -7,7 +7,7 @@ M.normal = {
 	["f"] = { "<cmd>lua require'telescope.builtin'.find_files()<cr>", "FindFile" },
 	["n"] = { "<cmd>Neotree toggle reveal<CR>", "DirExploer" },
 	["q"] = { "<cmd>q!<CR>", "Quit" },
-    -- test
+	-- test
 	["z"] = { "<cmd>lua require'tsexample'.test()<cr>", "TestTS" },
 
 	-- code runner
@@ -28,14 +28,17 @@ M.normal = {
 	g = {
 		name = "+Git",
 		b = { '<cmd>lua require"gitsigns".blame_line{}<CR>', "Blame" },
-		d = { '<cmd>lua require"gitsigns".diffthis("~")<CR>', "Diff" },
+		-- d = { '<cmd>lua require"gitsigns".diffthis("~")<CR>', "Diff" },
+		d = { '<cmd>lua require"ext.git.init".diff()<CR>', "Diff" },
 		p = { '<cmd>lua require"gitsigns".preview_hunk()<CR>', "preview(Hunk)" },
 		r = { '<cmd>lua require"gitsigns".reset_hunk()<CR>', "Reset(Hunk)" },
 		R = { '<cmd>lua require"gitsigns".reset_buffer()<CR>', "Reset(Buffer)" },
-		s = { '<cmd>lua require"gitsigns".stage_hunk()<CR>', "State hunk" },
+		s = { '<cmd>lua require"gitsigns".sedatage_hunk()<CR>', "State hunk" },
 		S = { '<cmd>lua require"gitsigns".stage_buffer()<CR>', "Stage(Buffer)" },
 		u = { '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>}', "Undo Stage Hunk" },
 		U = { '<cmd>lua require"gitsigns".reset_buffer_index()<CR>', "Reset(Buffer Index)" },
+
+		q = { '<cmd>lua require"ext.git.init".quit()<CR>', "Quit" },
 	},
 
 	h = {
