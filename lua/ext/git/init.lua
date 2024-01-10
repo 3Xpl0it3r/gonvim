@@ -1,6 +1,6 @@
 local M = {}
 
-local json_util = require("utils.json")
+local notify_utils = require("utils.notify")
 
 --swap file
 local new_buffer_from_content = function(content, typ)
@@ -18,7 +18,6 @@ local new_buffer_from_content = function(content, typ)
 end
 
 -- some const variables
-local state_file = ".gitdebug"
 local curr_branch = vim.fn.system("git branch --show-current 2> /dev/null | tr -d '\n'")
 
 local win_is_diff_mod = function(win_nr)
@@ -65,10 +64,13 @@ function M.diff()
 		end
 		local diff_content = vim.fn.system("git show " .. version .. ":" .. relative)
 		local diff_target = new_buffer_from_content(diff_content, ftype)
-		local cur_state = { filename = relative, view = vim.fn.winsaveview(), tmpfile = diff_target }
+		local tb_meta = { diff_src = relative, win_view = vim.fn.winsaveview(), diff_target = diff_target }
 
-		json_util.dump(state_file, cur_state)
+		-- json_util.dump(state_file, cur_state)
 		vim.cmd("diffsplit  " .. diff_target)
+
+		-- save some state into currnent tab cache
+		vim.api.nvim_tabpage_set_var(0, "tb_meta", tb_meta)
 
 		-- get all windows
 	end)
@@ -91,21 +93,40 @@ end
 
 -- exit diff mode, and then close all window that in `diff` mode
 function M.quit()
-	local state = json_util.load(state_file)
-	if state == nil then
+	-- get metadata of current tabpage, if current tabpage is not diff tb, then skip
+	local ok, tb_meta = pcall(vim.api.nvim_tabpage_get_var, 0, "tb_meta")
+	if not ok then
+		notify_utils.notify("This tabpage is not in diff mode", notify_utils.Level.warn, "Git Diff Quit")
 		return
 	end
+
 	-- create new tabpage
-	vim.cmd("tabnew " .. state["filename"])
-	-- close previous tabpage
-	vim.cmd("-tabclose")
+	vim.cmd("tabnew " .. tb_meta["diff_src"])
+
+	for _, tbnr in ipairs(vim.api.nvim_list_tabpages()) do
+        -- found the relative tabpage then close it
+		local ok, tv = pcall(vim.api.nvim_tabpage_get_var, tbnr, "tb_meta")
+		if ok and tv["diff_src"] == tb_meta["diff_src"] then
+			vim.cmd(tostring(tbnr) .. "tabclose")
+			notify_utils.notify("delete tabpage " .. tostring(tbnr), notify_utils.Level.info, "Git Diff  Quit")
+			break
+		end
+	end
 
 	-- restore win view
-	vim.fn.winrestview(state["view"])
+	ok, _ = pcall(vim.fn.winrestview, tb_meta["win_view"])
+	if not ok then
+		notify_utils.notify("Restore windows snapshot failed", notify_utils.Level.error, "Git Diff Quit")
+	end
 
-	os.remove(state["tmpfile"])
-	-- delete cache file
-	os.remove(state_file)
+	ok, _ = pcall(os.remove, tb_meta["diff_target"])
+	if not ok then
+		notify_utils.notify(
+			"remove tmpfile " .. tb_meta["diff_target"] .. "failed",
+			notify_utils.Level.error,
+			"Git Diff Quit"
+		)
+	end
 end
 
 return M
