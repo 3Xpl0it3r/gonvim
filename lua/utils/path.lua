@@ -1,5 +1,10 @@
 local M = {}
 
+function M.format_relative(file_abs, parent)
+	local relative = string.gsub(file_abs, parent, "")
+    return relative
+end
+
 function M.exists(file)
 	if os.rename(file, file) then
 		return true

@@ -36,9 +36,12 @@ local function goto_definition(split_cmd)
 			util.jump_to_location(result[1])
 
 			if #result > 1 then
-				util.set_qflist(util.locations_to_items(result))
+				-- util.set_qflist(util.locations_to_items(result))
+				-- vim.fn.setqflist(util.locations_to_items(result, "utf-8"))
+				vim.fn.setloclist(0, util.locations_to_items(result, "utf-8"), " ")
 				api.nvim_command("copen")
 				api.nvim_command("wincmd p")
+                vim.api.nvim_command('cclose') -- for disable qflist
 			end
 		else
 			util.jump_to_location(result)
