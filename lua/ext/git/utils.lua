@@ -2,6 +2,8 @@ local M = {}
 
 local utils_json = require("utils.json")
 local notify_utils = require("utils.notify")
+local telescope_action_state = require("telescope.actions.state")
+local telescope_action_utils = require("telescope.actions.utils")
 
 M.git_root = function()
 	local git_root = vim.fn.system("git rev-parse --show-toplevel | tr -d '\n'| tr -d ' '")
@@ -17,6 +19,7 @@ M.git_get_current_branch = function()
 	return vim.fn.system("git branch --show-current 2> /dev/null | tr -d '\n'")
 end
 
+-- return {"branch1", "branch2"}
 M.git_list_branchs = function()
 	-- local raw_conent = vim.fn.system("git branch -l 2> /dev/null | tr -d '\n'")
 	local raw_conent = vim.fn.system("git branch -a 2> /dev/null | tr -d '\n'")
@@ -99,6 +102,15 @@ M.vim_diff_end = function()
 	end
 
 	ok, _ = pcall(os.remove, tb_meta["diff_target"])
+end
+
+M.telescope_multi_selection = function()
+	local prompt_bufnr = vim.api.nvim_get_current_buf()
+	local results = {}
+	telescope_action_utils.map_entries(prompt_bufnr, function(entry, index, row)
+		results[row] = entry.value
+	end)
+	return results
 end
 
 return M

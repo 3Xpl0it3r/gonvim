@@ -4,6 +4,8 @@ local finders = require("telescope.finders")
 
 local util_string = require("utils.string")
 
+local git_utils = require("ext.git.utils")
+
 M.git_status_finder = function(results)
 	return finders.new_table({
 		results = results,
@@ -31,6 +33,12 @@ M.git_show_commits = function(results)
 				display = display,
 			}
 		end,
+	})
+end
+
+M.git_branchs = function()
+	return finders.new_table({
+		results = git_utils.git_list_branchs(),
 	})
 end
 

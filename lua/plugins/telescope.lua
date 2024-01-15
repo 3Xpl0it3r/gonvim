@@ -55,6 +55,17 @@ local function config_telescope(telescope)
 			set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
 			mappings = require("user.keybinds.telescope").defaults_key_mapping,
 		},
+		buffers = {
+			show_all_buffers = true,
+			sort_lastused = true,
+			theme = "dropdown",
+			previewer = false,
+			mappings = {
+				n = {
+					["d"] = "delete_buffer",
+				},
+			},
+		},
 		pickers = {
 			find_files = { -- basic filename to fine files
 				layout_strategy = "horizontal",
@@ -73,14 +84,13 @@ local function config_telescope(telescope)
 					width = 0.80,
 				}, ]]
 				layout_strategy = "horizontal",
-                layout_config = {
-                    prompt_position = "top",
-                    height = 0.90,
-                    width = 0.90,
-                },
+				layout_config = {
+					prompt_position = "top",
+					height = 0.90,
+					width = 0.90,
+				},
 				mappings = require("user.keybinds.telescope").live_grep_key_mapping,
 			},
-
 		},
 		extensions = {
 			fzf = {

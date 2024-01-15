@@ -16,4 +16,8 @@ M.quit = function()
 	require("ext.git.diff").quit()
 end
 
+M.branch = function()
+	require("ext.git.branch").branch()
+end
+
 return M

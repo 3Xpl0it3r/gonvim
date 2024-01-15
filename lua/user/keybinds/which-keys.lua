@@ -43,6 +43,7 @@ M.normal = {
 		d = { '<cmd>lua require"ext.git.init".diff()<CR>', "Diff" },
 		s = { '<cmd>lua require"ext.git.init".status()<CR>', "Git status" },
 		l = { '<cmd>lua require"ext.git.init".history()<CR>', "Git History" },
+		B = { '<cmd>lua require"ext.git.init".branch()<CR>', "Git History" },
 	},
 
 	h = {

@@ -1,5 +1,8 @@
 local M = {}
 
+M.branch_tree = function (branch)
+end
+
 
 -- execute git status
 M.status = function()
