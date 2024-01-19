@@ -250,19 +250,6 @@ local plugins = {
 		opts = require("plugins.dressing").new_options(),
 	},
 
-	-- api
-	--[[ {
-		"Exafunction/codeium.vim",
-		event = "BufEnter",
-	}, ]]
-	{
-		-- dir = "/Users/l0calh0st/Git/l0calh0st/NeovimPlugin/bookmarks.nvim",
-		-- "3Xpl0it3r/bookmarks.nvim",
-	},
-	{
-
-		dir = "/Users/l0calh0st/Git/l0calh0st/NeovimPlugin/tsexample",
-	},
 }
 
 require("lazy").setup(plugins, require("plugins.lazy").new_options())

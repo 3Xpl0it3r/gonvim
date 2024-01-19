@@ -5,10 +5,12 @@ local finders = require("telescope.finders")
 local util_string = require("utils.string")
 
 local git_utils = require("ext.git.utils")
+local gitcommand = require("ext.git.command")
 
-M.git_status_finder = function(results)
+M.git_status_finder = function()
+	local result = gitcommand.status()
 	return finders.new_table({
-		results = results,
+		results = result,
 		entry_maker = function(entry)
 			-- entry [hash_id, auth_name, auth_date]
 			return {

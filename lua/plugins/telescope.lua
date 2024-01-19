@@ -4,6 +4,8 @@ if not status_ok then
 	return
 end
 
+
+
 local M = {}
 
 local function config_telescope(telescope)

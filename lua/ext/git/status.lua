@@ -3,17 +3,16 @@ local M = {}
 local notify_utils = require("utils.notify")
 local utils_path = require("utils.path")
 
-local gitcommand = require("ext.git.command")
 local git_previewers = require("ext.git.previewer.init")
 local git_finers = require("ext.git.finder.init")
 local git_utils = require("ext.git.utils")
 
-local telescope_config = require("telescope.config").values
-local telescope_pickers = require("telescope.pickers")
-local telescope_actions = require("telescope.actions")
-local telescope_action_state = require("telescope.actions.state")
+local ts_config = require("telescope.config").values
+local ts_picker = require("telescope.pickers")
+local ts_action = require("telescope.actions")
+local ts_action_state = require("telescope.actions.state")
 
-local utils_telescope = require("utils.telescope")
+local utils_ts = require("utils.telescope")
 
 function M.diff()
 	local title = "Select Version Diff With (" .. git_utils.git_get_current_branch() .. ")"
@@ -37,56 +36,25 @@ function M.quit()
 	git_utils.vim_diff_end()
 end
 
-local delete_buffer = function(prompt_bufnr)
-	local current_picker = telescope_action_state.get_current_picker(prompt_bufnr)
-	local row = current_picker:get_selection_row()
-	local index = current_picker:get_index(row)
-
-	if index == #current_picker.finder.results then
-		telescope_actions.move_selection_previous(prompt_bufnr)
-	else
-		telescope_actions.move_selection_next(prompt_bufnr)
-	end
-
-	table.remove(current_picker.finder.results, index)
-	vim.api.nvim_buf_set_lines(current_picker.results_bufnr)
-end
-
-local delete_selected = function(prompt_bufnr)
-	local picker = telescope_action_state.get_current_picker(prompt_bufnr)
-
-	-- Remove all multi selections.
-	-- TODO There's probably an easier way to do this?
-	--      Couldn't find any API for this
-	for row = 0, picker.max_results - 1 do
-		local entry = picker.manager:get_entry(picker:get_index(row))
-		if entry then
-			notify_utils.notify(vim.inspect(entry), "info", "hehe")
-			picker:remove_selection(row)
-		end
-	end
-end
-
 function M.status()
 	local opts = {
 		layout_config = {
 			prompt_position = "top",
 			preview_width = 0.5,
 		},
+
+		finder = utils_ts.new_resetable_finder(git_finers.git_status_finder),
 	}
 
-	local mul_select = {}
-
-	local picker = telescope_pickers.new(opts, {
+	local picker = ts_picker.new(opts, {
 		prompt_title = "Git Status",
-		finder = git_finers.git_status_finder(gitcommand.status()),
-		sorter = telescope_config.generic_sorter(opts),
+		sorter = ts_config.generic_sorter(opts),
 		previewer = git_previewers.git_diff_local(),
 		attach_mappings = function(prompt_bufnr, mapfn)
 			mapfn("n", "d", function() -- diff
-				telescope_actions.close(prompt_bufnr)
+				ts_action.close(prompt_bufnr)
 				local git_root = git_utils.git_root()
-				local selection = telescope_action_state.get_selected_entry()
+				local selection = ts_action_state.get_selected_entry()
 				local cmp_src = selection["value"][2]
 				-- save current state
 				local recover = {
@@ -100,39 +68,39 @@ function M.status()
 			end)
 
 			mapfn("n", "a", function() -- add file into track
-				local result = utils_telescope.get_multi_selection(prompt_bufnr)
-				telescope_actions.close(prompt_bufnr)
+				local result = utils_ts.get_selected_items(prompt_bufnr)
 				for _, item in ipairs(result) do
 					if item["ordinal"] == "U" then
+						-- notify_utils.notify("git add ".. item["value"][2], "info", "hehe")
 						vim.fn.system("git add " .. item["value"][2])
 					end
 					if item["ordinal"] == "D" then
 						vim.fn.system("git restore " .. item["value"][2])
 					end
 				end
+				utils_ts.refresh_picker(prompt_bufnr)
 			end)
 
 			mapfn("n", "u", function() -- untrack
-				local result = utils_telescope.get_multi_selection(prompt_bufnr)
-				telescope_actions.close(prompt_bufnr)
-				for _, item in ipairs(result) do
+				local seleted = utils_ts.get_selected_items(prompt_bufnr)
+				for _, item in ipairs(seleted) do
 					if item["ordinal"] ~= "U" then
+						vim.fn.system("git rm -r --cached " .. item["value"][2])
 					end
 				end
+				utils_ts.refresh_picker(prompt_bufnr)
 			end)
 
-			mapfn("i", "<tab>", utils_telescope.toggle_multi_selection(prompt_bufnr))
+			mapfn("i", "<tab>", utils_ts.toggle_multi_selection(prompt_bufnr))
 			mapfn("i", "<CR>", function()
-				local result = utils_telescope.get_multi_selection(prompt_bufnr)
-				notify_utils.notify(vim.inspect(result), "error", "Txt")
+				local result = utils_ts.get_multi_selection(prompt_bufnr)
 			end)
 			mapfn("n", "<CR>", function()
-				local result = utils_telescope.get_multi_selection(prompt_bufnr)
-				notify_utils.notify(vim.inspect(result), "error", "Txt")
+				local result = utils_ts.get_multi_selection(prompt_bufnr)
 			end)
 
 			mapfn("n", "<ESC>", function() -- close
-				telescope_actions.close(prompt_bufnr)
+				ts_action.close(prompt_bufnr)
 			end)
 			return true
 		end,

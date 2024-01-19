@@ -31,7 +31,7 @@ M.git_inspect_branch = function()
 		-- entry is "str"
 		get_command = function(entry)
 			local cmd = "git log  --graph " .. entry[1]
-            return cmd
+			return cmd
 		end,
 	})
 end
