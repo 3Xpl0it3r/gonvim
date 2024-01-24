@@ -44,7 +44,7 @@ local M = {
 		callbacks = {
 			[0] = {
 				[events.enter] = function(node, _event_args)
-					vim.lsp.buf.formatting()
+					vim.lsp.buf.format()
 				end,
 			},
 		},
