@@ -14,7 +14,7 @@ local formatting_style = {
 
 	format = function(entry, item)
 		local icon = icons.lspKind[item.kind]
-		icon = icons.lspKind.Text and (" " .. icon .. " ") or icon
+		-- icon = icons.lspKind.Text and (" " .. icon .. " ") or icon
 		local max_width = 32
 
 		if item.menu ~= nil then
@@ -41,7 +41,7 @@ local formatting_style = {
 			})[entry.source.name]
 		end
 
-		item.kind = string.format("%s %s", icon, icons.lspKind.Text and item.kind or " ")
+		item.kind = string.format("%s  %s", icon, icons.lspKind.Text and item.kind or " ")
 		item.dup = ({
 			buffer = 1,
 			path = 1,
