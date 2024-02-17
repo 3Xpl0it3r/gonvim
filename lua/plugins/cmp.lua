@@ -9,11 +9,38 @@ local icons = require("ui.icons")
 local M = {}
 
 local formatting_style = {
-	fields = { "kind", "abbr", "menu" },
+	-- fields = { "kind", "abbr", "menu" },
+	fields = { "abbr", "kind", "menu" },
 
 	format = function(entry, item)
 		local icon = icons.lspKind[item.kind]
 		icon = icons.lspKind.Text and (" " .. icon .. " ") or icon
+		local max_width = 32
+
+		if item.menu ~= nil then
+			item.menu = string.gsub(item.menu, "^%s+", "")
+
+			if string.sub(item.menu, 1, string.len("(")) == "(" then
+				item.menu = item.menu:sub(1, item.menu:find(")", 1, true))
+			end
+			if max_width ~= 0 and #item.menu > max_width then
+				item.menu = string.sub(item.menu, 1, max_width - 1) .. "…"
+			end
+		else
+			item.menu = ({
+				nvim_lsp = "(LSP)",
+				treesitter = "(TS)",
+				emoji = "(Emoji)",
+				path = "(Path)",
+				calc = "(Calc)",
+				cmp_tabnine = "(Tabnine)",
+				vsnip = "(Snippet)",
+				luasnip = "(Snippet)",
+				buffer = "(Buffer)",
+				spell = "(Spell)",
+			})[entry.source.name]
+		end
+
 		item.kind = string.format("%s %s", icon, icons.lspKind.Text and item.kind or " ")
 		item.dup = ({
 			buffer = 1,
