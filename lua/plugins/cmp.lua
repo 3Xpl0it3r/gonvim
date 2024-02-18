@@ -15,7 +15,7 @@ local formatting_style = {
 	format = function(entry, item)
 		local icon = icons.lspKind[item.kind]
 		-- icon = icons.lspKind.Text and (" " .. icon .. " ") or icon
-		local max_width = 32
+		local max_width = 64
 
 		if item.menu ~= nil then
 			item.menu = string.gsub(item.menu, "^%s+", "")
@@ -45,7 +45,7 @@ local formatting_style = {
 		item.dup = ({
 			buffer = 1,
 			path = 1,
-			nvim_lsp = 0,
+			nvim_lsp = 1,
 			luasnip = 1,
 		})[entry.source.name] or 0
 		return item
