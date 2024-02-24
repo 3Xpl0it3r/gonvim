@@ -23,10 +23,7 @@ local function config_null_ls(null_ls)
 		root_dir = require("null-ls.utils").root_pattern(".null-ls-root", "Makefile", ".git", "go.mod", "Cargo.toml"),
 		sources = {
 			null_ls.builtins.formatting.goimports,
-			null_ls.builtins.formatting.rustfmt,
 			null_ls.builtins.formatting.stylua,
-			null_ls.builtins.formatting.autopep8,
-			null_ls.builtins.formatting.clang_format,
 		},
 		update_in_insert = false,
 	}

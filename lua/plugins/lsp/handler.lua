@@ -41,7 +41,7 @@ local function goto_definition(split_cmd)
 				vim.fn.setloclist(0, util.locations_to_items(result, "utf-8"), " ")
 				api.nvim_command("copen")
 				api.nvim_command("wincmd p")
-                vim.api.nvim_command('cclose') -- for disable qflist
+				vim.api.nvim_command("cclose") -- for disable qflist
 			end
 		else
 			util.jump_to_location(result)
@@ -86,14 +86,9 @@ M.setup = function()
 	vim.lsp.handlers["textDocument/definition"] = goto_definition("vsplit")
 	vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
 	vim.lsp.handlers["textDocument/signatureHelp"] =
-		vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
+		vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded", focusable = false, relative = "cursor" })
 
-	-- LSP integration
 	vim.lsp.handlers["$/progress"] = require("utils.notify").lsp_status_update
-	vim.lsp.handlers["window/showMessage"] = function(err, method, params, client_id)
-		local severity = { "error", "warn", "info", "info" } -- map both hint and info to info?
-		vim.notify(method.message, severity[params.type])
-	end
 end
 
 local function lsp_keymaps(bufnr)
@@ -123,13 +118,16 @@ end
 M.on_attach = function()
 	return function(client, bufnr)
 		-- disable formatting for LSP clients as this is handled by null-ls
-		client.server_capabilities.documentFormattingProvider = false
-		client.server_capabilities.documentRangeFormattingProvider = false
+		client.server_capabilities.documentFormattingProvider = true
+		client.server_capabilities.documentRangeFormattingProvider = true
 		local lsp_signature_avail, lsp_signature = pcall(require, "lsp_signature")
 		if lsp_signature_avail then
 			lsp_signature.on_attach()
 		end
-		vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+		-- vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+		if client.supports_method("textDocument/semanticTokens") then
+			client.server_capabilities.semanticTokensProvider = nil
+		end
 		lsp_keymaps(bufnr)
 		lsp_highlight_document(client)
 	end
@@ -137,6 +135,23 @@ end
 
 M.capabilities = function()
 	local capabilities = vim.lsp.protocol.make_client_capabilities()
+	capabilities.textDocument.completion.completionItem = {
+		documentationFormat = { "plaintext" },
+		snippetSupport = true,
+		preselectSupport = true,
+		insertReplaceSupport = true,
+		labelDetailsSupport = true,
+		deprecatedSupport = true,
+		commitCharactersSupport = true,
+		tagSupport = { valueSet = { 1 } },
+		resolveSupport = {
+			properties = {
+				"documentation",
+				"detail",
+				"additionalTextEdits",
+			},
+		},
+	}
 	capabilities.textDocument.codeAction = {
 		dynamicRegistration = true,
 		codeActionLiteralSupport = {
@@ -149,7 +164,6 @@ M.capabilities = function()
 			},
 		},
 	}
-	capabilities.textDocument.completion.completionItem.snippetSupport = true
 	local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
 	if not status_ok then
 		return
