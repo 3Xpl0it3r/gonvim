@@ -192,7 +192,7 @@ local action_crate_query = function()
 end
 
 local action_cargo_build = function()
-    shell.execute("cargo build")
+	shell.execute("cargo build")
 end
 
 local action_cargo_run = function()

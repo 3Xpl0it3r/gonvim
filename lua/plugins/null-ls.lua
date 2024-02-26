@@ -6,6 +6,7 @@ end
 
 local M = {}
 
+
 local function config_null_ls(null_ls)
 	local opts = {
 		cmd = { "nvim" },
@@ -32,9 +33,15 @@ end
 
 function M.setup()
 	local null_ls = require("null-ls")
+    -- register codeaction
 	for _, code_actions in pairs(require("user.null-ls.code-actions").sources()) do
 		null_ls.register(code_actions)
 	end
+
+    -- custom formater
+    for _, formater in pairs(require("user.null-ls.formaters").sources()) do
+        null_ls.register(formater)
+    end
 
 	config_null_ls(null_ls)
 end
