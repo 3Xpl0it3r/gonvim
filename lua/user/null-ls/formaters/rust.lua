@@ -8,7 +8,7 @@ M.source = {
 	filetypes = { "rust" },
 	meta = {
 		url = "https://github.com/rust-lang/rustfmt",
-		description = "Fourmolu is a formatter for Haskell source code.",
+		description = "Fourmolu is a formatter for rust source code.",
 	},
 	generator = require("null-ls.helpers").formatter_factory({
 		command = "rustfmt",
