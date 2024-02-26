@@ -7,7 +7,7 @@ M.source = {
 	method = null_ls.methods.FORMATTING,
 	filetypes = { "rust" },
 	meta = {
-		url = "https://hackage.haskell.org/package/fourmolu",
+		url = "https://github.com/rust-lang/rustfmt",
 		description = "Fourmolu is a formatter for Haskell source code.",
 	},
 	generator = require("null-ls.helpers").formatter_factory({
