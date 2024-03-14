@@ -6,11 +6,16 @@ local postfix = require("luasnip.extras.postfix").postfix
 -- local dynamic = ls.dynamic_node
 
 local M = {
-	--[[ postfix(".tostring", {
+	postfix(".option", {
 		func(function(_, snip)
-			return "len(" .. snip.snippet.env.POSTFIX_MATCH .. ")"
+			return "Option<" .. snip.snippet.env.POSTFIX_MATCH .. ">"
 		end, {}),
-	}), ]]
+	}),
+	postfix(".some", {
+		func(function(_, snip)
+			return "Some(" .. snip.snippet.env.POSTFIX_MATCH .. ")"
+		end, {}),
+	}),
 }
 
 return M
