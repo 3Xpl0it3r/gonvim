@@ -197,6 +197,7 @@ local plugins = {
 	----------------------------------------------------------------
 	{
 		"mfussenegger/nvim-dap",
+		dependencies = "nvim-neotest/nvim-nio",
 		config = function()
 			require("plugins.dap").setup()
 		end,
