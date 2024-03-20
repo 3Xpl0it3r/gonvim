@@ -13,8 +13,11 @@ M.normal = {
 	-- code runner
 	c = {
 		name = "+Code",
+		-- asm  反汇编
 		a = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "CodeAction" },
-		c = { "<cmd>TroubleToggle<CR>", "Problems" },
+		c = { "<cmd>lua require 'ext.compiler.init'.compile()<cr>", "Compile" },
+		C = { "<cmd>lua require 'ext.compiler.init'.set_compiler()<cr>", "Set Compile" },
+		t = { "<cmd>TroubleToggle<CR>", "Problems" },
 		r = { "<cmd>lua require'sniprun'.run()<cr>", "SnipRun" },
 	},
 
@@ -38,7 +41,6 @@ M.normal = {
 		U = { '<cmd>lua require"gitsigns".reset_buffer_index()<CR>', "Reset(Buffer Index)" },
 
 		q = { '<cmd>lua require"ext.git.init".quit()<CR>', "Quit" },
-
 
 		d = { '<cmd>lua require"ext.git.init".diff()<CR>', "Diff" },
 		s = { '<cmd>lua require"ext.git.init".status()<CR>', "Git status" },
@@ -148,6 +150,8 @@ M.visual = {
 	-- code runner
 	c = {
 		name = "+Code",
+		a = { "<cmd>lua require 'ext.compiler.init'.compile()<cr>", "Compile" },
+		C = { "<cmd>lua require 'ext.compiler.init'.set_compiler()<cr>", "Set Compile" },
 		r = { "<cmd>lua require'sniprun'.run('v')<cr>", "sniprun" },
 	},
 	g = {

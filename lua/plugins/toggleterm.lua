@@ -1,6 +1,6 @@
 local status_ok, config = pcall(require, "toggleterm")
 if not status_ok then
-    require("utils.notify").notify("Plugin toggleterm is not existed", "error", "Plugin")
+	require("utils.notify").notify("Plugin toggleterm is not existed", "error", "Plugin")
 	return
 end
 
@@ -8,7 +8,15 @@ local M = {}
 
 local function config_toggleterm()
 	config.setup({
-		size = 15,
+		size = function(term)
+			if term.direction == "horizontal" then
+				return 15
+			elseif term.direction == "vertical" then
+				return vim.o.columns * 0.4
+			else
+				return 20
+			end
+		end,
 		open_mapping = [[<c-\>]],
 		hide_numbers = true,
 		shade_filetypes = {},
@@ -16,7 +24,7 @@ local function config_toggleterm()
 		start_in_insert = true,
 		insert_mappings = true,
 		persist_size = true,
-		-- direction = "float", 
+		-- direction = "float",
 		close_on_exit = true,
 		shell = vim.o.shell,
 		float_opts = {

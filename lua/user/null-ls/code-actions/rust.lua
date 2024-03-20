@@ -9,6 +9,13 @@ local action_state = require("telescope.actions.state") -- used to get select en
 
 local M = {}
 
+local default_rust_version = function()
+	local rust_version = vim.fn.system("rustc -V")
+	local token = vim.split(rust_version, " ")
+	local version = string.gsub(token[2], "%.", "")
+	return "r" .. version
+end
+
 local insert_wrapped_text = function(bufnr, items, num_lines)
 	local width = vim.api.nvim_win_get_width(0) + 30
 
@@ -209,6 +216,20 @@ local action_cargo_test = function()
 	shell.execute("cargo test -- --nocapture")
 end
 
+local function action_gen_asm()
+	local source_code = require("utils.buffer").get_visual_selection()
+	require("ext.compiler.godbolt").compile_term(default_rust_version(), source_code, "")
+end
+
+local function action_gen_mir()
+	local source_code = require("utils.buffer").get_visual_selection()
+	require("ext.compiler.godbolt").compile_term(default_rust_version(), source_code, "--emit=mir")
+end
+
+local function action_macro_expand()
+	local source_code = require("utils.buffer").get_visual_selection()
+	require("ext.compiler.godbolt").compile_term(default_rust_version(), source_code, "-Zunpretty=expanded")
+end
 function M.sources()
 	return {
 		method = require("null-ls").methods.CODE_ACTION,
@@ -236,6 +257,18 @@ function M.sources()
 						title = "Crate Manager",
 						action = action_crate_query,
 					},
+					--[[ {
+						title = "Compile",
+						action = action_gen_asm,
+					},
+					{
+						title = "MIR",
+						action = action_gen_mir,
+					},
+					{
+						title = "Macro Expand",
+						action = action_macro_expand,
+					}, ]]
 				}
 			end,
 		},
