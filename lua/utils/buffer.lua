@@ -1,6 +1,5 @@
 local M = {}
 
--- this code is copied from https://neovim.discourse.group/t/function-that-return-visually-selected-text/1601/2
 function M.get_visual_selection()
 	local line_st = vim.fn.line("v")
 	local line_end = vim.fn.line(".")

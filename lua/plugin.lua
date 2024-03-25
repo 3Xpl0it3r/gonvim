@@ -250,7 +250,6 @@ local plugins = {
 		"stevearc/dressing.nvim",
 		opts = require("plugins.dressing").new_options(),
 	},
-
 }
 
 require("lazy").setup(plugins, require("plugins.lazy").new_options())
