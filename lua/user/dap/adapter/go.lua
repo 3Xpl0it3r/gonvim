@@ -77,6 +77,9 @@ M.configurations = {
 			return coroutine.create(function(dap_run_co)
 				local items = get_buffer_list()
 				vim.ui.select(items, { prompt = "Path to executable: " }, function(choice)
+					if choice == nil or choice == "" then
+						return
+					end
 					local root_dir = lsputil.root_pattern("go.work", "go.mod", ".git")(vim.fn.getcwd()) .. "/"
 					local execute_file = root_dir .. choice
 					coroutine.resume(dap_run_co, execute_file)
@@ -108,17 +111,25 @@ M.configurations = {
 				local pkgs = path.read_file("go.debug")
 				if pkgs == nil or #pkgs == 0 then
 					vim.ui.input({ prompt = "[Dap] Input Package Name" }, function(pkg_name)
-						local full_path = vim.fn.resolve(vim.fn.getcwd() .. "/" .. pkg_name)
-						if path.exists(full_path) ~= true then
-							notify_utils.notify("Package " .. pkg_name .. " is not existed", "error", "[Dap: Go]")
+						if pkg_name ~= nil and pkg_name ~= "" then
+							local full_path = vim.fn.resolve(vim.fn.getcwd() .. "/" .. pkg_name)
+							if path.exists(full_path) ~= true then
+								notify_utils.notify("Package " .. pkg_name .. " is not existed", "error", "[Dap: Go]")
+							end
+							return
+						else
+							pkg_name = "."
 						end
 						coroutine.resume(dap_run_co, pkg_name)
 					end)
 				else
 					vim.ui.select(pkgs, { prompt = "[Dap] Select Package Name" }, function(choice)
-						if choice ~= nil then
+						if choice ~= nil and choice ~= "" then
 							choice = "./" .. choice
+						else
+							choice = "."
 						end
+						notify_utils.notify(choice, "info", "debug go mod")
 						coroutine.resume(dap_run_co, choice)
 					end)
 				end
