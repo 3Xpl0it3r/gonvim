@@ -128,6 +128,11 @@ M.on_attach = function()
 		if client.supports_method("textDocument/semanticTokens") then
 			client.server_capabilities.semanticTokensProvider = nil
 		end
+
+		if client.server_capabilities.inlayHintProvider then
+			vim.lsp.inlay_hint.enable(0, true)
+		end
+
 		lsp_keymaps(bufnr)
 		lsp_highlight_document(client)
 	end
