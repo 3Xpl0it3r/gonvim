@@ -12,7 +12,7 @@ function M.new_options()
 		-- render        = "slide", --      (function|string)    Function to render a notification buffer or a built-in renderer name
 		minimum_width = 40, --}     (integer)            Minimum width for notification windows
 		fps = 60, --      (integer)            Frames per second for animation stages, higher value means smoother animations but more CPU usage
-		top_down = false, --     (boolean)            whether or not to position the notifications at the top or not
+		top_down = true, --     (boolean)            whether or not to position the notifications at the top or not
 		background_colour = "#000000",
 	}
 end

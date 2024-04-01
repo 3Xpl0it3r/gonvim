@@ -169,6 +169,8 @@ local plugins = {
 			{ "hrsh7th/cmp-cmdline" },
 			{ "saadparwaiz1/cmp_luasnip" }, -- completete for snippets
 			{ "hrsh7th/cmp-nvim-lsp" }, -- lsp
+
+			{ "windwp/nvim-autopairs" }, -- for auto complete pairs
 		},
 	},
 	{

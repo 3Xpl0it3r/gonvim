@@ -60,6 +60,9 @@ local function config_nvim_cmp(cmp)
 			},
 		},
 		view = {
+			entries = {
+				follow_cursor = true,
+			},
 			-- entries = { name = 'custom', selection_order = 'near_cursor' }
 		},
 		preselect = cmp.PreselectMode.None,
@@ -148,6 +151,15 @@ local function config_nvim_cmp(cmp)
 	cmp.setup(cmp_config)
 end
 
+local function nvim_cmp_extend()
+	local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+	local cmp_status_ok, cmp = pcall(require, "cmp")
+	if not cmp_status_ok then
+		return
+	end
+	cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { tex = "" } }))
+end
+
 local function config_highlight()
 	local highlights = {
 		PmenuThumb = { fg = "NONE", bg = "#4FC3F7" },
@@ -162,6 +174,7 @@ function M.setup()
 	local cmp = require("cmp")
 	config_nvim_cmp(cmp)
 	config_highlight()
+	nvim_cmp_extend()
 end
 
 return M

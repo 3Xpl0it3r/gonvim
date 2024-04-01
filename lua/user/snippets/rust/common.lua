@@ -109,6 +109,56 @@ local M = {
 		},
 	}),
 
+	snip({ trig = "fnresult" }, {
+		text("fn "),
+		insert(1, "FuncName"),
+		text("("),
+		insert(2, "Args..."),
+		text(") -> Result<"),
+		insert(3, "RetType"),
+		text({ " > {", "" }),
+		text({ '\tunimplemented!("unimplemented");', "" }),
+		text({ "}" }),
+		insert(0),
+	}, {
+		callbacks = {
+			[0] = {
+				[events.enter] = function(node, _event_args)
+					lsp_format({
+						filter = function(client)
+							return client.name == "null-ls"
+						end,
+					})
+				end,
+			},
+		},
+	}),
+
+	snip({ trig = "fnoption" }, {
+		text("fn "),
+		insert(1, "FuncName"),
+		text("("),
+		insert(2, "Args..."),
+		text(") -> Option<"),
+		insert(3, "RetType"),
+		text({ " > {", "" }),
+		text({ '\tunimplemented!("unimplemented");', "" }),
+		text({ "}" }),
+		insert(0),
+	}, {
+		callbacks = {
+			[0] = {
+				[events.enter] = function(node, _event_args)
+					lsp_format({
+						filter = function(client)
+							return client.name == "null-ls"
+						end,
+					})
+				end,
+			},
+		},
+	}),
+
 	snip({ trig = "fntest" }, {
 		text({ "#[test]", "" }),
 		text("fn "),

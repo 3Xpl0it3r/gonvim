@@ -24,7 +24,6 @@ M.configurations = {
 		cwd = "${workspaceFolder}",
 		stopOnEntry = false,
 		terminal = "integrated",
-		-- showDisassembly = "never",
 	},
 }
 
