@@ -129,9 +129,9 @@ M.on_attach = function()
 			client.server_capabilities.semanticTokensProvider = nil
 		end
 
-		--[[ if client.server_capabilities.inlayHintProvider then
+        if vim.fn.has("nvim-0.10") == 1 and client.server_capabilities.inlayHintProvider then
 			vim.lsp.inlay_hint.enable(0, true)
-		end ]]
+        end
 
 		lsp_keymaps(bufnr)
 		lsp_highlight_document(client)
