@@ -5,6 +5,8 @@ if not status_ok then
 	return
 end
 
+local M = {}
+
 local function footer()
 	-- NOTE: requires the fortune-mod package to work
 	local plugins = #vim.tbl_keys(require("lazy").plugins())
@@ -20,11 +22,33 @@ local function footer()
 	return string.format(" %d   v%d.%d.%d %s  %s", plugins, v.major, v.minor, v.patch, platform, datetime)
 end
 
+M.custom_actions = {
+	new_file = function()
+		vim.ui.input({
+			prompt = "New Filename(Default demo)",
+			highlight = function()
+				return { fg = "blue", bg = "white" }
+			end,
+		}, function(fname)
+			if fname == nil or fname == "" then
+				fname = "demo"
+			end
+			vim.fn.system("touch " .. fname)
+			vim.cmd(":e " .. fname)
+		end)
+	end,
+}
+
 local dashboard = require("alpha.themes.dashboard")
 dashboard.section.header.val = require("ui.lego").lego()
 dashboard.section.buttons.val = {
 	dashboard.button("f", icons.dashboard.find .. "  Find file", ":Telescope find_files <CR>"),
-	dashboard.button("n", icons.dashboard.file .. "  New file", ":ene <BAR> startinsert <CR>"),
+	-- dashboard.button("n", icons.dashboard.file .. "  New file", ":ene <BAR> startinsert <CR>"),
+	dashboard.button(
+		"n",
+		icons.dashboard.file .. "  New file",
+		":lua require'plugins.alpha-nvim'.custom_actions['new_file']() <CR>"
+	),
 	dashboard.button("p", icons.dashboard.project .. "  Find project", ":Telescope projects <CR>"),
 	dashboard.button("r", icons.dashboard.recent .. "  Recently used files", ":Telescope oldfiles <CR>"),
 	dashboard.button("g", icons.dashboard.text .. "  Find text", ":Telescope live_grep <CR>"),
@@ -41,3 +65,5 @@ dashboard.section.buttons.opts.hl = "Keyword"
 dashboard.opts.opts.noautocmd = true
 -- vim.cmd([[autocmd User AlphaReady echo 'ready']])
 alpha.setup(dashboard.opts)
+
+return M
