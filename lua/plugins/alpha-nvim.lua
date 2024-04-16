@@ -31,7 +31,8 @@ M.custom_actions = {
 			end,
 		}, function(fname)
 			if fname == nil or fname == "" then
-				fname = "demo"
+                -- 如果没有指定应该退出nvim
+                vim.cmd(":qall!")
 			end
 			vim.fn.system("touch " .. fname)
 			vim.cmd(":e " .. fname)
