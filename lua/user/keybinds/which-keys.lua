@@ -17,7 +17,6 @@ M.normal = {
 		a = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "CodeAction" },
 		c = { "<cmd>lua require 'ext.compiler.init'.compile()<cr>", "Compile" },
 		C = { "<cmd>lua require 'ext.compiler.init'.set_compiler()<cr>", "Set Compile" },
-		t = { "<cmd>TroubleToggle<CR>", "Problems" },
 		r = { "<cmd>lua require'sniprun'.run()<cr>", "SnipRun" },
 	},
 
@@ -91,6 +90,7 @@ M.normal = {
 			"<cmd>lua require('telescope.builtin').lsp_workspace_symbols(show_line = false)<cr>",
 			"Symbol(workspace)",
 		},
+		t = { "<cmd>TroubleToggle<CR>", "Trouble" },
 		u = { "<cmd>lua require('aerial').toggle()<cr>", "outline(aerial)" },
 	},
 

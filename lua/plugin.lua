@@ -22,6 +22,9 @@ local plugins = {
 	{
 		"folke/tokyonight.nvim",
 		"rebelot/kanagawa.nvim",
+		"catppuccin/nvim",
+		"kepano/flexoki-neovim",
+
 		-- opts = require("plugins.themes").new_tokyonight_options(),
 	},
 
@@ -36,9 +39,11 @@ local plugins = {
 
 	{
 		"goolord/alpha-nvim",
+		-- "nvimdev/dashboard-nvim",
 		event = "VimEnter",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
+			-- require("plugins.dashboard")
 			require("plugins.alpha-nvim")
 		end,
 	},
@@ -62,10 +67,6 @@ local plugins = {
 	------------------------------------------------
 	----      Language Functional ,          -------
 	------------------------------------------------
-	{
-		"stevearc/aerial.nvim",
-		opts = require("plugins.aerial").new_options(),
-	},
 	{
 		"folke/trouble.nvim",
 		dependencies = "nvim-tree/nvim-web-devicons",
