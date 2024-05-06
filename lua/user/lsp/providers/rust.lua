@@ -146,11 +146,10 @@ M.rust_analyzer = {
 				closureCaptureHints = { enable = true },
 				closureReturnTypeHints = { enable = "always" }, -- never
 				closureStyle = "impl_fn",
-				discriminantHints = { enable = "always" },
+				discriminantHints = { enable = "never" },
 				expressionAdjustmentHints = {
-					enable = "always",
+					enable = "never",
 					hideOutsideUnsafe = false,
-					-- mode = "prefix", --[[ postfix ]]
 					mode = "postfix ",
 				},
 				lifetimeElisionHints = { enable = "always", useParameterNames = true },
