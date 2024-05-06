@@ -212,6 +212,10 @@ local action_cargo_run = function()
 	end)
 end
 
+local action_cargo_fix = function()
+    shell.execute("cargo fix --allow-dirty --allow-staged && cargo fmt")
+end
+
 local action_cargo_test = function()
 	shell.execute("cargo test -- --nocapture")
 end
@@ -256,6 +260,10 @@ function M.sources()
 					{
 						title = "Crate Manager",
 						action = action_crate_query,
+					},
+					{
+						title = "Cargo Fix",
+						action = action_cargo_fix,
 					},
 					--[[ {
 						title = "Compile",

@@ -1,12 +1,12 @@
-local M= {}
+local M = {}
 
 function M.execute(cus_cmd)
 	local wraper_cmd = "time "
 	local shell = os.getenv("SHELL")
 	if string.find(tostring(shell), "zsh") then
-		wraper_cmd = cus_cmd .. "&& read -s -k $'?Press any key to continue.\n'"
+		wraper_cmd = cus_cmd .. "; read -s -k $'?Press any key to continue.\n'"
 	else
-		wraper_cmd = cus_cmd .. "&& read -rsn1 -p'Press any key to continue';echo"
+		wraper_cmd = cus_cmd .. "; read -rsn1 -p'Press any key to continue';echo"
 	end
 	local __Terminal = require("toggleterm.terminal").Terminal
 	local cmd_termal = __Terminal:new({
@@ -20,6 +20,5 @@ function M.execute(cus_cmd)
 	})
 	cmd_termal:toggle()
 end
-
 
 return M
