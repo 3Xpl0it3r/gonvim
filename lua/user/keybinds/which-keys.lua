@@ -133,12 +133,13 @@ M.normal = {
 	-- unit test
 	t = {
 		name = "+UintTest",
-		d = { '<cmd>lua require("neotest").diagnostic()<CR>', "diagnostic" },
-		p = { '<cmd>lua require("neotest").output.open()<CR>', "print" },
+        -- Debug the neartest test(require nvim-dap and adapter support)
+		d = { '<cmd>lua require("neotest").run.run({strategy = "dap"})<CR>', "Debug neartest" },
+        -- run the nearest test
 		r = { '<cmd>lua require("neotest").run.run()<CR>', "Run" },
+        -- run the current file
 		R = { '<cmd>lua require("neotest").run.run(vim.fn.expand("%"))<CR>', "Run" },
 		s = { '<cmd>lua require("neotest").summary.toggle()<CR>', "Summary" },
-		S = { '<cmd>lua require("neotest").status.toggle()<CR>', "SingStatus" },
 	},
 
 	-- windows / misc

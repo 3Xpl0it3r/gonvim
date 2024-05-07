@@ -3,7 +3,7 @@ local M = {}
 
 M.adapters = {
 	type = "executable",
-	command = os.getenv("LLVM_HOME") and os.getenv("LLVM_HOME") .. "/bin/lldb-vscode" or "lldb-vscode",
+	command = os.getenv("LLVM_HOME") and os.getenv("LLVM_HOME") .. "/bin/lldb-dap" or "lldb-dap",
 	name = "rust",
 }
 
