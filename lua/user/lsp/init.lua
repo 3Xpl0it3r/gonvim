@@ -11,6 +11,7 @@ local lsp_config = {
 	java = "jdtls",
 	python = "jedi_language_server",
 	csharp = "omnisharp",
+    markdown = "marksman",
 }
 
 local all_providers =
