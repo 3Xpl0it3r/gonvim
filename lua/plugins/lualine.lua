@@ -1,5 +1,5 @@
 local icons = require("ui.icons")
-local colors=require("ui.colors")
+local colors = require("ui.colors")
 
 local status_ok, lualine = pcall(require, "lualine")
 if not status_ok then
@@ -56,7 +56,6 @@ local treesitter_context = function(width)
 	return context
 end
 
-
 local mode_color = {
 	n = colors.blue,
 	i = colors.green,
@@ -94,7 +93,7 @@ local conditions = {
 	end,
 }
 
-vim.cmd([[ 
+vim.cmd([[
    hi CusWinbarSeperator guifg=#FF5D62
    hi CusWInbarFolder guifg=#FF9E3B
    hi CusWinBarMethod guifg=#7E9CD8
@@ -377,10 +376,11 @@ ins_right({
 	function()
 		local msg = "LS Inactive"
 		local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
-		local clients = vim.lsp.get_active_clients()
+		local clients = vim.lsp.get_clients({ bufnr = 0 })
 		if next(clients) == nil then
 			return msg
 		end
+
 		for _, client in ipairs(clients) do
 			local filetypes = client.config.filetypes
 			if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
@@ -394,7 +394,7 @@ ins_right({
 	icon = "  LSP:",
 	color = function()
 		local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
-		local clients = vim.lsp.get_active_clients()
+		local clients = vim.lsp.get_clients({ bufnr = 0 })
 		if next(clients) == nil then
 			return { fg = colors.violet, gui = "bold" }
 		end

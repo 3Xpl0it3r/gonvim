@@ -21,6 +21,8 @@ local function config_lspconfig(handler)
 		opts_clone = vim.tbl_deep_extend("force", server_config, opts)
 		lspconfig[server_name].setup(opts_clone)
 	end
+
+    require("lspconfig.ui.windows").default_options.border = "rounded"
 end
 
 function M.setup()
