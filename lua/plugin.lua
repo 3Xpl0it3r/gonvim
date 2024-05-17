@@ -256,6 +256,15 @@ local plugins = {
         "stevearc/dressing.nvim",
         opts = require("plugins.dressing").new_options(),
     },
+    -- markdown preview
+    {
+        "iamcco/markdown-preview.nvim",
+        cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+        ft = { "markdown" },
+        build = function()
+            vim.fn["mkdp#util#install"]()
+        end,
+    },
 }
 
 require("lazy").setup(plugins, require("plugins.lazy").new_options())
