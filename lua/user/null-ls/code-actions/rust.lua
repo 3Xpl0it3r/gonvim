@@ -239,7 +239,7 @@ local function action_macro_expand()
 				return
 			end
 			local cmd = "cargo expand " .. choice
-			shell.execute(cmd)
+			shell.execute(cmd, "vertical")
 		end
 	)
 end
