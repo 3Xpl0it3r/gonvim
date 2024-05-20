@@ -213,7 +213,7 @@ local action_cargo_run = function()
 end
 
 local action_cargo_fix = function()
-    shell.execute("cargo fix --allow-dirty --allow-staged && cargo fmt")
+	shell.execute("cargo fix --allow-dirty --allow-staged && cargo fmt")
 end
 
 local action_cargo_test = function()
@@ -225,14 +225,23 @@ local function action_gen_asm()
 	require("ext.compiler.godbolt").compile_term(default_rust_version(), source_code, "")
 end
 
-local function action_gen_mir()
-	local source_code = require("utils.buffer").get_visual_selection()
-	require("ext.compiler.godbolt").compile_term(default_rust_version(), source_code, "--emit=mir")
+local function action_mir_check()
+	local mir_cmd = "cargo +nightly miri test"
+	shell.execute(mir_cmd)
 end
 
 local function action_macro_expand()
-	local source_code = require("utils.buffer").get_visual_selection()
-	require("ext.compiler.godbolt").compile_term(default_rust_version(), source_code, "-Zunpretty=expanded")
+	vim.ui.select(
+		require("utils.treesitter").all_available_functions(),
+		{ prompt = "Select Function To  Macro Expand" },
+		function(choice)
+			if not choice then
+				return
+			end
+			local cmd = "cargo expand " .. choice
+			shell.execute(cmd)
+		end
+	)
 end
 function M.sources()
 	return {
@@ -241,10 +250,6 @@ function M.sources()
 		generator = {
 			fn = function(_)
 				return {
-					{
-						title = "Cargo Add",
-						action = action_cargo_add,
-					},
 					{
 						title = "Cargo Build",
 						action = action_cargo_build,
@@ -265,18 +270,14 @@ function M.sources()
 						title = "Cargo Fix",
 						action = action_cargo_fix,
 					},
-					--[[ {
-						title = "Compile",
-						action = action_gen_asm,
-					},
 					{
-						title = "MIR",
-						action = action_gen_mir,
+						title = "MIR Check",
+						action = action_mir_check,
 					},
 					{
 						title = "Macro Expand",
 						action = action_macro_expand,
-					}, ]]
+					},
 				}
 			end,
 		},

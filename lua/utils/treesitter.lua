@@ -59,6 +59,8 @@ local function get_function_list_of_parent(parent)
 			or tsnode:type() == "method_definition"
 			or tsnode:type() == "method_declaration"
 			or tsnode:type() == "constructor_declaration"
+            -- for rust
+            or tsnode:type() == "function_item"
 
 		if is_simple_function then
 			local info = get_node_information(tsnode)
