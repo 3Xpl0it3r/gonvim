@@ -6,8 +6,8 @@ end
 
 local M = {}
 
-local function config_toggleterm()
-	config.setup({
+local function config_toggleterm(toggleterm)
+	toggleterm.setup({
 		size = function(term)
 			if term.direction == "horizontal" then
 				return 15
@@ -20,20 +20,23 @@ local function config_toggleterm()
 		open_mapping = [[<c-\>]],
 		hide_numbers = true,
 		shade_filetypes = {},
-		shade_terminals = true,
+		shade_terminals = false,
 		start_in_insert = true,
 		insert_mappings = true,
 		persist_size = true,
 		-- direction = "float",
 		close_on_exit = true,
 		shell = vim.o.shell,
+		auto_scroll = true,
 		float_opts = {
 			border = "single",
 			winblend = 3,
-			highlights = {
-				border = "Normal",
-				background = "Normal",
-			},
+		},
+		winbar = {
+			enable = true,
+			name_formatter = function(term)
+				return term.name
+			end,
 		},
 	})
 end
@@ -67,7 +70,7 @@ function _G.toggleterm_wrapper_ranger()
 end
 
 function M.setup()
-	config_toggleterm()
+	config_toggleterm(config)
 end
 
 return M

@@ -181,6 +181,11 @@ function M.actions()
 				mapfn("i", "<CR>", function() -- selected and jump to bookmark
 					actions.close(prompt_bufnr)
 					local selection = action_state.get_selected_entry()
+					if selection == nil or selection == "" then
+						notifier.notify("No Bookmark Selected", "info", "Bookmark")
+						return
+					end
+
 					jump_to_file(
 						registry["registry"][selection.value]["filename"],
 						registry["registry"][selection.value]["lnum"]
@@ -189,6 +194,10 @@ function M.actions()
 				mapfn("n", "<CR>", function() -- selected and jump to bookmark
 					actions.close(prompt_bufnr)
 					local selection = action_state.get_selected_entry()
+					if selection == nil or selection == "" then
+						notifier.notify("No Bookmark Selected", "info", "Bookmark")
+						return
+					end
 					jump_to_file(
 						registry["registry"][selection.value]["filename"],
 						registry["registry"][selection.value]["lnum"]

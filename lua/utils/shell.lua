@@ -16,6 +16,7 @@ function M.execute(cus_cmd, direction)
 	local cmd_termal = __Terminal:new({
 		cmd = wraper_cmd,
 		direction = _direction,
+		shade_terminals = false,
 		float_opts = {
 			border = "single",
 			close_on_exit = true,
