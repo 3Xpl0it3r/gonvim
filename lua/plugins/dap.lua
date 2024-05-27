@@ -13,7 +13,7 @@ local function config_dap(dap, dap_ui)
 	vim.fn.sign_define("DapBreakpointCondition", { text = " ", texthl = "DiagnosticWarn", linehl = "", numhl = "" })
 	vim.fn.sign_define("DapBreakpointRejected", { text = " ", texthl = "DiagnosticError", linehl = "", numhl = "" })
 	vim.fn.sign_define("DapLogPoint", { text = " ", texthl = "debugBreakpoint", linehl = "", numhl = "" })
-	vim.fn.sign_define("DapStopped", { text = "", texthl = "debugBreakpoint", linehl = "debugPC", numhl = "" })
+	vim.fn.sign_define("DapStopped", { text = "󰋇 ", texthl = "debugBreakpoint", linehl = "debugPC", numhl = "" })
 
 	dap.listeners.after["event_initialized"]["dapui"] = function()
 		dap_ui.open()

@@ -48,7 +48,7 @@ M.adapters = {
 	port = "${port}",
 	executable = {
 		command = "dlv",
-		args = { "dap", "-l", "127.0.0.1:${port}", "--log" },
+		args = { "dap", "-l", "127.0.0.1:${port}", "--headless=true" },
 	},
 }
 -- https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_dap.md
