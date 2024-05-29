@@ -15,8 +15,6 @@ M.normal = {
 		name = "+Code",
 		-- asm  反汇编
 		a = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "CodeAction" },
-		c = { "<cmd>lua require 'ext.compiler.init'.compile()<cr>", "Compile" },
-		C = { "<cmd>lua require 'ext.compiler.init'.set_compiler()<cr>", "Set Compile" },
 		r = { "<cmd>lua require'sniprun'.run()<cr>", "SnipRun" },
 	},
 
@@ -39,12 +37,12 @@ M.normal = {
 		u = { '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>}', "Undo Stage Hunk" },
 		U = { '<cmd>lua require"gitsigns".reset_buffer_index()<CR>', "Reset(Buffer Index)" },
 
-		q = { '<cmd>lua require"ext.git.init".quit()<CR>', "Quit" },
+		q = { '<cmd>lua require"extensions.git.init".quit()<CR>', "Quit" },
 
-		d = { '<cmd>lua require"ext.git.init".diff()<CR>', "Diff" },
-		s = { '<cmd>lua require"ext.git.init".status()<CR>', "Git status" },
-		l = { '<cmd>lua require"ext.git.init".history()<CR>', "Git History" },
-		B = { '<cmd>lua require"ext.git.init".branch()<CR>', "Git History" },
+		d = { '<cmd>lua require"extensions.git.init".diff()<CR>', "Diff" },
+		s = { '<cmd>lua require"extensions.git.init".status()<CR>', "Git status" },
+		l = { '<cmd>lua require"extensions.git.init".history()<CR>', "Git History" },
+		B = { '<cmd>lua require"extensions.git.init".branch()<CR>', "Git History" },
 	},
 
 	h = {
@@ -103,9 +101,9 @@ M.normal = {
 	-- book marks
 	m = {
 		name = "+BookMarks",
-		a = { "<cmd>lua require('ext.bookmarks').add()<cr>", "Add BookMarks" },
-		c = { "<cmd>lua require('ext.bookmarks').clean_all()<cr>", "Clean All" },
-		l = { "<cmd>lua require('ext.bookmarks').actions()<cr>", "Add a Bookmarks" },
+		a = { "<cmd>lua require('extensions.bookmarks').add()<cr>", "Add BookMarks" },
+		c = { "<cmd>lua require('extensions.bookmarks').clean_all()<cr>", "Clean All" },
+		l = { "<cmd>lua require('extensions.bookmarks').actions()<cr>", "List Bookmarks" },
 	},
 
 	-- Plugin Manager
@@ -133,11 +131,11 @@ M.normal = {
 	-- unit test
 	t = {
 		name = "+UintTest",
-        -- Debug the neartest test(require nvim-dap and adapter support)
+		-- Debug the neartest test(require nvim-dap and adapter support)
 		d = { '<cmd>lua require("neotest").run.run({strategy = "dap"})<CR>', "Debug neartest" },
-        -- run the nearest test
+		-- run the nearest test
 		r = { '<cmd>lua require("neotest").run.run()<CR>', "Run" },
-        -- run the current file
+		-- run the current file
 		R = { '<cmd>lua require("neotest").run.run(vim.fn.expand("%"))<CR>', "Run" },
 		s = { '<cmd>lua require("neotest").summary.toggle()<CR>', "Summary" },
 	},
@@ -157,8 +155,6 @@ M.visual = {
 	-- code runner
 	c = {
 		name = "+Code",
-		a = { "<cmd>lua require 'ext.compiler.init'.compile()<cr>", "Compile" },
-		C = { "<cmd>lua require 'ext.compiler.init'.set_compiler()<cr>", "Set Compile" },
 		r = { "<cmd>lua require'sniprun'.run('v')<cr>", "sniprun" },
 	},
 	g = {

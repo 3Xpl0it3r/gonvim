@@ -1,11 +1,11 @@
-local shell = require("utils.shell")
-local format_notify = require("utils.notify")
+local g_utils_shell = require("utils.shell")
+local g_utils_notify = require("utils.notify")
 
-local pickers = require("telescope.pickers") -- used for build a telescope picker
-local finders = require("telescope.finders") -- used for build a telescope finder
-local previewers = require("telescope.previewers") -- used for build a telescope previewer
-local actions = require("telescope.actions") -- used to replace default mapping for user
-local action_state = require("telescope.actions.state") -- used to get select entry
+local ts_pickers = require("telescope.pickers") -- used for build a telescope picker
+local ts_finders = require("telescope.finders") -- used for build a telescope finder
+local ts_previwers = require("telescope.previewers") -- used for build a telescope previewer
+local ts_actions = require("telescope.actions") -- used to replace default mapping for user
+local ts_action_state = require("telescope.actions.state") -- used to get select entry
 
 local M = {}
 
@@ -53,12 +53,12 @@ end
 local action_cargo_add = function()
 	vim.ui.input({ prompt = "Input Crate Name You want to Install" }, function(crate_name)
 		if crate_name == nil or crate_name == "" then
-			format_notify.notify("code actions [cargo add] canceled input", "info", "null-ls")
+			g_utils_notify.notify("code actions [cargo add] canceled input", "info", "null-ls")
 			return
 		end
 		local result = vim.fn.CrateQuery(crate_name)
 		if result == vim.NIL then
-			format_notify.notify("result is empty: " .. crate_name, "info", "null-ls")
+			g_utils_notify.notify("result is empty: " .. crate_name, "info", "null-ls")
 			return
 		end
 		local crate_version_list = {}
@@ -73,7 +73,7 @@ local action_cargo_add = function()
 
 			local cmd_add_crate = string.format("cargo add %s@%s %s", crate_name, crate_version, result[crate_version])
 
-			shell.execute(cmd_add_crate)
+			g_utils_shell.execute(cmd_add_crate)
 			vim.cmd("LspRestart")
 		end)
 	end)
@@ -82,12 +82,12 @@ end
 local action_crate_query = function()
 	vim.ui.input({ prompt = "Input Crate Name You want to search" }, function(crate_name)
 		if crate_name == nil or crate_name == "" then
-			format_notify.notify("code actions [cargo add] canceled input", "info", "null-ls")
+			g_utils_notify.notify("code actions [cargo add] canceled input", "info", "null-ls")
 			return
 		end
 		local crate_items = vim.fn.CrateSearch(crate_name)
 		if crate_items == vim.NIL then
-			format_notify.notify("result is empty", "info", "null-ls")
+			g_utils_notify.notify("result is empty", "info", "null-ls")
 			return
 		end
 
@@ -99,11 +99,11 @@ local action_crate_query = function()
 			},
 		}
 
-		pickers
+		ts_pickers
 			.new(opts, {
 				prompt_title = "Input",
 				results_title = "Available Crate",
-				finder = finders.new_table({
+				finder = ts_finders.new_table({
 					results = crate_items,
 					entry_maker = function(entry)
 						return {
@@ -115,15 +115,15 @@ local action_crate_query = function()
 				}),
 				-- sorter = conf.generic_sorter(),
 				attach_mappings = function(prompt_bufnr, map)
-					actions.select_default:replace(function()
-						actions.close(prompt_bufnr)
-						local selection = action_state.get_selected_entry() --  获取当前选中内容
+					ts_actions.select_default:replace(function()
+						ts_actions.close(prompt_bufnr)
+						local selection = ts_action_state.get_selected_entry() --  获取当前选中内容
 						local version_items = vim.fn.CrateQuery(selection.display)
-						pickers
+						ts_pickers
 							.new(opts, {
 								prompt_title = "Crate: " .. selection.display,
 								results_title = "Versions",
-								finder = finders.new_table({
+								finder = ts_finders.new_table({
 									results = version_items,
 									entry_maker = function(entry)
 										return {
@@ -134,9 +134,9 @@ local action_crate_query = function()
 									end,
 								}),
 								attach_mappings = function(prompt_bufnr, map)
-									actions.select_default:replace(function()
-										actions.close(prompt_bufnr)
-										local entry = action_state.get_selected_entry()
+									ts_actions.select_default:replace(function()
+										ts_actions.close(prompt_bufnr)
+										local entry = ts_action_state.get_selected_entry()
 										local features = ""
 										for feature, _ in pairs(entry.value.features) do
 											features = features .. " --features " .. feature
@@ -148,11 +148,11 @@ local action_crate_query = function()
 											features
 										)
 
-										shell.execute(cmd_add_crate)
+										g_utils_shell.execute(cmd_add_crate)
 									end)
 									return true
 								end,
-								previewer = previewers.new_buffer_previewer({
+								previewer = ts_previwers.new_buffer_previewer({
 									title = "Details",
 									define_preview = function(self, entry, status)
 										local fmt = {
@@ -179,7 +179,7 @@ local action_crate_query = function()
 					end)
 					return true
 				end,
-				previewer = previewers.new_buffer_previewer({
+				previewer = ts_previwers.new_buffer_previewer({
 					title = "Description",
 					define_preview = function(self, entry, status)
 						local fmt = {
@@ -199,7 +199,7 @@ local action_crate_query = function()
 end
 
 local action_cargo_build = function()
-	shell.execute("cargo build")
+	g_utils_shell.execute("cargo build")
 end
 
 local action_cargo_run = function()
@@ -208,16 +208,16 @@ local action_cargo_run = function()
 		if input then
 			args = "-- " .. input
 		end
-		shell.execute("cargo run " .. args)
+		g_utils_shell.execute("cargo run " .. args)
 	end)
 end
 
 local action_cargo_fix = function()
-	shell.execute("cargo fix --allow-dirty --allow-staged && cargo fmt")
+	g_utils_shell.execute("cargo fix --allow-dirty --allow-staged && cargo fmt")
 end
 
 local action_cargo_test = function()
-	shell.execute("cargo test -- --nocapture")
+	g_utils_shell.execute("cargo test -- --nocapture")
 end
 
 local function action_gen_asm()
@@ -227,7 +227,7 @@ end
 
 local function action_mir_check()
 	local mir_cmd = "cargo +nightly miri test"
-	shell.execute(mir_cmd)
+	g_utils_shell.execute(mir_cmd)
 end
 
 local function action_macro_expand()
@@ -239,7 +239,7 @@ local function action_macro_expand()
 				return
 			end
 			local cmd = "cargo expand " .. choice
-			shell.execute(cmd, "vertical")
+			g_utils_shell.execute(cmd, "vertical")
 		end
 	)
 end
