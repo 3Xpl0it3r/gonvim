@@ -45,25 +45,6 @@ M.normal = {
 		B = { '<cmd>lua require"extensions.git.init".branch()<CR>', "Git History" },
 	},
 
-	h = {
-		name = "+Hop",
-		l = {
-			"<cmd>lua require('hop').hint_patterns({direction = require('hop.hint').HintDirection.AFTER_CURSOR,  current_line_only = true})<cr>",
-			"Search Left Part",
-		},
-		h = {
-			"<cmd>lua require('hop').hint_patterns({direction = require('hop.hint').HintDirection.BEFORE_CURSOR, current_line_only = true})<cr>",
-			"Search Right Part",
-		},
-		j = {
-			"<cmd>lua require('hop').hint_patterns({direction = require('hop.hint').HintDirection.AFTER_CURSOR,  current_line_only = false})<cr>",
-			"Search Below Part",
-		},
-		k = {
-			"<cmd>lua require('hop').hint_patterns({direction = require('hop.hint').HintDirection.BEFORE_CURSOR, current_line_only = false})<cr>",
-			"Search Upper Part",
-		},
-	},
 	l = {
 		name = "+Lsp",
 		c = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Change(Rename)" },
