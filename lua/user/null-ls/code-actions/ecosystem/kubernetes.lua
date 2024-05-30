@@ -21,19 +21,21 @@ local get_all_modes = function(version)
 		os.execute("mkdir -pv " .. cache_dir)
 	end
 
-	local mod_dir = cache_dir .. "/go.mod"
+	local mod_abs_dir = cache_dir .. "/go.mod"
 
-	local _mod_fp, err = io.open(mod_dir, "r")
+	local _mod_fp, err = io.open(mod_abs_dir, "r")
 
 	if _mod_fp == nil then
 		local url = "https://raw.githubusercontent.com/kubernetes/kubernetes/v" .. version .. "/go.mod"
-		local cmd = "curl -sS -XGET " .. url .. " -o " .. cache_dir .. "/go.mod"
-		vim.fn.system(cmd)
+		local cmd = "curl -sS -XGET " .. url .. " -o " .. mod_abs_dir
+		if vim.fn.system(cmd) == vim.NIL then
+			return {}
+		end
 	else
 		_mod_fp:close()
 	end
 
-	local readgomod = "cat " .. mod_dir .. "| sed  -n 's|.*k8s.io/\\(.*\\) => ./staging/src/k8s.io/.*|k8s.io/\\1|p'"
+	local readgomod = "cat " .. mod_abs_dir .. "| sed  -n 's|.*k8s.io/\\(.*\\) => ./staging/src/k8s.io/.*|k8s.io/\\1|p'"
 	local gomod = vim.fn.system(readgomod)
 
 	local mods = {}
