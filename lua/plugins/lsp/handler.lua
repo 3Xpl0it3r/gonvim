@@ -130,9 +130,9 @@ M.on_attach = function()
 		end
 
         -- for lsp inlayhints
-		if vim.fn.has("nvim-0.10") == 1 and client.server_capabilities.inlayHintProvider then
+		--[[ if vim.fn.has("nvim-0.10") == 1 and client.server_capabilities.inlayHintProvider then
 			vim.lsp.inlay_hint.enable(true)
-		end
+		end ]]
 
         -- for codelens
         if client.supports_method("textDocument/codeLens") then
