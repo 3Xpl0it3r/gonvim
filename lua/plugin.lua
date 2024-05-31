@@ -21,9 +21,9 @@ local plugins = {
     ------------------------------------------------
     {
         "folke/tokyonight.nvim",
-        "rebelot/kanagawa.nvim",
+        --[[ "rebelot/kanagawa.nvim",
         "catppuccin/nvim",
-        "kepano/flexoki-neovim",
+        "kepano/flexoki-neovim", ]]
 
         -- opts = require("plugins.themes").new_tokyonight_options(),
     },
@@ -34,16 +34,10 @@ local plugins = {
     },
 
     {
-        "nvim-tree/nvim-web-devicons",
-    },
-
-    {
         "goolord/alpha-nvim",
-        -- "nvimdev/dashboard-nvim",
         event = "VimEnter",
         dependencies = { "nvim-tree/nvim-web-devicons" },
         config = function()
-            -- require("plugins.dashboard")
             require("plugins.alpha-nvim")
         end,
     },
@@ -67,11 +61,6 @@ local plugins = {
     ------------------------------------------------
     ----      Language Functional ,          -------
     ------------------------------------------------
-    {
-        "folke/trouble.nvim",
-        dependencies = "nvim-tree/nvim-web-devicons",
-        opts = require("plugins.trouble").new_options(),
-    },
     {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
@@ -133,7 +122,6 @@ local plugins = {
     },
     {
         "windwp/nvim-autopairs",
-        -- commit = "fa6876f832ea1b71801c4e481d8feca9a36215ec",
         config = function()
             require("plugins.autopairs").setup()
         end,

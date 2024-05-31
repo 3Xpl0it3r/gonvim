@@ -1,10 +1,12 @@
 local format_notify = require("utils.notify")
 local kubernetes = require("user.null-ls.code-actions.ecosystem.kubernetes")
+local g_utils_shell = require("utils.shell")
 
 local M = {}
 
 local action_go_vendor = function()
-	require("utils.notify").notify_execute_command({ "go", "mod", "vendor" })
+	g_utils_shell.execute("go mod tidy && go mod vendor", "vertical")
+	-- require("utils.notify").notify_execute_command({ "go", "mod", "vendor" })
 	vim.cmd("LspRestart")
 end
 
