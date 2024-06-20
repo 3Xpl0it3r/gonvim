@@ -47,9 +47,6 @@ function M.new_options()
 			row = 0,
 			col = 1,
 		},
-		yadm = {
-			enable = false,
-		},
 	}
 end
 

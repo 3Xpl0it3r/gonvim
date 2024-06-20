@@ -53,7 +53,7 @@ local download_single = function(modname, version)
 	local versiond = modname .. "@" .. "kubernetes-" .. version
 	local cmd = 'echo "Ready Download:\n' .. versiond .. '" && go get ' .. versiond
 	g_utils_notify.notify(cmd, "info", "k8s")
-	g_utils_shell.execute(cmd, "vertical")
+	g_utils_shell.execute(cmd)
 end
 
 local download_totalk8s = function(version)
@@ -73,7 +73,7 @@ local download_totalk8s = function(version)
 	echo = echo .. versiond .. '\n"'
 
 	local cmd = echo .. "&& go get " .. mods_str
-	g_utils_shell.execute(cmd, "vertical")
+	g_utils_shell.execute(cmd)
 end
 
 M.all_modes = function(version)
