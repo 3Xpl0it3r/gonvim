@@ -1,131 +1,104 @@
 local M = {}
 
 M.normal = {
-	-- most used functional quick-keys
-	["~"] = { "<CMD>noh<CR>", "cancel hilght" },
-	["!"] = { "<cmd>source ~/.config/nvim/init.lua<CR>", "ReloadConfig" },
-	["f"] = { "<cmd>lua require'telescope.builtin'.find_files()<cr>", "FindFile" },
-	["n"] = { "<cmd>Neotree toggle reveal<CR>", "DirExploer" },
-	["q"] = { "<cmd>q!<CR>", "Quit" },
-	-- test
-	["z"] = { "<cmd>lua require'tsexample'.test()<cr>", "TestTS" },
+    mode = { "n" },
+    { "<leader>~",  "<CMD>noh<CR>",                                                                        desc = "Cancel Highlight",        nowait = true,  remap = false },
+    { "<leader>!",  "<cmd>source ~/.config/nvim/init.lua<CR>",                                             desc = "ReloadConfig",            nowait = false, remap = false },
+    { "<leader>f",  "<cmd>lua require'telescope.builtin'.find_files()<cr>",                                desc = "FindFile",                nowait = false, remap = false },
+    { "<leader>n",  "<cmd>Neotree toggle reveal<CR>",                                                      desc = "DirExploer",              nowait = false, remap = false },
+    { "<leader>q",  "<cmd>q!<CR>",                                                                         desc = "Quit",                    nowait = false, remap = false },
+    { "<leader>z",  "<cmd>lua require'tsexample'.test()<cr>",                                              desc = "TestTS",                  nowait = false, remap = false },
 
-	-- code runner
-	c = {
-		name = "+Code",
-		-- asm  反汇编
-		a = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "CodeAction" },
-		r = { "<cmd>lua require'sniprun'.run()<cr>", "SnipRun" },
-	},
+    -- group Code
+    { "<leader>c",  group = "Code",                                                                        nowait = false,                   remap = false },
+    { "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>",                                              desc = "CodeAction",              nowait = false, remap = false },
+    { "<leader>cr", "<cmd>lua require'sniprun'.run()<cr>",                                                 desc = "SnipRun",                 nowait = false, remap = false },
 
-	-- dap debug
-	d = {
-		name = "+Debug",
-		-- mapping all in conf/dap.lua
-	},
+    -- Group debug
+    { "<leader>d",  group = "Debug",                                                                       nowait = false,                   remap = false },
 
-	-- git information
-	g = {
-		name = "+Git",
-		b = { '<cmd>lua require"gitsigns".blame_line{}<CR>', "Blame" },
-		-- d = { '<cmd>lua require"gitsigns".diffthis("~")<CR>', "Diff" },
-		p = { '<cmd>lua require"gitsigns".preview_hunk()<CR>', "preview(Hunk)" },
-		r = { '<cmd>lua require"gitsigns".reset_hunk()<CR>', "Reset(Hunk)" },
-		R = { '<cmd>lua require"gitsigns".reset_buffer()<CR>', "Reset(Buffer)" },
-		--[[ s = { '<cmd>lua require"gitsigns".sedatage_hunk()<CR>', "State hunk" },
-		S = { '<cmd>lua require"gitsigns".stage_buffer()<CR>', "Stage(Buffer)" }, ]]
-		u = { '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>}', "Undo Stage Hunk" },
-		U = { '<cmd>lua require"gitsigns".reset_buffer_index()<CR>', "Reset(Buffer Index)" },
+    -- Git
+    { "<leader>g",  group = "Git",                                                                         nowait = false,                   remap = false },
+    { "<leader>gB", '<cmd>lua require"extensions.git.init".branch()<CR>',                                  desc = "Git History",             nowait = false, remap = false },
+    { "<leader>gR", '<cmd>lua require"gitsigns".reset_buffer()<CR>',                                       desc = "Reset(Buffer)",           nowait = false, remap = false },
+    { "<leader>gU", '<cmd>lua require"gitsigns".reset_buffer_index()<CR>',                                 desc = "Reset(Buffer Index)",     nowait = false, remap = false },
+    { "<leader>gb", '<cmd>lua require"gitsigns".blame_line{}<CR>',                                         desc = "Blame",                   nowait = false, remap = false },
+    { "<leader>gd", '<cmd>lua require"extensions.git.init".diff()<CR>',                                    desc = "Diff",                    nowait = false, remap = false },
+    { "<leader>gl", '<cmd>lua require"extensions.git.init".history()<CR>',                                 desc = "Git History",             nowait = false, remap = false },
+    { "<leader>gp", '<cmd>lua require"gitsigns".preview_hunk()<CR>',                                       desc = "preview(Hunk)",           nowait = false, remap = false },
+    { "<leader>gq", '<cmd>lua require"extensions.git.init".quit()<CR>',                                    desc = "Quit",                    nowait = false, remap = false },
+    { "<leader>gr", '<cmd>lua require"gitsigns".reset_hunk()<CR>',                                         desc = "Reset(Hunk)",             nowait = false, remap = false },
+    { "<leader>gs", '<cmd>lua require"extensions.git.init".status()<CR>',                                  desc = "Git status",              nowait = false, remap = false },
+    { "<leader>gu", '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>}',                                   desc = "Undo Stage Hunk",         nowait = false, remap = false },
 
-		q = { '<cmd>lua require"extensions.git.init".quit()<CR>', "Quit" },
 
-		d = { '<cmd>lua require"extensions.git.init".diff()<CR>', "Diff" },
-		s = { '<cmd>lua require"extensions.git.init".status()<CR>', "Git status" },
-		l = { '<cmd>lua require"extensions.git.init".history()<CR>', "Git History" },
-		B = { '<cmd>lua require"extensions.git.init".branch()<CR>', "Git History" },
-	},
+    -- LSP
+    { "<leader>l",  group = "Lsp",                                                                         nowait = false,                   remap = false },
+    { "<leader>lD", "<cmd>lua require('telescope.builtin').lsp_type_definitions({show_line = false})<cr>", desc = "TypeDefine",              nowait = false, remap = false },
+    { "<leader>lc", "<cmd>lua vim.lsp.buf.rename()<CR>",                                                   desc = "Change(Rename)",          nowait = false, remap = false },
+    { "<leader>ld", "<cmd>lua require('telescope.builtin').lsp_definitions({show_line=false})<cr>",        desc = "Define",                  nowait = false, remap = false },
+    { "<leader>le", "<cmd>lua require('telescope.builtin').diagnostics()<cr>",                             desc = "diagnostics",             nowait = false, remap = false },
+    { "<leader>lf", "<cmd>lua vim.lsp.buf.format({async=true})<cr>",                                       desc = "LspFormat",               nowait = false, remap = false },
+    { "<leader>lh", "<cmd>lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<cr>",         desc = "Inlay Hints(nvim>=0.10)", nowait = false, remap = false },
+    { "<leader>li", "<cmd>lua require('telescope.builtin').lsp_implementations({show_line = false})<cr>",  desc = "Interface",               nowait = false, remap = false },
+    { "<leader>lr", "<cmd>lua require('telescope.builtin').lsp_references({show_line = false})<cr>",       desc = "Reference",               nowait = false, remap = false },
+    { "<leader>lt", "<cmd>lua require('telescope.builtin').diagnostics()<cr>",                             desc = "Trouble",                 nowait = false, remap = false },
 
-	l = {
-		name = "+Lsp",
-		c = { "<cmd>lua vim.lsp.buf.rename()<CR>", "Change(Rename)" },
-		d = { "<cmd>lua require('telescope.builtin').lsp_definitions({show_line=false})<cr>", "Define" },
-		D = { "<cmd>lua require('telescope.builtin').lsp_type_definitions({show_line = false})<cr>", "TypeDefine" },
-		e = { "<cmd>lua require('telescope.builtin').diagnostics()<cr>", "diagnostics" },
-		f = { "<cmd>lua vim.lsp.buf.format({async=true})<cr>", "LspFormat" },
-		-- for inlay hints
-		h = {
-			"<cmd>lua vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())<cr>",
-			"Inlay Hints(nvim>=0.10)",
-		},
 
-		i = { "<cmd>lua require('telescope.builtin').lsp_implementations({show_line = false})<cr>", "Interface" },
-		r = { "<cmd>lua require('telescope.builtin').lsp_references({show_line = false})<cr>", "Reference" },
-		t = { "<cmd>lua require('telescope.builtin').diagnostics()<cr>", "Trouble" },
-	},
 
-	-- book marks
-	m = {
-		name = "+BookMarks",
-		a = { "<cmd>lua require('extensions.bookmarks').add()<cr>", "Add BookMarks" },
-		c = { "<cmd>lua require('extensions.bookmarks').clean_all()<cr>", "Clean All" },
-		l = { "<cmd>lua require('extensions.bookmarks').actions()<cr>", "List Bookmarks" },
-	},
+    -- BookMark
+    { "<leader>m",  group = "BookMarks",                                                                   nowait = false,                   remap = false },
+    { "<leader>ma", "<cmd>lua require('extensions.bookmarks').add()<cr>",                                  desc = "Add BookMarks",           nowait = false, remap = false },
+    { "<leader>mc", "<cmd>lua require('extensions.bookmarks').clean_all()<cr>",                            desc = "Clean All",               nowait = false, remap = false },
+    { "<leader>ml", "<cmd>lua require('extensions.bookmarks').actions()<cr>",                              desc = "List Bookmarks",          nowait = false, remap = false },
 
-	-- Plugin Manager
-	p = {
-		name = "+Plugins",
-		c = { require("lazy").check, "Check" },
-		C = { require("lazy").clean, "Clean" },
-		h = { require("lazy").health, "Health" },
-		i = { require("lazy").install, "Install" },
-		s = { require("lazy").sync, "Sync" },
-		u = { require("lazy").update, "Update" },
-	},
 
-	-- Search functions ,search file., seathc targs and other .....
-	s = {
-		name = "+Search",
-		b = { "<cmd>lua require('telescope.builtin').buffers()<cr>", "Buffer" },
-		f = { "<cmd>lua require('telescope.builtin').find_files()<cr>", "FindFile" },
-		g = { "<cmd>lua require('telescope.builtin').live_grep()<cr>", "FindText" },
-		p = { "<cmd>lua require('telescope.builtin').live_grep()<cr>", "Project" },
-		t = { "<cmd>lua require('telescope.builtin').treesitter()<cr>", "Treesitter" },
-	},
+    -- Plugin
+    { "<leader>p",  group = "Plugins",                                                                     nowait = false,                   remap = false },
+    { "<leader>pC", "require('lazy').clean",                                                               desc = "Clean",                   nowait = false, remap = false },
+    { "<leader>pc", "require('lazy').check",                                                               desc = "Check",                   nowait = false, remap = false },
+    { "<leader>ph", "require('lazy').health",                                                              desc = "Health",                  nowait = false, remap = false },
+    { "<leader>pi", "require('lazy').install",                                                             desc = "Install",                 nowait = false, remap = false },
+    { "<leader>ps", "require('lazy').sync",                                                                desc = "Sync",                    nowait = false, remap = false },
+    { "<leader>pu", "require('lazy').update",                                                              desc = "Update",                  nowait = false, remap = false },
 
-	-- unit test
-	t = {
-		name = "+UintTest",
-		-- Debug the neartest test(require nvim-dap and adapter support)
-		d = { '<cmd>lua require("neotest").run.run({strategy = "dap"})<CR>', "Debug neartest" },
-		-- run the nearest test
-		r = { '<cmd>lua require("neotest").run.run()<CR>', "Run" },
-		-- run the current file
-		R = { '<cmd>lua require("neotest").run.run(vim.fn.expand("%"))<CR>', "Run" },
-		s = { '<cmd>lua require("neotest").summary.toggle()<CR>', "Summary" },
-	},
 
-	-- windows / misc
-	w = {
-		name = "+Windows",
-		g = { "<cmd>lua toggleterm_wrapper_lazygit()<cr>", "lazygit" },
-		n = { "<cmd>ToggleTerm <cr>", "terminal" },
-		r = { "<cmd>lua toggleterm_wrapper_ranger()<cr>", "ranger" },
-	},
+    -- Search
+    { "<leader>s",  group = "Search",                                                                      nowait = false,                   remap = false },
+    { "<leader>sb", "<cmd>lua require('telescope.builtin').buffers()<cr>",                                 desc = "Buffer",                  nowait = false, remap = false },
+    { "<leader>sf", "<cmd>lua require('telescope.builtin').find_files()<cr>",                              desc = "FindFile",                nowait = false, remap = false },
+    { "<leader>sg", "<cmd>lua require('telescope.builtin').live_grep()<cr>",                               desc = "FindText",                nowait = false, remap = false },
+    { "<leader>sp", "<cmd>lua require('telescope.builtin').live_grep()<cr>",                               desc = "Project",                 nowait = false, remap = false },
+    { "<leader>st", "<cmd>lua require('telescope.builtin').treesitter()<cr>",                              desc = "Treesitter",              nowait = false, remap = false },
+
+
+
+    -- Unit test
+    { "<leader>t",  group = "UintTest",                                                                    nowait = false,                   remap = false },
+    { "<leader>tR", '<cmd>lua require("neotest").run.run(vim.fn.expand("%"))<CR>',                         desc = "Run",                     nowait = false, remap = false },
+    { "<leader>td", '<cmd>lua require("neotest").run.run({strategy = "dap"})<CR>',                         desc = "Debug neartest",          nowait = false, remap = false },
+    { "<leader>tr", '<cmd>lua require("neotest").run.run()<CR>',                                           desc = "Run",                     nowait = false, remap = false },
+    { "<leader>ts", '<cmd>lua require("neotest").summary.toggle()<CR>',                                    desc = "Summary",                 nowait = false, remap = false },
+
+
+    -- Windows
+    { "<leader>w",  group = "Windows",                                                                     nowait = false,                   remap = false },
+    { "<leader>wg", "<cmd>lua toggleterm_wrapper_lazygit()<cr>",                                           desc = "lazygit",                 nowait = false, remap = false },
+    { "<leader>wn", "<cmd>ToggleTerm <cr>",                                                                desc = "terminal",                nowait = false, remap = false },
+    { "<leader>wr", "<cmd>lua toggleterm_wrapper_ranger()<cr>",                                            desc = "ranger",                  nowait = false, remap = false },
 }
+
 
 M.visual = {
-	-- most used functional quick-keys
-	["q"] = { "<cmd>q!<CR>", "Quit" },
-	-- code runner
-	c = {
-		name = "+Code",
-		r = { "<cmd>lua require'sniprun'.run('v')<cr>", "sniprun" },
-	},
-	g = {
-		name = "+Git",
-		s = { '<cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>', "Stage(Hunk)" },
-		r = { '<cmd>lua require"gitsigns".reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>', "Reset(Hunk)" },
-	},
+    mode = { "v" },
+    { "<leader>c",  group = "Code",                                                                    nowait = false,       remap = false },
+    { "<leader>cr", "<cmd>lua require'sniprun'.run('v')<cr>",                                          desc = "sniprun",     nowait = false, remap = false },
+
+    { "<leader>g",  group = "Git",                                                                     nowait = false,       remap = false },
+    { "<leader>gr", '<cmd>lua require"gitsigns".reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>', desc = "Reset(Hunk)", nowait = false, remap = false },
+    { "<leader>gs", '<cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>', desc = "Stage(Hunk)", nowait = false, remap = false },
+    { "<leader>q",  "<cmd>q!<CR>",                                                                     desc = "Quit",        nowait = false, remap = false },
 }
+
 
 return M
