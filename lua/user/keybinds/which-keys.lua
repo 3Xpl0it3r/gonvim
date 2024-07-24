@@ -55,12 +55,12 @@ M.normal = {
 
     -- Plugin
     { "<leader>p",  group = "Plugins",                                                                     nowait = false,                   remap = false },
-    { "<leader>pC", "require('lazy').clean",                                                               desc = "Clean",                   nowait = false, remap = false },
-    { "<leader>pc", "require('lazy').check",                                                               desc = "Check",                   nowait = false, remap = false },
-    { "<leader>ph", "require('lazy').health",                                                              desc = "Health",                  nowait = false, remap = false },
-    { "<leader>pi", "require('lazy').install",                                                             desc = "Install",                 nowait = false, remap = false },
-    { "<leader>ps", "require('lazy').sync",                                                                desc = "Sync",                    nowait = false, remap = false },
-    { "<leader>pu", "require('lazy').update",                                                              desc = "Update",                  nowait = false, remap = false },
+    { "<leader>pC", "<cmd>lua require('lazy').clean()<cr>",                                                desc = "Clean",                   nowait = false, remap = false },
+    { "<leader>pc", "<cmd>lua require('lazy').check()<cr>",                                                desc = "Check",                   nowait = false, remap = false },
+    { "<leader>ph", "<cmd>lua require('lazy').health()<cr>",                                               desc = "Health",                  nowait = false, remap = false },
+    { "<leader>pi", "<cmd>lua require('lazy').install()<cr>",                                              desc = "Install",                 nowait = false, remap = false },
+    { "<leader>ps", "<cmd>lua require('lazy').sync()<cr>",                                                 desc = "Sync",                    nowait = false, remap = false },
+    { "<leader>pu", "<cmd>lua require('lazy').update()<cr>",                                               desc = "Update",                  nowait = false, remap = false },
 
 
     -- Search
