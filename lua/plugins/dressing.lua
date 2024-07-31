@@ -47,7 +47,7 @@ local function new_recomment_options()
 					["<CR>"] = "Confirm",
 				},
 				i = {
-					["<Esc>"] = "HistoryPrev",
+					["<Esc>"] = "Close",
 					["<C-c>"] = "Close",
 					["<CR>"] = "Confirm",
 					["<Up>"] = "HistoryPrev",
