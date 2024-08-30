@@ -1,4 +1,4 @@
-util = require("lspconfig/util")
+local util = require("lspconfig/util")
 local M = {}
 M.clangd = {
 	cmd = {
