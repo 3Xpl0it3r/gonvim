@@ -6,7 +6,7 @@ local l_utils = require("extensions.git.utils")
 function M.execute()
 	local title = "Select Version Diff With (" .. l_utils.git_get_current_branch() .. ")"
 	local git_root = l_utils.git_root()
-	local all_branch = l_utils.git_list_branchs()
+	local all_branch = require("extensions.git.diff.utils").all_branchs()
 
 	local relative = g_utils_path.format_relative(vim.api.nvim_buf_get_name(0), git_root)
 

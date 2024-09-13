@@ -11,7 +11,7 @@ M.status = function()
 end
 
 M.diff = function()
-	require(current_project .. ".git.diff").execute()
+	require(current_project .. ".git.diff.init").execute()
 end
 
 M.quit = function()
