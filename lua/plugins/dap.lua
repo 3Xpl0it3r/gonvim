@@ -31,7 +31,7 @@ local function config_dap(dap, dap_ui)
 	dap.listeners.before["event_progressEnd"]["progress-notifications"] = require("utils.notify").event_progressEnd
 
 	-- dap.adapters["xxx"] = ""
-	for language, dapconfig in pairs(require("user.dap.init")) do
+	for language, dapconfig in pairs(require("user.dap")) do
 		dap.adapters[language] = dapconfig.adapters
 		dap.configurations[language] = dapconfig.configurations
 	end

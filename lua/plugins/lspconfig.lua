@@ -13,7 +13,7 @@ local function config_lspconfig(handler)
 	}
 
 	-- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-	for server_name, server_config in pairs(require("user.lsp.init")) do
+	for server_name, server_config in pairs(require("user.lsp")) do
 		local opts_clone = opts
 		if server_config.server == "clangd" then
 			opts_clone.capabilities.offsetEncoding = { "utf-16" }
