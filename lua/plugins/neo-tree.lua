@@ -9,6 +9,7 @@ end
 
 function M.new_options()
 	return {
+        event_handlers = require("user.neo-tree").event_handlers;
 
 		close_if_last_window = true, -- Close Neo-tree if it is the last window left in the tab
 		popup_border_style = "rounded",

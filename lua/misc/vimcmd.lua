@@ -32,15 +32,17 @@ vim.cmd([[
     let &t_EI.= "<Esc>[3 q"
 ]])
 
-vim.cmd([[ 
+vim.cmd([[
     runtime! plugin/rplugin.vim
     silent! UpdateRemotePlugins
 ]])
 
 -- keep cursor on middle of screen
--- vim.cmd([[ 
+-- vim.cmd([[
 --     augroup KeepCentered
 --       autocmd!
 --       autocmd CursorMoved * normal zz
 --     augroup END
 -- ]])
+
+
