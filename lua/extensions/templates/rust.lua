@@ -1,13 +1,17 @@
 local M = {}
 
+local lsputil = require("lspconfig/util")
+
 local get_project_name = function()
-    local root_dir = vim.lsp.buf.list_workspace_folders()
-    if root_dir == nil or #root_dir == 0 then
-        return "Default"
-    end
-    return root_dir[1]
+    local root_dir = lsputil.root_pattern("Cargo.toml", ".git")(vim.fn.getcwd())
+    local project_name = vim.fn.fnamemodify(root_dir, ":t")
+    return project_name
 end
 
-M.tpl = "// Copyright " .. os.date("*t")["year"] .. get_project_name() .. " Project Authors. Licensed under Apache-2.0."
+M.get_template = function()
+    return "// Copyright " ..
+        os.date("*t")["year"] .. " " .. get_project_name() .. " Project Authors. Licensed under Apache-2.0."
+end
+
 
 return M
