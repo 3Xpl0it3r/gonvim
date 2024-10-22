@@ -4,7 +4,10 @@ local M = {}
 local dapui = require("dapui")
 
 local add_watch_expression = function()
+    local opt_cloned = vim.opt.iskeyword
+    vim.opt.iskeyword:append(".")
     local variable = vim.fn.expand("<cword>")
+    vim.opt.iskeyword = opt_cloned
     -- 判断variable是否已经存在，如果存在则不添加
     local watch_expression_list = dapui.elements.watches.get()
     for _, value in ipairs(watch_expression_list) do
