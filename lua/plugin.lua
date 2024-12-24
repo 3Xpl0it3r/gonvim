@@ -50,11 +50,6 @@ local plugins = {
     },
 
     {
-        "gen740/SmoothCursor.nvim",
-        opts = require("plugins.smoothcursor").new_options(),
-    },
-
-    {
         "shellRaining/hlchunk.nvim",
         opts = require("plugins.hlchunk").new_options(),
     },
