@@ -9,6 +9,11 @@ M.normal = {
     { "<leader>q",  "<cmd>q!<CR>",                                                                         desc = "Quit",                    nowait = false, remap = false },
     { "<leader>z",  "<cmd>lua require'tsexample'.test()<cr>",                                              desc = "TestTS",                  nowait = false, remap = false },
 
+    -- LLM
+    { "<leader>a",  group = "Avata(LLM)",                                                                   nowait = false,                   remap = false },
+
+
+
     -- group Code
     { "<leader>c",  group = "Code",                                                                        nowait = false,                   remap = false },
     { "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>",                                              desc = "CodeAction",              nowait = false, remap = false },
@@ -86,6 +91,8 @@ M.normal = {
     { "<leader>wg", "<cmd>lua toggleterm_wrapper_lazygit()<cr>",                                           desc = "lazygit",                 nowait = false, remap = false },
     { "<leader>wn", "<cmd>ToggleTerm <cr>",                                                                desc = "terminal",                nowait = false, remap = false },
     { "<leader>wr", "<cmd>lua toggleterm_wrapper_ranger()<cr>",                                            desc = "ranger",                  nowait = false, remap = false },
+
+
 }
 
 

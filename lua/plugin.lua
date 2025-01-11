@@ -148,13 +148,13 @@ local plugins = {
             require("plugins.cmp").setup()
         end,
         dependencies = {
-            { "hrsh7th/cmp-buffer" }, -- buffer completion plugin
-            { "hrsh7th/cmp-path" }, -- path completion plugin
+            { "hrsh7th/cmp-buffer" },       -- buffer completion plugin
+            { "hrsh7th/cmp-path" },         -- path completion plugin
             { "hrsh7th/cmp-cmdline" },
             { "saadparwaiz1/cmp_luasnip" }, -- completete for snippets
-            { "hrsh7th/cmp-nvim-lsp" }, -- lsp
+            { "hrsh7th/cmp-nvim-lsp" },     -- lsp
 
-            { "windwp/nvim-autopairs" }, -- for auto complete pairs
+            { "windwp/nvim-autopairs" },    -- for auto complete pairs
         },
     },
     {
@@ -220,6 +220,24 @@ local plugins = {
     {
         "lewis6991/gitsigns.nvim",
         opts = require("plugins.gitsigns").new_options(),
+    },
+
+    ----------------------------------------------------------------
+    ----      LLM
+    ----------------------------------------------------------------
+    {
+        "yetone/avante.nvim",
+        event = "VeryLazy",
+        lazy = false,
+        version = false, -- set this if you want to always pull the latest change
+        opts = require("plugins.avante").new_options(),
+        build = "make",
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+            "stevearc/dressing.nvim",
+            "nvim-lua/plenary.nvim",
+            "MunifTanjim/nui.nvim",
+        }
     },
 
     ----------------------------------------------------------------
