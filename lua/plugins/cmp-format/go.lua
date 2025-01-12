@@ -30,7 +30,6 @@ M.format = function(entry, item)
     if detail ~= nil then
         item.abbr = item.abbr .. " " .. detail
     end
-    item.abbr = item.abbr .. " " .. detail
     item.kind = icons.go[item.kind] .. " "
 
     local highlights_info = require("colorful-menu").cmp_highlights(entry)
