@@ -20,6 +20,7 @@ local plugins = {
     ----      ColorsTheme , UI               -------
     ------------------------------------------------
     {
+        -- 主题优先加载, 防止后面覆盖自定义的配色
         "folke/tokyonight.nvim",
         --[[ "rebelot/kanagawa.nvim",
         "catppuccin/nvim",
@@ -243,6 +244,8 @@ local plugins = {
     ----------------------------------------------------------------
     ----      Some Misc Plugin (but should placed at the end)
     ----------------------------------------------------------------
+    { "xzbdmw/colorful-menu.nvim" },
+    ---
     { "wakatime/vim-wakatime" },
 
     { -- which key
