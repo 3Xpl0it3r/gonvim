@@ -4,58 +4,30 @@ if not status_ok then
     return
 end
 
-local icons = require("ui.icons")
 
 local M = {}
 
-local default_format = function(entry, item)
-    local icon = icons.lspKind[item.kind]
-    -- icon = icons.lspKind.Text and (" " .. icon .. " ") or icon
-    local max_width = 64
 
-    if item.menu ~= nil then
-        item.menu = string.gsub(item.menu, "^%s+", "")
-
-        if string.sub(item.menu, 1, string.len("(")) == "(" then
-            item.menu = item.menu:sub(1, item.menu:find(")", 1, true))
-        end
-        if max_width ~= 0 and #item.menu > max_width then
-            item.menu = string.sub(item.menu, 1, max_width - 1) .. "…"
-        end
-    else
-        item.menu = ({
-            nvim_lsp = "(LSP)",
-            treesitter = "(TS)",
-            emoji = "(Emoji)",
-            path = "(Path)",
-            calc = "(Calc)",
-            cmp_tabnine = "(Tabnine)",
-            vsnip = "(Snippet)",
-            luasnip = "(Snippet)",
-            buffer = "(Buffer)",
-            spell = "(Spell)",
-        })[entry.source.name]
+local format = function(entry, item)
+    local highlights_info = require("colorful-menu").cmp_highlights(entry)
+    if highlights_info ~= nil then
+        item.abbr_hl_group = highlights_info.highlights
+        item.abbr = highlights_info.text
     end
 
-    item.kind = string.format("%s  %s", icon, icons.lspKind.Text and item.kind or " ")
-    item.dup = ({
-        buffer = 1,
-        path = 1,
-        nvim_lsp = 1,
-        luasnip = 1,
-    })[entry.source.name] or 0
+    local client = vim.tbl_get(entry, "source", "source", "client") -- For example `lua_ls` etc
+    if client == nil or client.is_stopped() then
+        item.kind = require("ui.icons").lspKind[item.kind] .. " "
+        return item
+    end
+
+    local ls_name = client.name
+    if ls_name == "rust-analyzer" or ls_name == "rust_analyzer" then
+        require("plugins.cmp-format.rust").format(entry, item)
+    elseif ls_name == "gopls" then
+        require("plugins.cmp-format.go").format(entry, item)
+    end
     return item
-end
-
-local format_getter = function()
-    local cur_bfnr = vim.api.nvim_get_current_buf()
-    local cur_fname = vim.api.nvim_buf_get_name(cur_bfnr)
-    local file_type = vim.filetype.match { filename = cur_fname }
-    if file_type == "go" then
-        return require("plugins.cmp-format.go").format
-    else
-        return default_format
-    end
 end
 
 
@@ -84,7 +56,7 @@ local function config_nvim_cmp(cmp)
         },
         formatting = {
             fields = { "kind", "abbr", "menu" },
-            format = format_getter(),
+            format = format,
 
         },
         snippet = {

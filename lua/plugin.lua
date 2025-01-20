@@ -244,7 +244,12 @@ local plugins = {
     ----------------------------------------------------------------
     ----      Some Misc Plugin (but should placed at the end)
     ----------------------------------------------------------------
-    { "xzbdmw/colorful-menu.nvim" },
+    {
+        "xzbdmw/colorful-menu.nvim",
+        config = function()
+            require("colorful-menu").setup({ max_width = 64, })
+        end
+    },
     ---
     { "wakatime/vim-wakatime" },
 

@@ -34,7 +34,7 @@ local function notify(msg, level)
     end
 end
 
-local logfilename = vim.fs.joinpath(vim.fn.stdpath('log') --[[@as string]], 'lsp.log')
+local logfilename = vim.fs.joinpath(vim.fn.stdpath('log') --[[@as string]], 'message')
 
 -- TODO: Ideally the directory should be created in open_logfile(), right
 -- before opening the log file, but open_logfile() can be called from libuv
