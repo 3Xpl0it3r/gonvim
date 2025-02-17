@@ -226,12 +226,12 @@ local plugins = {
     ----------------------------------------------------------------
     ----      LLM
     ----------------------------------------------------------------
-    {
+    --[[ {
         "yetone/avante.nvim",
         event = "VeryLazy",
         lazy = false,
         version = false, -- set this if you want to always pull the latest change
-        opts = require("plugins.avante").new_options(),
+        opts = require("plugins.llm.avater").new_options(),
         build = "make",
         dependencies = {
             "nvim-treesitter/nvim-treesitter",
@@ -239,6 +239,17 @@ local plugins = {
             "nvim-lua/plenary.nvim",
             "MunifTanjim/nui.nvim",
         }
+    }, ]]
+
+    {
+        "olimorris/codecompanion.nvim",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "nvim-treesitter/nvim-treesitter",
+        },
+        config = function()
+            require("plugins.llm.codecompanion").setup()
+        end
     },
 
     ----------------------------------------------------------------
