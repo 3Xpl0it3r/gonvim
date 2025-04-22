@@ -51,6 +51,23 @@ local function goto_definition(split_cmd)
     return handler
 end
 
+local function definition_split()
+    vim.lsp.buf.definition({
+        on_list = function(options)
+            -- if there are multiple items, warn the user
+            if #options.items > 1 then
+                vim.notify('Multiple items found, opening first one', vim.log.levels.WARN)
+            end
+
+            -- Open the first item in a vertical split
+            local item = options.items[1]
+            local cmd = 'vsplit +' .. item.lnum .. ' ' .. item.filename .. '|' .. 'normal ' .. item.col .. '|'
+
+            vim.cmd(cmd)
+        end,
+    })
+end
+
 M.setup = function()
     local signs = {
         { name = "DiagnosticSignError", text = icons.diagnostics.Error },
@@ -94,7 +111,8 @@ end
 local function lsp_keymaps(bufnr)
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
-    vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
+    -- vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
+    vim.keymap.set("n", "gd", definition_split, { desc = "Goto Definition (split)" })
     vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
     vim.keymap.set("n", "gi", "<cmd>lua require('telescope.builtin').lsp_implementations()<CR>", { noremap = true })
     vim.keymap.set("n", "gr", "<cmd>lua require('telescope.builtin').lsp_references()<CR>", { noremap = true })
