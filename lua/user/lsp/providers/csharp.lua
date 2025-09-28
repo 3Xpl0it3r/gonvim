@@ -1,5 +1,4 @@
 -- this is for c_sharp
-util = require("lspconfig/util")
 local M = {}
 M.omnisharp = {
 	cmd = { "dotnet", "/path/to/omnisharp/OmniSharp.dll" },
@@ -10,7 +9,6 @@ M.omnisharp = {
 	enable_import_completion = false,
 	sdk_include_prereleases = true,
 	analyze_open_documents_only = false,
-	root_dir = util.root_pattern(".git", ".sln", ".csproj", "Makefile", "configure.ac"),
 	filetypes = { "cs", "vb" },
 	single_file_support = true,
 }

@@ -1,11 +1,11 @@
-util = require("lspconfig/util")
+local lsputil = require("utils.lspconfig")
 
 local M = {}
 
 M.java_language_server = {
 	cmd = { "lua-language-server" },
 	filetypes = { "java" },
-	root_dir = util.root_pattern(".git", vim.fn.getcwd()),
+	root_dir = lsputil.root_pattern(".git", vim.fn.getcwd()),
 	settings = {},
 	single_file_support = true,
 }
@@ -20,7 +20,7 @@ M.jdtls = {
 		jvm_args = {},
 		workspace = "$HOME/.cache/jdtls/workspace",
 	},
-	root_dir = util.root_pattern(
+	root_dir = lsputil.root_pattern(
 		"build.xml",
 		"pom.xml",
 		"settings.gradle",

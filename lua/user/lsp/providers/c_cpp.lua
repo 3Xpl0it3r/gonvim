@@ -1,4 +1,3 @@
-local util = require("lspconfig/util")
 local M = {}
 M.clangd = {
 	cmd = {
@@ -20,14 +19,6 @@ M.clangd = {
 		"-j=5",
 		"--pretty",
 	},
-	root_dir = util.root_pattern(
-		".git",
-		".clangd",
-		"compile_flags.txt",
-		"compile_commands.json",
-		"Makefile",
-		"configure.ac"
-	),
 	filetypes = { "c", "cpp" },
 	single_file_support = true,
 }
@@ -37,7 +28,6 @@ M.ccls = {
 	filetypes = { "c", "cpp" },
 	single_file_support = true,
 	offset_encoding = "utf-32",
-	root_dir = util.root_pattern("compile_commands.json", ".ccls", ".git"),
 }
 
 return M

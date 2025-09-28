@@ -46,3 +46,4 @@ plugin/
 lua/snippets/go.lua
 
 lazy-lock.json
+.aider*

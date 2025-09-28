@@ -1,11 +1,9 @@
 local M = {}
 
-local util = require("lspconfig/util")
 
 M.rust_analyzer = {
 	cmd = { "rust-analyzer" },
 	filetype = { "rust" },
-	root_dir = util.root_pattern("Cargo.toml", "rust-project.json"),
 	settings = {
 		["rust-analyzer"] = {
 			assist = {
@@ -27,7 +25,7 @@ M.rust_analyzer = {
 				command = "clippy", -- 用于 cargo check 的命令。
 				-- extraArgs = vim.tbl_deep_extend("force", { "--no-deps" }, lints), -- cargo check 的额外参数。
 				extraArgs = { "--no-deps" },
-				extraEnv = {}, -- 运行 cargo check 时将设置的额外环境变量。扩展 rust-analyzer.cargo.extraEnv 。
+				-- extraEnv = {}, -- 运行 cargo check 时将设置的额外环境变量。扩展 rust-analyzer.cargo.extraEnv 。
 				features = "all", -- 要激活的功能列表。默认为 rust-analyzer.cargo.features 。设置为 "all" ，将 --all-features 传递给Cargo。
 				invocationLocation = "workspace", -- 指定运行检查的工作目录。-“workspace”：对相应工作区的根目录中的工作区进行检查。
 				-- 如果 rust-analyzer.cargo.checkOnSave.invocationStrategy 设置为 once ，则返回到“root”。-“root”：在项目的根目录中运行检查。
@@ -150,7 +148,7 @@ M.rust_analyzer = {
 				expressionAdjustmentHints = {
 					enable = "never",
 					hideOutsideUnsafe = false,
-					mode = "postfix ",
+					mode = "postfix",
 				},
 				lifetimeElisionHints = { enable = "always", useParameterNames = true },
 				maxLength = 25,
@@ -218,7 +216,6 @@ M.rust_analyzer = {
 M.rls = {
 	cmd = { "rls" },
 	filetype = { "rust" },
-	root_dir = util.root_pattern("Cargo.toml", "rust-project.json"),
 	settings = {
 		rust = {
 			unstable_features = true,

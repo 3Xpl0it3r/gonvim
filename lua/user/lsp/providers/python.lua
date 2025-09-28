@@ -1,6 +1,6 @@
 local M = {}
 
-local util = require("lspconfig/util")
+local util = require("utils.lspconfig")
 
 M.pyright = {
 	cmd = { "pyright-langserver", "--stdio" },

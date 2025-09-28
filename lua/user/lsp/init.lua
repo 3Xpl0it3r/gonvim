@@ -1,5 +1,3 @@
-local notify = require("utils.notify") -- used to trigger an error message when lsp config occure an error
-
 local M = {}
 
 -- 基本上主流的lsp都已经内置,如果你想要尝试其他的lsp 只需要下面修改成你想要尝试的lsp就可以

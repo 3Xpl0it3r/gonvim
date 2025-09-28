@@ -1,12 +1,4 @@
-local status_ok, lspconfig = pcall(require, "lspconfig")
-if not status_ok then
-    require("utils.notify").notify("Plugin lspconfig is not existed", "error", "Plugin")
-    return
-end
-
 local M = {}
-
-
 
 local function config_lspconfig(handler)
     local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
@@ -28,11 +20,13 @@ local function config_lspconfig(handler)
             opts_clone.capabilities.offsetEncoding = { "utf-16" }
         end
         opts_clone = vim.tbl_deep_extend("force", server_config, opts)
-        lspconfig[server_name].setup(opts_clone)
+        vim.lsp.config(server_name, opts_clone)
+        vim.lsp.enable(server_name)
     end
 
     require("lspconfig.ui.windows").default_options.border = "rounded"
 end
+
 
 function M.setup()
     local handler = require("plugins/lsp/handler")

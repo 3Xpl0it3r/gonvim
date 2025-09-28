@@ -156,23 +156,11 @@ local config = {
 						.. icons.misc.Folder
 						.. hi_folder
 						.. table.concat(slice, seperator .. hi_folder)
-						.. seperator
 				end,
 				padding = { right = 0 },
 			},
 		},
-		lualine_b = {
-			{
-				"filetype",
-				icon_only = true,
-				padding = { left = 0, right = 0 },
-			},
-			{
-				"filename",
-				path = 0,
-				file_status = false,
-			},
-		},
+		lualine_b = { },
 		lualine_c = {
 			{
 				function()
@@ -186,6 +174,9 @@ local config = {
 					local sig = require("lsp_signature").status_line(columns)
 
 					if sig == nil or sig.label == nil or sig.range == nil then
+                        if string.len(context) == 0 then
+                            return ""
+                        end
 						return seperator .. hi_method .. context
 					end
 					local label1 = sig.label
