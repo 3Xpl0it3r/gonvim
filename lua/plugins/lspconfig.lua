@@ -12,8 +12,8 @@ local function config_lspconfig(handler)
     local capabilities = handler.capabilities()
 
     -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
-    for lsp_name, lsp_config in pairs(require("user.lsp")) do
-        vim.lsp.config(lsp_name, { settings = lsp_config.settings, on_attach = on_attach, capabilities = capabilities })
+    for lsp_name, lspconfig in pairs(require("user.lsp")) do
+        vim.lsp.config(lsp_name, { settings = lspconfig.settings, on_attach = on_attach, capabilities = capabilities })
         vim.lsp.enable(lsp_name)
     end
 
