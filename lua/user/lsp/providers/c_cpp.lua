@@ -23,11 +23,5 @@ M.clangd = {
 	single_file_support = true,
 }
 
-M.ccls = {
-	cmd = { "ccls" },
-	filetypes = { "c", "cpp" },
-	single_file_support = true,
-	offset_encoding = "utf-32",
-}
 
 return M
