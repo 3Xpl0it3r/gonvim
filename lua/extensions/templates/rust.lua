@@ -1,6 +1,6 @@
 local M = {}
 
-local lsputil = require("lspconfig/util")
+local lsputil = require("utils.lspconfig")
 
 local get_project_name = function()
     local root_dir = lsputil.root_pattern("Cargo.toml", ".git")(vim.fn.getcwd())

@@ -2,7 +2,7 @@ local M = {}
 
 local path = require("utils.path")
 local notify_utils = require("utils.notify")
-local lsputil = require("lspconfig/util")
+local lsputil = require("utils.lspconfig")
 
 --[[ local pickers = require "telescope.pickers"
 local finders = require "telescope.finders"
