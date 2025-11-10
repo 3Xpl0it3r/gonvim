@@ -25,6 +25,9 @@ local available_adapters = {
 
 M.setup = function()
     require("codecompanion").setup({
+        opts = {
+            language = "Chinese",
+        },
         strategies = {
             chat = {
                 adapter = "modelscope",
