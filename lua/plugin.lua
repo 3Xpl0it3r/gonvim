@@ -231,7 +231,7 @@ local plugins = {
         event = "VeryLazy",
         lazy = false,
         version = false, -- set this if you want to always pull the latest change
-        opts = require("plugins.llm.avater").new_options(),
+        opts = require("plugins.llm.avante").new_options(),
         build = "make",
         dependencies = {
             "nvim-treesitter/nvim-treesitter",
@@ -241,7 +241,7 @@ local plugins = {
         }
     }, ]]
 
-    --[[ {
+    {
         "olimorris/codecompanion.nvim",
         dependencies = {
             "nvim-lua/plenary.nvim",
@@ -250,7 +250,7 @@ local plugins = {
         config = function()
             require("plugins.llm.codecompanion").setup()
         end
-    }, ]]
+    },
 
     ----------------------------------------------------------------
     ----      Some Misc Plugin (but should placed at the end)

@@ -16,8 +16,6 @@ local function config_lspconfig(handler)
         vim.lsp.config(lsp_name, { settings = lspconfig.settings, on_attach = on_attach, capabilities = capabilities })
         vim.lsp.enable(lsp_name)
     end
-
-    require("lspconfig.ui.windows").default_options.border = "rounded"
 end
 
 

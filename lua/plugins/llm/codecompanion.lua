@@ -1,60 +1,45 @@
 local M = {}
 
+local available_models = {
+    "ZhipuAI/GLM-4.6",
+    "Qwen/Qwen2.5-Coder-32B-Instruct",
+}
 
-local qwen3 = {
-    name = "deepseek",
-    url = "https://api-inference.modelscope.cn/v1/",
-    env = {
-        api_key = function()
-            return os.getenv("OPENAI_API_KEY")
-        end,
-    },
-    schema = {
-        model = {
-            default = "Qwen/Qwen2.5-7B-Instruct"
-        }
-    }
+local available_adapters = {
+    modelscope = function()
+        return require("codecompanion.adapters").extend("openai_compatible", {
+            env = {
+                url = "https://api-inference.modelscope.cn/v1",
+                api_key = "OPENAI_API_KEY",
+                chat_url = "/chat/completions",
+            },
+            schema = {
+                model = {
+                    default = "ZhipuAI/GLM-4.6"
+                },
+            },
+        })
+    end
 }
 
 
 M.setup = function()
     require("codecompanion").setup({
-        adapters = {
-            http = {
-                modelscope = function()
-                    require("codecompanion.adapters").extend("deepseek", qwen3)
-                end
-            }
-        },
         strategies = {
             chat = {
-                adapter = "deepseek",
+                adapter = "modelscope",
             },
             inline = {
-                adapter = "deepseek",
+                adapter = "modelscope",
             },
             cmd = {
-                adapter = "deepseek",
+                adapter = "modelscope",
             }
         },
-        opts = {
-            language = "Chinese",
-        },
-        prompt_library = {
-            ["My New Prompt"] = {
-                strategy = "chat",
-                description = "Some cool custom prompt you can do",
-                prompts = {
-                    {
-                        role = "system",
-                        content = "You are an experienced developer with Lua and Neovim",
-                    },
-                    {
-                        role = "user",
-                        content = "Can you explain why ...",
-                    },
-                },
-            },
+        adapters = {
+            http = {
+                modelscope = available_adapters["modelscope"]
+            }
         },
     })
 end
