@@ -41,6 +41,7 @@ local function config_nvim_cmp(cmp)
         view = {
             entries = {
                 follow_cursor = true,
+                vertical_positioning = "below"
             },
             -- entries = { name = 'custom', selection_order = 'near_cursor' }
         },

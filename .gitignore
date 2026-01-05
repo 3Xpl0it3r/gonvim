@@ -47,3 +47,4 @@ lua/snippets/go.lua
 
 lazy-lock.json
 .aider*
+AGENTS.md

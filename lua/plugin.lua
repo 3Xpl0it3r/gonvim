@@ -247,6 +247,7 @@ local plugins = {
             "nvim-lua/plenary.nvim",
             "nvim-treesitter/nvim-treesitter",
         },
+        version = "v17.33.0",
         config = function()
             require("plugins.llm.codecompanion").setup()
         end

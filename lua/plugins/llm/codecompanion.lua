@@ -3,6 +3,7 @@ local M = {}
 local available_models = {
     "ZhipuAI/GLM-4.6",
     "Qwen/Qwen2.5-Coder-32B-Instruct",
+    "MiniMax/MiniMax-M2",
 }
 
 local available_adapters = {
@@ -15,7 +16,7 @@ local available_adapters = {
             },
             schema = {
                 model = {
-                    default = "ZhipuAI/GLM-4.6"
+                    default = "Qwen/Qwen2.5-Coder-32B-Instruct",
                 },
             },
         })
