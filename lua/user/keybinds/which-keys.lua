@@ -10,7 +10,7 @@ M.normal = {
     { "<leader>z",  "<cmd>lua require'tsexample'.test()<cr>",                                              desc = "TestTS",                  nowait = false, remap = false },
 
     -- LLM
-    { "<leader>a",  group = "Avata(LLM)",                                                                   nowait = false,                   remap = false },
+    { "<leader>a",  group = "Ai",                                                                          nowait = false,                   remap = false },
 
 
 
@@ -24,16 +24,16 @@ M.normal = {
 
     -- Git
     { "<leader>g",  group = "Git",                                                                         nowait = false,                   remap = false },
-    { "<leader>gB", '<cmd>lua require"extensions.git".branch()<CR>',                                  desc = "Git History",             nowait = false, remap = false },
+    { "<leader>gB", '<cmd>lua require"extensions.git".branch()<CR>',                                       desc = "Git History",             nowait = false, remap = false },
     { "<leader>gR", '<cmd>lua require"gitsigns".reset_buffer()<CR>',                                       desc = "Reset(Buffer)",           nowait = false, remap = false },
     { "<leader>gU", '<cmd>lua require"gitsigns".reset_buffer_index()<CR>',                                 desc = "Reset(Buffer Index)",     nowait = false, remap = false },
     { "<leader>gb", '<cmd>lua require"gitsigns".blame_line{}<CR>',                                         desc = "Blame",                   nowait = false, remap = false },
-    { "<leader>gd", '<cmd>lua require"extensions.git".diff()<CR>',                                    desc = "Diff",                    nowait = false, remap = false },
-    { "<leader>gl", '<cmd>lua require"extensions.git".history()<CR>',                                 desc = "Git History",             nowait = false, remap = false },
+    { "<leader>gd", '<cmd>lua require"extensions.git".diff()<CR>',                                         desc = "Diff",                    nowait = false, remap = false },
+    { "<leader>gl", '<cmd>lua require"extensions.git".history()<CR>',                                      desc = "Git History",             nowait = false, remap = false },
     { "<leader>gp", '<cmd>lua require"gitsigns".preview_hunk()<CR>',                                       desc = "preview(Hunk)",           nowait = false, remap = false },
-    { "<leader>gq", '<cmd>lua require"extensions.git".quit()<CR>',                                    desc = "Quit",                    nowait = false, remap = false },
+    { "<leader>gq", '<cmd>lua require"extensions.git".quit()<CR>',                                         desc = "Quit",                    nowait = false, remap = false },
     { "<leader>gr", '<cmd>lua require"gitsigns".reset_hunk()<CR>',                                         desc = "Reset(Hunk)",             nowait = false, remap = false },
-    { "<leader>gs", '<cmd>lua require"extensions.git".status()<CR>',                                  desc = "Git status",              nowait = false, remap = false },
+    { "<leader>gs", '<cmd>lua require"extensions.git".status()<CR>',                                       desc = "Git status",              nowait = false, remap = false },
     { "<leader>gu", '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>}',                                   desc = "Undo Stage Hunk",         nowait = false, remap = false },
 
 

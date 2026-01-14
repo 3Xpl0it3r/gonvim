@@ -240,8 +240,14 @@ local plugins = {
             "MunifTanjim/nui.nvim",
         }
     }, ]]
-
     {
+        "NickvanDyke/opencode.nvim",
+        config = function ()
+            require("plugins.llm.opencode").setup()
+        end
+    },
+
+    --[[ {
         "olimorris/codecompanion.nvim",
         dependencies = {
             "nvim-lua/plenary.nvim",
@@ -251,7 +257,7 @@ local plugins = {
         config = function()
             require("plugins.llm.codecompanion").setup()
         end
-    },
+    }, ]]
 
     ----------------------------------------------------------------
     ----      Some Misc Plugin (but should placed at the end)
