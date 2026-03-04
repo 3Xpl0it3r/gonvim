@@ -1,7 +1,13 @@
 local M = {}
 
-
 M.setup = function()
+    vim.g.opencode_opts = {
+        server = {
+            start = false,
+            stop = false,
+            toggle = false,
+        }
+    }
     vim.o.autoread = true
     vim.keymap.set({ "n", "x" }, "<leader>aa", function() require("opencode").ask("@this: ", { submit = true }) end,
         { desc = "Ask opencode" })

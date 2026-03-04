@@ -226,38 +226,13 @@ local plugins = {
     ----------------------------------------------------------------
     ----      LLM
     ----------------------------------------------------------------
-    --[[ {
-        "yetone/avante.nvim",
-        event = "VeryLazy",
-        lazy = false,
-        version = false, -- set this if you want to always pull the latest change
-        opts = require("plugins.llm.avante").new_options(),
-        build = "make",
-        dependencies = {
-            "nvim-treesitter/nvim-treesitter",
-            "stevearc/dressing.nvim",
-            "nvim-lua/plenary.nvim",
-            "MunifTanjim/nui.nvim",
-        }
-    }, ]]
     {
         "NickvanDyke/opencode.nvim",
-        config = function ()
+        config = function()
             require("plugins.llm.opencode").setup()
         end
     },
 
-    --[[ {
-        "olimorris/codecompanion.nvim",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "nvim-treesitter/nvim-treesitter",
-        },
-        version = "v17.33.0",
-        config = function()
-            require("plugins.llm.codecompanion").setup()
-        end
-    }, ]]
 
     ----------------------------------------------------------------
     ----      Some Misc Plugin (but should placed at the end)

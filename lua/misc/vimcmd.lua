@@ -37,6 +37,27 @@ vim.cmd([[
     silent! UpdateRemotePlugins
 ]])
 
+
+-- 当文件发生改动的时候自动加载
+local group = vim.api.nvim_create_augroup("auto_reload", { clear = true })
+
+-- 自动检查外部修改
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter" }, {
+    group = group,
+    pattern = "*",
+    callback = function()
+        vim.cmd("silent! checktime")
+    end
+})
+
+vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+    group = group,
+    pattern = "*",
+    callback = function()
+        vim.cmd("silent! checktime")
+    end
+})
+
 -- keep cursor on middle of screen
 -- vim.cmd([[
 --     augroup KeepCentered
@@ -44,5 +65,3 @@ vim.cmd([[
 --       autocmd CursorMoved * normal zz
 --     augroup END
 -- ]])
-
-
