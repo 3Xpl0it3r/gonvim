@@ -105,7 +105,7 @@ local plugins = {
         opts = require("plugins.neo-tree").new_options(),
     },
     {
-        "JoosepAlviste/nvim-ts-context-commentstring",
+        "3Xpl0it3r/nvim-ts-context-commentstring",
         config = function()
             require("plugins.ts-context-comment").setup()
         end,

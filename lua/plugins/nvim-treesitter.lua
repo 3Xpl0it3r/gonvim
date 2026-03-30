@@ -1,62 +1,73 @@
 local status_ok, _ = pcall(require, "nvim-treesitter")
 if not status_ok then
-	require("utils.notify").notify("Plugin nvim-treesitter is not existed", "error", "Plugin")
-	return
+    require("utils.notify").notify("Plugin nvim-treesitter is not existed", "error", "Plugin")
+    return
 end
 
 local M = {}
 
-local function config_nvim_treesitter(config)
-	config.setup({
-		ensure_installed = {
-			"c",
-			"cpp",
-			"python",
-			"go",
-			"rust",
-			"lua",
-			"bash",
-			"json",
-			"proto",
-			"vim",
-		},
-		-- Install parsers synchronously (only applied to `ensure_installed`)
-		sync_install = false,
-		auto_install = true,
-		-- auto tag with nvim-ts-autotag
-		autotag = { enable = true },
-		autopairs = { enable = true },
-		highlight = {
-			enable = true,
-			disable = function(lang, buf)
-				local max_filesize = 1024 * 1024 -- 1024 KB
-				local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-				if ok and stats and stats.size > max_filesize then
-					return true
-				end
-			end,
-			additional_vim_regex_higlighting = true,
-		},
-		indent = { enable = false, disable = { "" } },
-		--[[ context_commentstring = {
-			enable = true,
-			single_line_comment_string = "auto",
-			multi_line_comment_strings = "auto",
-			config = {
-				go = { __default = "// %s", __multiline = "/* %s */" },
-				rust = { __default = "// %s", __multiline = "/* %s */" },
-				c = { __default = "// %s", __multiline = "/* %s */" },
-				python = { __default = "# %s", __multiline = "# %s" },
-			},
-		}, ]]
-	})
+local function config_nvim_treesitter(ts)
+    local parsers = {
+        "bash",
+        "comment",
+        "css",
+        "cpp",
+        "dockerfile",
+        "git_config",
+        "gitcommit",
+        "gitignore",
+        "groovy",
+        "go",
+        "html",
+        "java",
+        "javascript",
+        "json",
+        "json5",
+        "lua",
+        "make",
+        "markdown",
+        "markdown_inline",
+        "python",
+        "regex",
+        "rst",
+        "rust",
+        "scss",
+        "ssh_config",
+        "sql",
+        "terraform",
+        "typst",
+        "toml",
+        "tsx",
+        "typescript",
+        "vim",
+        "vimdoc",
+        "yaml",
+    }
+    for _, parser in ipairs(parsers) do
+        ts.install(parser)
+    end
+    local patterns = {}
+    for _, parser in ipairs(parsers) do
+        local parser_patterns = vim.treesitter.language.get_filetypes(parser)
+        for _, pp in pairs(parser_patterns) do
+            table.insert(patterns, pp)
+        end
+    end
 
-	-- vim.o.foldmethod = "expr"
-	-- vim.o.foldexpr = "nvim_treesitter#foldexpr()"
+    vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+    vim.wo[0][0].foldmethod = 'expr'
+    vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+
+    vim.api.nvim_create_autocmd('FileType', {
+        pattern = patterns,
+        callback = function()
+            vim.treesitter.start()
+        end,
+    })
 end
 
 function M.setup()
-	config_nvim_treesitter(require("nvim-treesitter.configs"))
+    config_nvim_treesitter(require("nvim-treesitter"))
 end
 
 return M
