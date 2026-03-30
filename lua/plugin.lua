@@ -64,16 +64,7 @@ local plugins = {
             require("plugins.nvim-treesitter").setup()
         end,
     },
-    ------------------------------------------------
-    ----      Windows Manager
-    ------------------------------------------------
-    {
-        "akinsho/toggleterm.nvim",
-        version = "*",
-        config = function()
-            require("plugins.toggleterm").setup()
-        end,
-    },
+
     ------------------------------------------------
     ----      Fuzz Finder Plugins
     ------------------------------------------------
@@ -92,6 +83,7 @@ local plugins = {
             require("telescope").load_extension("fzf")
         end,
     },
+
     ------------------------------------------------
     ----      Misc Helper Plugins
     ------------------------------------------------
@@ -103,18 +95,6 @@ local plugins = {
             "MunifTanjim/nui.nvim",
         },
         opts = require("plugins.neo-tree").new_options(),
-    },
-    {
-        "3Xpl0it3r/nvim-ts-context-commentstring",
-        config = function()
-            require("plugins.ts-context-comment").setup()
-        end,
-    },
-    {
-        "b3nj5m1n/kommentary",
-        config = function()
-            require("plugins.kommentary").setup()
-        end,
     },
     {
         "windwp/nvim-autopairs",
@@ -168,6 +148,7 @@ local plugins = {
             require("plugins.lspconfig").setup()
         end,
     },
+
     { -- null lsp
         "nvimtools/none-ls.nvim",
         dependencies = { "nvim-lua/plenary.nvim" },
@@ -199,21 +180,6 @@ local plugins = {
         dependencies = "nvim-dap",
         opts = require("plugins.dap-virtual-text").new_options(),
     },
-    ----------------------------------------------------------------
-    ----      Unit Test
-    ----------------------------------------------------------------
-    {
-        "nvim-neotest/neotest",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "nvim-treesitter/nvim-treesitter",
-            "nvim-neotest/neotest-go",
-            "rouge8/neotest-rust",
-        },
-        config = function()
-            require("plugins.neotest").setup()
-        end,
-    },
 
     ----------------------------------------------------------------
     ----      Git Plugins
@@ -237,14 +203,21 @@ local plugins = {
     ----------------------------------------------------------------
     ----      Some Misc Plugin (but should placed at the end)
     ----------------------------------------------------------------
+    ---
+
+    {
+        "b3nj5m1n/kommentary",
+        config = function()
+            require("plugins.kommentary").setup()
+        end
+    },
+
     {
         "xzbdmw/colorful-menu.nvim",
         config = function()
             require("colorful-menu").setup({ max_width = 64, })
         end
     },
-    ---
-    { "wakatime/vim-wakatime" },
 
     { -- which key
         "folke/which-key.nvim",
@@ -257,15 +230,6 @@ local plugins = {
     {
         "stevearc/dressing.nvim",
         opts = require("plugins.dressing").new_options(),
-    },
-    -- markdown preview
-    {
-        "iamcco/markdown-preview.nvim",
-        cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
-        ft = { "markdown" },
-        build = function()
-            vim.fn["mkdp#util#install"]()
-        end,
     },
 }
 

@@ -1,9 +1,5 @@
 local M = {}
 
-local check_backspace = function()
-	local col = vim.fn.col(".") - 1
-	return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
-end
 
 M.key_bind = function(cmp)
 	return {

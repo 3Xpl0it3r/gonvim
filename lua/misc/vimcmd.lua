@@ -65,3 +65,4 @@ vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
 --       autocmd CursorMoved * normal zz
 --     augroup END
 -- ]])
+
