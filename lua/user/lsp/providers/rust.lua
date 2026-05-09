@@ -153,10 +153,10 @@ M.rust_analyzer = {
                 renderColons = true,
                 typeHints = { enable = true, hideClosureInitialization = false, hideNamedConstructor = false },
             },
-            rustfmt = {
+            --[[ rustfmt = {
                 extraArgs = { "--edition=2021" },
                 rangeFormatting = { enable = true },
-            },
+            }, ]]
             semanticHighlighting = {
                 doc = { comment = { inject = { enable = false } } },
                 nonStandardTokens = true,
